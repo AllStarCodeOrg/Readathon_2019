@@ -51,8 +51,9 @@ require("./routes/routesHandler")(app, dbHandler);
 const clean = str => {
   return str.trim().toLowerCase();
 }
-async function verifyUser(username, password) {
-  const user = await dbHandler.findById("usersByUsername", clean(username));
+async function verifyUser(email, password) {
+  const user = await dbHandler.findUserByEmail(clean(email));
+  console.log("verifyUser: ", user);
   if (!user) return false;
   return await new Promise((res, rej) => {
       bcrypt.compare(password, user.password, function (err, result) {
@@ -67,9 +68,11 @@ async function verifyUser(username, password) {
 }
 
 // LOCAL STRATEGY
-passport.use(new LocalStrategy(
-  function (username, password, done) {
-      verifyUser(username, password).
+passport.use(new LocalStrategy({
+  usernameField: 'email',
+  passwordField: 'password',},
+  function (email, password, done) {
+      verifyUser(email, password).
         then(user => {
                 if (user) return done(null, {
                     "user":user
@@ -87,7 +90,7 @@ passport.serializeUser(function (user, done) {
 });
 
 passport.deserializeUser(function (userID, done) {
-  dbHandler.findById("users",userID)
+  dbHandler.findUser(userID)
     .then(user=>{
       done(null, user);
     })

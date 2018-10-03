@@ -4,24 +4,18 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const passport = require("passport");
 
-const getMonthStr = function(){
-  const date = new Date();
-  date.setMonth(date.getMonth() - 1);
-  return date.toLocaleString("en-us", { month: "long" });
-}
-
 module.exports = function(dbHandler){
   router.get('/', function(req, res, next) {
     if (req.isAuthenticated()) {
-      return res.redirect("/users");
+      return res.redirect("/dashboard");
     }
-    res.render('login', { title: 'Login', monthStr:  getMonthStr()});
+    res.render('login', { title: 'Login'});
   });
 
   router.post('/', function(req, res, next) {
     passport.authenticate("local", (err, userObj, info) => {
       if (err) return next(err);
-      
+      console.log("post '/': ",userObj);
       const user = userObj.user;
       if (!user) {
           req.checkBody("email", "Email is required").notEmpty();
@@ -31,16 +25,10 @@ module.exports = function(dbHandler){
           const errors = req.validationErrors();
           if (errors) {
               return res.render("login", {
-                  title: 'Login',
-                  errors: errors.map(error => error.msg),
-                  monthStr:  getMonthStr()
-              });
+                  title: 'Login',errors: errors.map(error => error.msg)});
           } else {
               return res.render("login", {
-                  title: 'Login',
-                  errors: ["Incorrect username or password"],
-                  monthStr:  getMonthStr()
-              });
+                  title: 'Login',errors: ["Incorrect username or password"]});
           }
       } else {
           // must log in user
@@ -48,7 +36,7 @@ module.exports = function(dbHandler){
               if (err) {
                   return next(err);
               }
-              res.redirect(`/user/${clean(user.username)}`);
+              res.redirect(`/dashboard`);
           });
       }
   })(req, res, next)
