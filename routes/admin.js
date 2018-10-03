@@ -5,9 +5,9 @@ const saltRounds = 10;
 const passport = require("passport");
 
 module.exports = function(dbHanderl, airtable_obj){
-  /* GET home page. */
+  
   router.get('/', function(req, res, next) {
-    res.render('user', { title: 'Dashboard' });
+    res.render('login', { title: 'Express' });
   });
   
   return router;

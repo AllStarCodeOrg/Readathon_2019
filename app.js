@@ -4,15 +4,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var validator = require("express-validator"); // NEED TO IMPLEMENT NEW API
-// var bodyParser = require('body-parser');
 var session = require("express-session");
 var passport = require("passport");
 LocalStrategy = require('passport-local').Strategy;
 var SQLiteStore = require('connect-sqlite3')(session);
+const dbHandler = require("./dbHandler");
 const bcrypt = require("bcrypt");
-
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
 
 var app = express();
 
@@ -22,6 +19,7 @@ app.set('view engine', 'ejs');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(validator()); // must come immediately after bodyParser (adds "checkBody" method to request object)
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -46,10 +44,9 @@ app.use((req,res, next)=>{
 })
 
 // ROUTES
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+
 // ROUTES
-// require("./routes/routesHandler")(app, dbHandler);
+require("./routes/routesHandler")(app, dbHandler);
 
 const clean = str => {
   return str.trim().toLowerCase();

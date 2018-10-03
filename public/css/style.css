@@ -1,0 +1,19 @@
+#applyPage{
+  right: 0;
+  top: 0;
+}
+
+#applyPage>i{
+  font-size: 2rem;
+}
+
+.login-progress{
+  margin-bottom: 60px;
+  --prog-h: 50px;
+  height:var(--prog-h);
+}
+
+.login-progress div{
+  color: black;
+  height:var(--prog-h);
+}
