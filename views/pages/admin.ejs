@@ -1,6 +1,82 @@
 <%include ../partials/head%>
+<%include ../partials/nav%>
 
-<h1><%= title %></h1>
+<link rel="stylesheet" href="css/admin.css">
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script src="js/admin.js" defer></script>
+<div class="container-fluid flex-center vh-100 p-0">
+<div class="container-fluid d-flex vh-75 p-0">
+    <!-- SIDEBAR -->
+    <div class="sidebar w-33 border-right border-warning d-flex flex-column text-center align-items-center justify-content-between">
+        <h1>OPTIONS</h1>
+        <%if(title!="Admin"){%>
+            <a class="p-1 w-75 rounded mb-0" href="/admin">View Users</a>
+        <%}%>
+        <%if(title!="Add User"){%>
+            <a class="p-1 w-75 rounded mb-0" href="#">Add New User</a>
+        <%}%>
+        <a class="p-1 w-75 rounded mb-0" href="https://airtable.com/tbl6uzHWIl3cf9nIg/viw6Tspt2UwLsANLm" target="_blank">View Applicants</a>
+        <div class="d-flex justify-content-around w-100">
+            <a class="social-icon" href="#" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+            <a class="social-icon" href="#" target="_blank"><i class="fa fa-server" aria-hidden="true"></i></a>
+        </div>
+    </div>
+    <!-- SIDEBAR END -->
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content-container container flex-grow">
+        <%if(locals.error){%>
+            <h1><%= error %></h1>
+        <%}else{%>
+            <h1>All Users</h1>
+            
+            <table id="userTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                    <thead>
+                      <tr>
+                        <th class="th-sm">ID
+                          <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                        <th class="th-sm">Email
+                          <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                        <th class="th-sm">Password
+                          <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                        <th class="th-sm">Admin?
+                          <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                        <th class="th-sm">Alumni?
+                          <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                        <th class="th-sm">Access Month
+                          <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                        <th class="th-sm">Edit
+                                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                    <%for(const user of users){%>
+                        <tr>
+                        <td><%=user.id%></td>
+                        <td><%=user.email%></td>
+                        <td><button onclick="alert(`<%=user.password%>`);">See Password</button></td>
+                        <td><%=user.admin===1 ? "Yes" : "No" %></td>
+                        <td><%=user.alumni===1? "Yes" : "No" %></td>
+                        <td><%=user.monthName%></td>
+                        <td><a href="/admin/user/<%=user.id%>">Edit</a></td>
+                    </tr>
+                    <%}%>
+                    </tbody>
+                    
+                  </table>
+
+        <%}%>
+    </div>
+    <!-- MAIN CONTENT AREA END -->
+</div>
+</div>
 
 <%include ../partials/footer%>
 

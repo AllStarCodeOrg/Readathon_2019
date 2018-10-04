@@ -1,3 +1,13 @@
+:root{
+  --ascBlue:#51C1E9;
+  --primaryLight:#FFFFFF;
+  --primaryDark:#3B3D42;
+  --accent:#Ebab24;
+  --alternate:#A285dc;
+  --green:#9dd052;
+  --red:#e25d4f;
+}
+/* LOGIN */
 #applyPage{
   right: 0;
   top: 0;
@@ -14,6 +24,29 @@
 }
 
 .login-progress div{
-  color: black;
+  color: var(--primaryDark);
   height:var(--prog-h);
+}
+
+/* DASHBOARD */
+.vh-100{
+  height: 100vh;
+}
+.vh-75{
+  height: 75vh;
+}
+
+.w-33{
+  width: 33.333%;
+}
+
+.three-cards a{
+  border-color: var(--ascBlue)!important;
+  color: var(--ascBlue);
+  height: 230px;
+}
+.card-icon{
+  color: var(--accent);
+  font-size: 2rem;
+  text-shadow: 2px 1px var(--alternate);
 }

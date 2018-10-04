@@ -1,6 +1,6 @@
 const fs = require('fs');
-// const dbFile = process.env.DB_FILEPATH;
-const dbFile = "./.data/readathon.db";
+const dbFile = process.env.DB_FILEPATH;
+// const dbFile = "./.data/readathon.db";
 // const base = require('airtable').base('appI6ReVlk9nCsFUB');
 const table = 'Raw Applicants';
 const view = "Grid view";
@@ -41,9 +41,17 @@ module.exports = new class DbHandler {
                 res(row);
             })
         })
-
     }
 
+    getUsers(){
+        return new Promise((res,rej)=>{
+            const sql = 'SELECT id, email, password, admin, alumni, month_access FROM users;';
+            this.db.all(sql, function(err, rows){
+                if (err) return rej(err);
+                res(rows);
+            })
+        })
+    }
     /**
      * Takes "live" records and adds them to local DB, if not already there.
      */
