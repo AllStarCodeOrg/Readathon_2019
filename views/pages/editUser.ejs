@@ -1,0 +1,81 @@
+<%include ../partials/head%>
+<%include ../partials/nav%>
+
+<link rel="stylesheet" href="/static/css/admin.css">
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script src="/static/js/admin.js" defer></script>
+<div class="container-fluid flex-center vh-100 p-0">
+<div class="container-fluid d-flex vh-75 p-0">
+
+    <%include ../partials/admin_sidebar%>
+    
+    <!-- MAIN CONTENT AREA -->
+    <div class="main-content-container container flex-grow d-flex flex-center">
+            <!-- Default form contact -->
+            <%if(!readathonUser.id){%>
+                <form class="text-center border border-orange p-3 w-75" action="/admin/user" method="POST">
+            <%}else{%>
+                <form class="text-center border border-orange p-3 w-75" action="/admin/user/<%=readathonUser.id%>" method="POST">
+            <%}%>
+
+                    <p class="h4 mb-4"><%=title%></p>
+                
+                    <%if(locals.error){%>
+                        <p class="alert alert-danger mb-3"><%= error %></p>
+                    <%}else if (locals.success){%>
+                        <p class="alert alert-success mb-3"><%= success %></p>
+                    <%}%>
+                    <!-- Name -->
+                    <input type="text" name="name" class="form-control mb-4 bg-light" placeholder="Name" value="<%=readathonUser.name%>">
+                
+                    <!-- Email -->
+                    <input type="email" name="email" class="form-control mb-4 bg-light" placeholder="E-mail" value="<%=readathonUser.email%>">
+                    
+                    <div class="d-flex mb-2">
+                        <!-- Password -->
+                        <input id="password" type="text" name="password" class="form-control bg-light" placeholder="Password">
+                        <!-- ADD RANDOMIZER -->
+                        <button type="button" id="genButton" class="rounded bg-pink form-control w-50" onclick="randPassword();">Gen. Password</button>
+                    </div>
+                    <small class="form-text text-pink mb-4">
+                            Cannot view user password, but can change it
+                        </small>
+                
+                    <div class="d-flex justify-content-around">
+                        <!-- Admin -->
+                        <div class="mb-4">
+                            <input type="checkbox" name="admin" <% if ( readathonUser.admin===1) { %>checked<% } %>>
+                            <label class="pl-2" for="admin">Admin?</label>
+                        </div>
+    
+                        <!-- Alumni -->
+                        <div class="mb-4">
+                            <input type="checkbox" name="alumni" <% if ( readathonUser.alumni===1) { %>checked<% } %> >
+                            <label class="pl-2" for="alumni">Alumni?</label>
+                        </div>
+                    </div>
+
+                    <!-- Subject -->
+                    <label>Month user can access Readathon App</label>
+                    <select name="month_access" class="browser-default custom-select mb-4 bg-light">
+                        <option value="99" <% if ( !readathonUser.month_access) { %>selected<% } %> >Unlimited</option>
+                        <option value="9" <% if ( readathonUser.month_access===9) { %>selected<% } %> >October</option>
+                        <option value="10" <% if ( readathonUser.month_access===10) { %>selected<% } %> >November</option>
+                        <option value="11" <% if ( readathonUser.month_access===11) { %>selected<% } %> >December</option>
+                        <option value="0" <% if ( readathonUser.month_access===0) { %>selected<% } %> >January</option>
+                        <option value="1" <% if ( readathonUser.month_access===1) { %>selected<% } %> >February</option>
+                        <option value="2" <% if ( readathonUser.month_access===2) { %>selected<% } %> >March</option>
+                    </select>
+                
+                    <!-- Send button -->
+                    <button class="btn btn-block bg-orange" type="submit">Send</button>
+                
+                </form>
+                <!-- Default form contact -->
+    </div>
+    <!-- MAIN CONTENT AREA END -->
+</div>
+</div>
+
+<%include ../partials/footer%>
+

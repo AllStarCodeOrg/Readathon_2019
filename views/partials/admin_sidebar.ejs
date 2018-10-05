@@ -1,0 +1,16 @@
+<!-- SIDEBAR -->
+<div class="sidebar w-33 border-right border-warning d-flex flex-column text-center align-items-center justify-content-between">
+    <h1>ADMIN OPTIONS</h1>
+    <%if(title!="Admin"){%>
+        <a class="p-1 w-75 rounded mb-0" href="/admin">View Users</a>
+    <%}%>
+    <%if(title!="Add New User"){%>
+        <a class="p-1 w-75 rounded mb-0" href="/admin/user">Add New User</a>
+    <%}%>
+    <a class="p-1 w-75 rounded mb-0" href="https://airtable.com/tbl6uzHWIl3cf9nIg/viw6Tspt2UwLsANLm" target="_blank">View Applicants</a>
+    <div class="d-flex justify-content-around w-100">
+        <a class="social-icon" href="#" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+        <a class="social-icon" href="#" target="_blank"><i class="fa fa-server" aria-hidden="true"></i></a>
+    </div>
+</div>
+<!-- SIDEBAR END -->

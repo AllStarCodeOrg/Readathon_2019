@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(validator()); // must come immediately after bodyParser (adds "checkBody" method to request object)
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use("/static",express.static(path.join(__dirname, 'public')));
 
 
 // setting & storing session
