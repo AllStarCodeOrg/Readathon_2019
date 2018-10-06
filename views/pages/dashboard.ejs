@@ -1,9 +1,10 @@
 <%include ../partials/head%>
 <%include ../partials/nav%>
 
-
-    <div class="container-fluid vh-100">
-        
+    <div class="container-fluid vh-75">
+        <%if(locals.msg){%>
+            <h2><%=msg%></h2>
+        <%}%>
 
         <!-- THREE CARDS -->
         <div class="three-cards flex-center justify-content-around">

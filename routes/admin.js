@@ -51,7 +51,6 @@ module.exports = function(dbHandler){
       month_access:null
     }
     res.locals.readathonUser = readathonUser;
-    console.log(readathonUser);
     res.render("editUser",{title:"Add New User"});
   })
 
@@ -78,9 +77,9 @@ module.exports = function(dbHandler){
         month_access: req.body.month_access === "99" ? null : req.body.month_access
       })
       .then(userID=>{
-        return res.redirect(`/admin/user/${userID}`);
+        return res.redirect(`/admin/user/${userID}?msg=1`);
       })
-      .catch(err=>adminError(res, err));
+      .catch(err=>adminError(res, "Problem Creating New User"));
     }
   });
 
@@ -91,10 +90,17 @@ module.exports = function(dbHandler){
       .then(readathonUser=>{
         if(!readathonUser) return adminError(res,`Could not find user with id=${id}`);
         res.locals.readathonUser = readathonUser;
+        const msg = req.query.msg;
+        switch(msg){
+          case "1":
+            res.locals.success = "User Successfully Created"
+            break;
+        }
         res.render("editUser",{title: "Edit User"});
       })
       .catch(err=>{
-        adminError(res,err);
+        console.log(err);
+        adminError(res,"Could not find user");
       })
   });
 

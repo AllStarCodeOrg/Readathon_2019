@@ -1,9 +1,110 @@
-<h2>STUDENT ID</h2>
-<h3>QUESTION 1</h3>
-<h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quaerat, ipsam fugit fugiat corrupti magni obcaecati nostrum aspernatur neque laborum.</h4>
-<h3>QUESTION 2</h3>
-<h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quaerat, ipsam fugit fugiat corrupti magni obcaecati nostrum aspernatur neque laborum.</h4>
-<h3>QUESTION 3</h3>
-<h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quaerat, ipsam fugit fugiat corrupti magni obcaecati nostrum aspernatur neque laborum.</h4>
-<h3>QUESTION 4</h3>
-<h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Non quaerat, ipsam fugit fugiat corrupti magni obcaecati nostrum aspernatur neque laborum.</h4>
+<%include ../partials/head%>
+<%include ../partials/nav%>
+
+<div class="container">
+    <p class="h1 text-center">Applicant:
+        <%=applicant.asc_id%>
+    </p>
+    <form action="/applicant/<%=applicant.asc_id%>">
+
+        <!-- ESSAY 1 -->
+        <div>
+            <h2 class="muted-text">
+                Q1) Lorem ipsum dolor, sit amet consectetur adipisicing elit. At soluta quisquam dolores consectetur
+                quae id recusandae voluptate tempore qui expedita.
+            </h2>
+            <p class="m3">
+                <%=applicant.essay_1%>
+            </p>
+            <div class="form-control d-flex justify-content-around w-50 m-auto">
+                <div class="d-flex">
+                <label for="essay_1_score" class="mr-2">Score: </label>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="0">
+                    <p class="m-0">0</p>
+                </div>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mx-2" type="radio" name="essay_1_score" value="1">
+                    <p class="m-0">1</p>
+                </div>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="2">
+                    <p class="m-0">2</p>
+                </div>
+            </div>
+
+                <div>
+                    <a href="/rubric" target="_blank">Rubric</a>
+                </div>
+            </div>
+        </div>
+<hr>
+        <!-- ESSAY 1 -->
+        <div>
+            <h2 class="muted-text">
+                Q2) Lorem ipsum dolor, sit amet consectetur adipisicing elit. At soluta quisquam dolores consectetur
+                quae id recusandae voluptate tempore qui expedita.
+            </h2>
+            <p class="m3">
+                <%=applicant.essay_2%>
+            </p>
+            <div class="form-control d-flex justify-content-around w-50 m-auto">
+                <div class="d-flex">
+                <label for="essay_1_score" class="mr-2">Score: </label>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="0">
+                    <p class="m-0">0</p>
+                </div>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mx-2" type="radio" name="essay_1_score" value="1">
+                    <p class="m-0">1</p>
+                </div>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="2">
+                    <p class="m-0">2</p>
+                </div>
+            </div>
+
+                <div>
+                    <a href="/rubric" target="_blank">Rubric</a>
+                </div>
+            </div>
+        </div>
+<hr>
+        <!-- ESSAY 3 -->
+        <div>
+            <h2 class="muted-text">
+                Q3) Lorem ipsum dolor, sit amet consectetur adipisicing elit. At soluta quisquam dolores consectetur
+                quae id recusandae voluptate tempore qui expedita.
+            </h2>
+            <p class="m3">
+                <%=applicant.essay_3%>
+            </p>
+            <div class="form-control d-flex justify-content-around w-50 m-auto">
+                <div class="d-flex">
+                <label for="essay_1_score" class="mr-2">Score: </label>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="0">
+                    <p class="m-0">0</p>
+                </div>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mx-2" type="radio" name="essay_1_score" value="1">
+                    <p class="m-0">1</p>
+                </div>
+                <div class="radio_button d-flex align-items-center">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="2">
+                    <p class="m-0">2</p>
+                </div>
+            </div>
+
+                <div>
+                    <a href="/rubric" target="_blank">Rubric</a>
+                </div>
+            </div>
+        </div>
+        <!-- Submit in button -->
+        <button class="btn btn-info btn-block my-4" type="submit">Submit Scores</button>
+    </form>
+</div>
+
+<%include ../partials/footer%>

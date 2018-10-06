@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const passport = require("passport");
 
 module.exports = function(dbHandler){
@@ -15,7 +13,6 @@ module.exports = function(dbHandler){
   router.post('/', function(req, res, next) {
     passport.authenticate("local", (err, userObj, info) => {
       if (err) return next(err);
-      console.log("post '/': ",userObj);
       const user = userObj.user;
       if (!user) {
           req.checkBody("email", "Email is required").notEmpty();
@@ -40,7 +37,6 @@ module.exports = function(dbHandler){
           });
       }
   })(req, res, next)
-    // return res.redirect("/users");
   });
   
   router.get('/logout', function(req, res, next) {
@@ -48,7 +44,52 @@ module.exports = function(dbHandler){
     req.session.destroy();
     res.redirect("/");
   });
+  
+  router.get('/rubric', function(req, res, next) {
+    const user = req.user;
+    if(user.first_time===0){
+        return dbHandler.setUserVisited(user.id)
+            .then(()=>{
+                res.render("rubric",{title: "Rubric"});
+            });
+    }
+    res.render("rubric",{title: "Rubric"});
+  });
+  
+  router.get('/stats', function(req, res, next) {
+    res.render("stats",{title: "Statistics"});
+  });
+
+  router.get('/applicant', function(req, res, next) {
+      dbHandler.getNextApplicant(req.user)
+        .then(row=>{
+            if(row){
+                return res.redirect(`/applicant/${row.asc_id}`);
+            }else{
+                res.redirect("/dashboard?msg=2");
+            }
+        })
+        .catch(err=>{
+            console.log("Problem getting next applicant: " , err);
+            res.redirect("/dashboard");
+        })
+  });
+
+  router.get('/applicant/:id', function(req, res, next) {
+      // applicant must be viewable by user
+      const asc_id = req.params.id;
+      // TESTING ROUTE - CHANGE METHOD
+      dbHandler.getApplicantByASCID(asc_id)
+        .then(applicant=>{
+            res.locals.applicant = applicant;
+            res.render("applicant",{title:`Applicant: ${applicant.asc_id}`});
+        })
+        .catch(err=>{
+            res.redirect("/dashboard?msg=3");
+        })
+  });
 
   
+
   return router;
 }

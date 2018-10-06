@@ -7,6 +7,10 @@
   --green:#9dd052;
   --red:#e25d4f;
 }
+
+body{
+  padding-top: 84px;
+}
 /* LOGIN */
 #applyPage{
   right: 0;
@@ -49,4 +53,9 @@
   color: var(--accent);
   font-size: 2rem;
   text-shadow: 2px 1px var(--alternate);
+}
+
+/* APPLICANT */
+.applicant-container{
+  overflow-y: auto;
 }
