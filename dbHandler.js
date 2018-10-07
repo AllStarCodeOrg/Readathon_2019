@@ -2,7 +2,7 @@ const fs = require('fs');
 const dbFile = process.env.DB_FILEPATH;
 const base = require('airtable').base('appI6ReVlk9nCsFUB');
 const table = 'Raw Applicants';
-const view = "Grid view";
+const view = "Readathon";
 const Applicant = require("./models/applicant");
 
 const bcrypt = require("bcrypt");
@@ -21,14 +21,14 @@ module.exports = new class DbHandler {
     }
     
     createTables(){
-        this.db.exec("CREATE TABLE 'users' ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `email` TEXT NOT NULL UNIQUE, `salt` TEXT, `password` TEXT NOT NULL, `admin` INTEGER DEFAULT 0, `alumni` INTEGER DEFAULT 0, `month_access` INTEGER, `first_time` INTEGER DEFAULT 0 );");
+        this.db.exec("CREATE TABLE 'users' ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `email` TEXT NOT NULL UNIQUE, `password` TEXT NOT NULL, `admin` INTEGER DEFAULT 0, `alumni` INTEGER DEFAULT 0, `month_access` INTEGER, `first_time` INTEGER DEFAULT 0 );");
         this.db.exec(`CREATE TABLE 'applicants' ('airtable_id' TEXT UNIQUE NOT NULL, 'asc_id' TEXT UNIQUE NOT NULL, 'month_applied' INTEGER, 'essay_1' TEXT, 'essay_2' TEXT, 'essay_3' TEXT, 'read_count' INTEGER DEFAULT 0, 'complete' INTEGER DEFAULT 0);`);
-        this.db.exec(`CREATE TABLE 'readScores' ('userId' INTEGER, 'asc_id' TEXT, 'essay_score' INTEGER, 'comment' TEXT);`);
+        this.db.exec(`CREATE TABLE 'readScores' ('userId' INTEGER, 'asc_id' TEXT,'essay_score_1' INTEGER, 'essay_score_2' INTEGER, 'essay_score_3' INTEGER ,'essay_score' INTEGER, 'comment' TEXT);`);
     }
 
     getAirtableDataLoop(){
         this._getAirtableDataLoop();
-        setInterval(this._getAirtableDataLoop, 1000 * 60 * 60); // retrieves data every hour
+        setInterval(()=>this._getAirtableDataLoop(), 1000 * 60 * 60); // retrieves data every hour
     }
 
     _getAirtableDataLoop(){
@@ -76,9 +76,6 @@ module.exports = new class DbHandler {
      */
     async getNextApplicant(user){
         const userId = user.id;
-        // Try to find incomplete readScore
-        // If found, return its asc_id
-        // If not found, put hold on new valid Applicant and return its asc_id
         const incompleteApplicant_asc_id = await this.findIncompleteApplicant(userId);
 
         if(incompleteApplicant_asc_id){
@@ -101,8 +98,9 @@ module.exports = new class DbHandler {
                     if(!row){
                         return res(row);
                     }else{
-                        self.holdApplicant(userId, row.asc_id)
-                            .then(()=>res(row))
+                        const asc_id = row.asc_id;
+                        self.holdApplicant(userId, asc_id)
+                            .then(()=>res(asc_id))
                     }
                 })
             })
@@ -110,13 +108,13 @@ module.exports = new class DbHandler {
             sql = `SELECT asc_id FROM applicants WHERE asc_id NOT IN (SELECT applicants.asc_id FROM applicants LEFT JOIN readScores ON applicants.asc_id=readScores.asc_id WHERE readScores.userId=? OR applicants.read_count > 2);`;
             return new Promise((res,rej)=>{
                 this.db.get(sql, userId, function(err, row){
-                    console.log(err);
                     if (err) return rej(err);
                     if(!row){
                         return res(row);
                     }else{
-                        self.holdApplicant(userId, row.asc_id)
-                            .then(()=>res(row))
+                        const asc_id = row.asc_id;
+                        self.holdApplicant(userId, asc_id)
+                            .then(()=>res(asc_id))
                     }
                 })
             })        
@@ -131,6 +129,7 @@ module.exports = new class DbHandler {
                 if (err) return rej(err);
                 res();
             });
+            statement.finalize();
         })
     }
 
@@ -139,7 +138,8 @@ module.exports = new class DbHandler {
             const sql = 'SELECT asc_id FROM readScores WHERE userId = ? AND essay_score IS NULL;';
             this.db.get(sql, userId, function(err, row){
                 if (err) return rej(err);
-                res(row); // undefined if not found
+                if(!row) return res(row);
+                res(row.asc_id); // undefined if not found
             })
         })
     }
@@ -155,6 +155,107 @@ module.exports = new class DbHandler {
                 res(row);
             });
         })
+    }
+
+
+    getCompleteReadScores(asc_id){
+        return new Promise((res,rej)=>{
+            const sql = "SELECT * FROM readScores WHERE asc_id=? AND essay_score NOT NULL;";
+            this.db.all(sql, asc_id, function(err,rows){
+                if(err) return rej(err);
+                res(rows);
+            });
+        });
+    }
+
+    /**
+     * Updates the local DB.
+     * If there are 3 reads, the airtable DB is also updated.
+     */
+    async incrementApplicantReads(userId, asc_id, scores, comment){
+        const readScoresUpdated = await this.updateUserReadScore(userId, asc_id, scores, comment);
+        if(!readScoresUpdated) throw new Error("Could not update user: " + userId);
+
+        const completeReadScores = await this.getCompleteReadScores(asc_id);
+        if(completeReadScores.length < 3) return null;
+
+        const result = await this.completeRecord(asc_id, completeReadScores);
+        return result;
+    }
+
+    /**
+     * Updates a user's readScore in local DB.
+     */
+    updateUserReadScore(userId, asc_id, scores, comment){
+        return new Promise((res,rej)=>{
+            const sql = "UPDATE readScores SET essay_score_1=$essay_score_1,essay_score_2=$essay_score_2,essay_score_3=$essay_score_3,essay_score=$essay_score, comment=$comment WHERE userId=$userId AND asc_id=$asc_id";
+            this.db.run(sql,{
+                $userId: userId,
+                $asc_id: asc_id,
+                $comment: comment,
+                $essay_score_1: scores.essay_score_1,
+                $essay_score_2: scores.essay_score_2,
+                $essay_score_3: scores.essay_score_3,
+                $essay_score: scores.essay_score_1+scores.essay_score_2+scores.essay_score_3
+            },function(err){
+                if(err) return rej(err);
+                res(this.changes > 0); // true if changes occured
+            })
+        });
+    }
+
+    /**
+     * Updates Airtable DB and completes applicant in local DB.
+     */
+    async completeRecord(asc_id, completeReadScores){
+        const record = this.findAirtableRecordByASCID(asc_id);
+        if(!record) throw new Error("Could not find Airtable record: " + asc_id);
+
+        const fields = {
+            essay_score_1: 0,
+            essay_score_2: 0,
+            essay_score_3: 0
+        }
+
+        const keys = Object.keys(fields);
+        for(const readScore of completeReadScores){
+            for(const key of keys){
+                fields[key] += readScore[key];
+            }
+        }
+        fields.readathon_comments = completeReadScores.map(readScore=>readScore.comment).join(". ");
+
+        const api_result = record.updateFields(fields);
+        if(api_result.error){
+            console.log("Error updating Airtable: ", api_result.message);
+            throw api_result;
+        } 
+
+        const applicantCompleted = await this.completeApplicant(asc_id);
+        if(applicantCompleted===0) throw new Error("Could not update applicant: " + asc_id);
+        return applicantCompleted;
+    }
+
+    /**
+     * Set's applicant's status to complete.
+     */
+    completeApplicant(asc_id){
+        return new Promise((res,rej)=>{
+            const sql = "UPDATE applicants SET complete=1 WHERE asc_id=?";
+            this.db.run(sql,asc_id, function(err){
+                if(err) throw err;
+                res(this.changes > 0); // true if changes occured
+            })
+        });
+    }
+
+    /**
+     * Returns live airtable record. 
+     */
+    findAirtableRecordByASCID(asc_id){
+        const applicant = this.applicants.find(applicant=>applicant.asc_id===asc_id);
+        if(!applicant) return applicant;
+        return applicant.record;
     }
 
     findUser(userID){

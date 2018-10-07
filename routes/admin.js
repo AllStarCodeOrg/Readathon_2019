@@ -16,8 +16,15 @@ function monthNameToNum(monthname) {
 }
 
 const adminError = function(res,err){
-  res.locals.error = err;
+  res.locals.msg = {error:err};
   res.render("admin",{title: "Admin"});
+}
+
+const parseSessionData = function(res,req){
+  if(req.session.msg){
+    res.locals.msg = req.session.msg;
+    req.session.msg = null;
+  }
 }
 
 module.exports = function(dbHandler){
@@ -65,7 +72,7 @@ module.exports = function(dbHandler){
       return res.render("editUser",{
         title:"Add New User",
         readathonUser: {name:name},
-        error:errors[0].msg
+        msg:{error:errors[0].msg}
       });
     }else{
       dbHandler.addNewUser({
@@ -76,8 +83,10 @@ module.exports = function(dbHandler){
         alumni:       req.body.alumni === "on" ? 1 : 0,
         month_access: req.body.month_access === "99" ? null : req.body.month_access
       })
-      .then(userID=>{
-        return res.redirect(`/admin/user/${userID}?msg=1`);
+      .then(userId=>{
+        req.session.msg = {success: `User ${userId} Successfully Created`};
+
+        return res.redirect(`/admin/user/${userId}`);
       })
       .catch(err=>adminError(res, "Problem Creating New User"));
     }
@@ -90,12 +99,9 @@ module.exports = function(dbHandler){
       .then(readathonUser=>{
         if(!readathonUser) return adminError(res,`Could not find user with id=${id}`);
         res.locals.readathonUser = readathonUser;
-        const msg = req.query.msg;
-        switch(msg){
-          case "1":
-            res.locals.success = "User Successfully Created"
-            break;
-        }
+        
+        parseSessionData(res,req);
+        
         res.render("editUser",{title: "Edit User"});
       })
       .catch(err=>{
@@ -117,7 +123,7 @@ module.exports = function(dbHandler){
         if (errors) {
           return res.render("editUser",{
             title:"Edit User",
-            error:errors[0].msg
+            msg:{error:errors[0].msg}
           });
         }
 
@@ -125,7 +131,8 @@ module.exports = function(dbHandler){
           if(id===req.user.id){
             return next();
           }else{
-            return adminError(res, `{tisk tisk tisk} ${req.user.name}. I made this entire website ... did you really think you could alter my account?`);
+            res.locals.msg = {special:`${req.user.name}... I made this entire website... did you really think you could alter my account?`};
+            return res.render("admin",{title: "Admin"});
           }
         }else if(readathonUser.admin===1){
           if(id===req.user.id || req.user.id===1){
@@ -154,7 +161,7 @@ module.exports = function(dbHandler){
         res.locals.readathonUser = readathonUser;
         res.render("editUser",{
           title:"Edit User",
-          success:"User Updated Successfully"
+          msg:{success:"User Updated Successfully"}
         });
       })
       .catch(err=>adminError(res,err));

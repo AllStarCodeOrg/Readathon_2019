@@ -2,5 +2,10 @@
 
 # TO DO LIST
 - working progress bar
-- get applicant for user
-- allow airtable proper update on 3 reads
+- Populate Stats
+- Populate Rubric (Nadine)
+- proper "holy grail" format
+- test on glitch!
+
+# NICE TO HAVES
+- add ReadScore list for admin with delete option

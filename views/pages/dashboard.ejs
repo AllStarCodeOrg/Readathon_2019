@@ -3,7 +3,11 @@
 
     <div class="container-fluid vh-75">
         <%if(locals.msg){%>
-            <h2><%=msg%></h2>
+            <%if(locals.msg.success){%>
+                <p class="alert alert-success"><%=locals.msg.success%></p>
+            <%}else if(locals.msg.error){%>
+                <p class="alert alert-error"><%=locals.msg.error%></p>
+            <%}%>
         <%}%>
 
         <!-- THREE CARDS -->

@@ -1,0 +1,72 @@
+<%include ../partials/head%>
+<%include ../partials/nav%>
+
+<link rel="stylesheet" href="/static/css/admin.css">
+<script src="http://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script src="/static/js/admin.js" defer></script>
+<div class="container-fluid flex-center vh-100 p-0">
+<div class="container-fluid d-flex vh-75 p-0">
+
+    <%include ../partials/admin_sidebar%>
+        <!-- MAIN CONTENT AREA -->
+        <div class="main-content-container container flex-grow">
+                <%if(locals.msg){%>
+                  <div class="container d-flex flex-center text-center">
+                  <%if(msg.success){%>
+                    <h1 class="alert alert-success"><%= msg.success %></h1>  
+                  <%}else if(msg.error){%>
+                    <h1 class="alert alert-danger"><%= msg.error %></h1>
+                  <%}%>
+                  </div>
+                <%}else{%>
+                    <h1>Read Scores</h1>
+                    
+                    <table id="userTable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                            <thead>
+                              <tr>
+                                <th class="th-sm">Reader
+                                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Applicant
+                                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Essay 1
+                                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Essay 2
+                                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Essay 3
+                                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Total Score
+                                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                                <th class="th-sm">Submit Changes
+                                    <i class="fa fa-sort float-right" aria-hidden="true"></i>
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <%for(const user of users){%>
+                                  <tr>
+                                  <td><%=user.id%></td>
+                                  <td><%=user.name%></td>
+                                  <td><%=user.email%></td>
+                                  <td><%=user.admin===1 ? "Yes" : "No" %></td>
+                                  <td><%=user.alumni===1? "Yes" : "No" %></td>
+                                  <td><%=user.monthName%></td>
+                                  <td><a href="/admin/user/<%=user.id%>">Edit</a></td>
+                              </tr>
+                              <%}%>
+                            </tbody>
+                            
+                          </table>
+        
+                <%}%>
+            </div>
+            <!-- MAIN CONTENT AREA END -->
+</div>
+</div>
+
+<%include ../partials/footer%>

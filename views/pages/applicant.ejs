@@ -5,7 +5,13 @@
     <p class="h1 text-center">Applicant:
         <%=applicant.asc_id%>
     </p>
-    <form action="/applicant/<%=applicant.asc_id%>">
+
+    <%if (locals.errors){%>
+        <%for (const error of errors){%>
+            <p class="alert alert-danger"><%=error%></p>
+        <%}%>
+    <%}%>
+    <form action="/applicant/<%=applicant.asc_id%>" method="POST">
 
         <!-- ESSAY 1 -->
         <div>
@@ -20,15 +26,15 @@
                 <div class="d-flex">
                 <label for="essay_1_score" class="mr-2">Score: </label>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="0">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="0" required>
                     <p class="m-0">0</p>
                 </div>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mx-2" type="radio" name="essay_1_score" value="1">
+                    <input class="mx-2" type="radio" name="essay_1_score" value="1" required>
                     <p class="m-0">1</p>
                 </div>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="2">
+                    <input class="mr-1" type="radio" name="essay_1_score" value="2" required>
                     <p class="m-0">2</p>
                 </div>
             </div>
@@ -50,17 +56,17 @@
             </p>
             <div class="form-control d-flex justify-content-around w-50 m-auto">
                 <div class="d-flex">
-                <label for="essay_1_score" class="mr-2">Score: </label>
+                <label for="essay_2_score" class="mr-2">Score: </label>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="0">
+                    <input class="mr-1" type="radio" name="essay_2_score" value="0" required>
                     <p class="m-0">0</p>
                 </div>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mx-2" type="radio" name="essay_1_score" value="1">
+                    <input class="mx-2" type="radio" name="essay_2_score" value="1" required>
                     <p class="m-0">1</p>
                 </div>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="2">
+                    <input class="mr-1" type="radio" name="essay_2_score" value="2" required>
                     <p class="m-0">2</p>
                 </div>
             </div>
@@ -82,17 +88,17 @@
             </p>
             <div class="form-control d-flex justify-content-around w-50 m-auto">
                 <div class="d-flex">
-                <label for="essay_1_score" class="mr-2">Score: </label>
+                <label for="essay_3_score" class="mr-2">Score: </label>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="0">
+                    <input class="mr-1" type="radio" name="essay_3_score" value="0" required>
                     <p class="m-0">0</p>
                 </div>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mx-2" type="radio" name="essay_1_score" value="1">
+                    <input class="mx-2" type="radio" name="essay_3_score" value="1" required>
                     <p class="m-0">1</p>
                 </div>
                 <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="2">
+                    <input class="mr-1" type="radio" name="essay_3_score" value="2" required>
                     <p class="m-0">2</p>
                 </div>
             </div>
@@ -101,6 +107,12 @@
                     <a href="/rubric" target="_blank">Rubric</a>
                 </div>
             </div>
+        </div>
+
+        <div class="form-group rounded md-form blue-border">
+                <i class="fa fa-pencil prefix"></i>
+            <label for="comment">Comment:</label>
+            <textarea class="form-control  md-textarea" name="comment" rows="3"></textarea>
         </div>
         <!-- Submit in button -->
         <button class="btn btn-info btn-block my-4" type="submit">Submit Scores</button>

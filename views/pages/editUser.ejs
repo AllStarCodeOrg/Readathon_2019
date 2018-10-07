@@ -20,10 +20,12 @@
 
                     <p class="h4 mb-4"><%=title%></p>
                 
-                    <%if(locals.error){%>
-                        <p class="alert alert-danger mb-3"><%= error %></p>
-                    <%}else if (locals.success){%>
-                        <p class="alert alert-success mb-3"><%= success %></p>
+                    <%if(locals.msg){%>
+                        <%if(msg.error){%>
+                            <p class="alert alert-danger mb-3"><%= msg.error %></p>
+                        <%}else if (msg.success){%>
+                            <p class="alert alert-success mb-3"><%= msg.success %></p>
+                        <%}%>
                     <%}%>
                     <!-- Name -->
                     <input type="text" name="name" class="form-control mb-4 bg-light" placeholder="Name" value="<%=readathonUser.name%>">

@@ -23,7 +23,6 @@ app.use(validator()); // must come immediately after bodyParser (adds "checkBody
 app.use(cookieParser());
 app.use("/static",express.static(path.join(__dirname, 'public')));
 
-
 // setting & storing session
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -53,7 +52,6 @@ const clean = str => {
 }
 async function verifyUser(email, password) {
   const user = await dbHandler.findUserByEmail(clean(email));
-  console.log("verifyUser: ", user);
   if (!user) return false;
   return await new Promise((res, rej) => {
       bcrypt.compare(password, user.password, function (err, result) {

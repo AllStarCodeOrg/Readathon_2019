@@ -11,6 +11,14 @@
 body{
   padding-top: 84px;
 }
+
+.text-red{
+  color: var(--red);
+}
+
+.text-green{
+  color: var(--green);
+}
 /* LOGIN */
 #applyPage{
   right: 0;
@@ -58,4 +66,18 @@ body{
 /* APPLICANT */
 .applicant-container{
   overflow-y: auto;
+}
+
+.blue-border textarea {
+  border: 1px solid var(--ascBlue);
+}
+
+.blue-border .md-textarea:focus {
+  /* box-shadow: 0 1px 0 0 #4285f4; */
+  border-bottom: 2px solid var(--alternate)!important;
+  box-shadow: 0 1px 0 0 #a285dc40!important;
+}
+
+.md-form .prefix.active {
+  color: var(--alternate)!important;
 }

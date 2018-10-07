@@ -60,36 +60,5 @@ module.exports = function(dbHandler){
     res.render("stats",{title: "Statistics"});
   });
 
-  router.get('/applicant', function(req, res, next) {
-      dbHandler.getNextApplicant(req.user)
-        .then(row=>{
-            if(row){
-                return res.redirect(`/applicant/${row.asc_id}`);
-            }else{
-                res.redirect("/dashboard?msg=2");
-            }
-        })
-        .catch(err=>{
-            console.log("Problem getting next applicant: " , err);
-            res.redirect("/dashboard");
-        })
-  });
-
-  router.get('/applicant/:id', function(req, res, next) {
-      // applicant must be viewable by user
-      const asc_id = req.params.id;
-      // TESTING ROUTE - CHANGE METHOD
-      dbHandler.getApplicantByASCID(asc_id)
-        .then(applicant=>{
-            res.locals.applicant = applicant;
-            res.render("applicant",{title:`Applicant: ${applicant.asc_id}`});
-        })
-        .catch(err=>{
-            res.redirect("/dashboard?msg=3");
-        })
-  });
-
-  
-
   return router;
 }
