@@ -121,13 +121,21 @@ var months = [
     res.render("rubric",{title: "Rubric"});
   });
   
+  const emptyDataHandler = function(res){
+    res.locals.data = null;
+    return res.render("stats",{title: "Statistics"});
+  }
+
   router.get('/stats', function(req, res, next) {
     res.locals.user = req.user;
     dbHandler.getUserStats(req.user.id)
         .then(data=>{
+            console.log(data);
             if(data.userApplicants.length===0){
-                res.locals.data = null;
-                return res.render("stats",{title: "Statistics"});
+                emptyDataHandler();
+            }
+            if(!data.userApplicants.essay_score){
+                emptyDataHandler();
             }
             res.locals.data = data;
             const parsedUserScores = applicantScoreParser(data);
