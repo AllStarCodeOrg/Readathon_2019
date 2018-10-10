@@ -1,13 +1,14 @@
 # Readathon_2019
 
 # TO DO LIST
-- Populate Rubric (Nadine) - use old one 
 - refactor
 - Add Style!
 - MUST BE USABLE ON MOBILE
+- add login reuse of email when rejected
+- When user created, go back to add new user
 
 # NICE TO HAVES
 - have a log file
 - add list of applicants graded by user to stats (with individual views)
 - Admin edit/delete ReadScore in list
-- live updating for admin/users (progress bar, tables, etc)
+- live updating for admin/users (progress bar, tables, etc) (making API with setInterval from client?)

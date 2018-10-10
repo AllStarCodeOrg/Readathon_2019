@@ -65,10 +65,12 @@
                                 <button type="button" id="genButton" class="rounded bg-pink form-control w-50" onclick="randPassword();">Gen.
                                     Password</button>
                             </div>
+                            <%if(readathonUser.id){%>
                             <small class="form-text text-pink mb-4">
                                 Cannot view user password, but can change it
                             </small>
 
+                            <%}%>
                             <div class="d-flex justify-content-around">
                                 <!-- Admin -->
                                 <div class="mb-4">

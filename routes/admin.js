@@ -88,6 +88,10 @@ module.exports = function(dbHandler){
   });
 
   router.get('/user', function(req, res, next) {
+    if(req.session.msg){
+      res.locals.msg = req.session.msg;
+      req.session.msg = null;
+    }
     const readathonUser = {      
       name:"",
       email:"",
@@ -123,9 +127,8 @@ module.exports = function(dbHandler){
         month_access: req.body.month_access === "99" ? null : req.body.month_access
       })
       .then(userId=>{
-        req.session.msg = {success: `User ${userId} Successfully Created`};
-
-        return res.redirect(`/admin/user/${userId}`);
+        req.session.msg = {success: `${name}'s account was successfully created!`};
+        return res.redirect(`/admin/user`);
       })
       .catch(err=>adminError(res, "Problem Creating New User"));
     }
