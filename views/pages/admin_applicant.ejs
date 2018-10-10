@@ -23,6 +23,7 @@
     <%include ../partials/nav%>
     <div class="content-container-admin d-flex">
       <%include ../partials/admin_sidebar%>
+      <!-- CONTENT AREA START -->
       <div class="content-area">
         <!-- MAIN CONTENT AREA -->
         <div class="main-content-container container flex-grow">
@@ -39,62 +40,64 @@
             <%}%>
           </div>
           <%}else{%>
-          <h1>Read Scores</h1>
+          <h1>Applicants</h1>
 
           <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
               <tr>
-                <th class="th-sm">Reader
+                <th class="th-sm">ASC ID
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Applicant
+                <th class="th-sm">Month applied
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Essay 1
+                <th class="th-sm">Total Essay 1
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Essay 2
+                <th class="th-sm">Total Essay 2
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Essay 3
+                <th class="th-sm">Total Essay 3
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
                 <th class="th-sm">Total Score
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Comment
+                <th class="th-sm"># of assigned readers
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Apply Changes
+                <th class="th-sm">Complete?
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <%for(const readScore of readScores){%>
+              <%for (const applicant of applicants){%>
               <tr>
                 <td>
-                  <%=readScore.username%>
+                  <%=applicant.asc_id%>
                 </td>
                 <td>
-                  <%=readScore.asc_id%>
+                  <%=applicant.month_applied_str%>
                 </td>
                 <td>
-                  <%=readScore.essay_score_1%>
+                  <%=applicant.essay_1_total%>
                 </td>
                 <td>
-                  <%=readScore.essay_score_2%>
+                  <%=applicant.essay_2_total%>
                 </td>
                 <td>
-                  <%=readScore.essay_score_3%>
+                  <%=applicant.essay_3_total%>
                 </td>
                 <td>
-                  <%=readScore.essay_score%>
+                  <%=applicant.essay_total%>
                 </td>
                 <td>
-                  <%=readScore.comment%>
+                  <%=applicant.read_count%>
                 </td>
-                <td>Submit</td>
+                <td>
+                  <%=applicant.complete===1 ? "👍🏼" : "❌"%>
+                </td>
               </tr>
               <%}%>
             </tbody>
@@ -105,6 +108,7 @@
         </div>
         <!-- MAIN CONTENT AREA END -->
       </div>
+      <!-- CONTENT AREA end -->
     </div>
     <%include ../partials/footer%>
   </div>

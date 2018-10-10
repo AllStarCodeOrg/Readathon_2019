@@ -6,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var validator = require("express-validator"); // NEED TO IMPLEMENT NEW API
 var session = require("express-session");
 var passport = require("passport");
-LocalStrategy = require('passport-local').Strategy;
+var LocalStrategy = require('passport-local').Strategy;
 var SQLiteStore = require('connect-sqlite3')(session);
 const dbHandler = require("./dbHandler");
 const bcrypt = require("bcrypt");
@@ -34,15 +34,6 @@ app.use(session({
 }))
 app.use(passport.initialize()); // adds .login, .serializeUser, and .deserializeUser, .user, .isAuthenticated()
 app.use(passport.session());
-
-// passing authentication status to views
-app.use((req,res, next)=>{
-  res.locals.isAuthenticated = req.isAuthenticated();
-  res.locals.user = req.user;
-  next();
-})
-
-// ROUTES
 
 // ROUTES
 require("./routes/routesHandler")(app, dbHandler);
@@ -99,6 +90,7 @@ passport.deserializeUser(function (userID, done) {
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log("Original URL: ",req.originalUrl);
   next(createError(404));
 });
 
@@ -107,10 +99,10 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  console.log(err);
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.render('error',{title:"ERROR"});
 });
 
 const port = process.env.PORT || 3000;

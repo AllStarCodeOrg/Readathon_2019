@@ -1,7 +1,208 @@
+<!DOCTYPE html>
+<html>
 <%include ../partials/head%>
-<%include ../partials/nav%>
 
-<h1>RUBRIC</h1>
-<h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis debitis dolore sit tempora at eveniet recusandae molestias dolor! Reiciendis saepe quos repellat, laborum, eaque, praesentium veniam ut vel mollitia consequatur non distinctio similique voluptatibus facere amet quis vitae iure nemo! Hic, eveniet nisi. Error consectetur officia, asperiores provident praesentium doloremque!</h2>
-<%include ../partials/footer%>
+<body>
+    <div class="main-container d-flex vh-100 flex-column">
+        <%include ../partials/nav%>
+        <div class="content-container d-flex flex-column align-items-center">
+            <!-- RUBRIC NAV -->
+            <div class="w-100">
+                <nav class="d-flex justify-content-between">
+                    <a class="" href="/dashboard">To Dashboard</a>
+                    <a class="" href="/applicant">Start Reading!</a>
+                </nav>
+            </div>
+            <!-- RUBRIC NAV END -->
 
+            <!-- HEADING -->
+            <h1 class="text-ascBlue h1">2019 Readathon Rubric</h1>
+            <h3 class="mb-3 h3">All Stars begin with a <span class="font-italic text-accent">spark</span></h3>
+            <p class="muted-text w-75 text-center">
+                Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3 short-answer
+                    questions (50-150 words each)</span> based on a set of traits, or "competencies", that help us spot
+                that <span class="font-italic text-accent">spark</span>. These traits coincide with our 3 pillars: <br />
+                <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate Failure</span>,
+                <span class="text-green">Tell Your Story</span>
+            </p>
+            <!-- HEADING END -->
+
+            <!-- THREE TRAITS EXPLAINED -->
+            <div class="mx-5">
+                <div class="row border border-ascBlue text-center">
+                    <div class="col d-flex flex-column align-items-center">
+                        <h4 class="text-ascBlue font-weight-bold text-uppercase">
+                            hustle
+                        </h4>
+                        <header class="text-ascBlue text-capitalize">
+                            dare greatly
+                        </header>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ullam?</p>
+                    </div>
+                    <div class="col d-flex flex-column align-items-center">
+                        <h4 class="text-alternate font-weight-bold text-uppercase">
+                            growth mindset
+                        </h4>
+                        <header class="text-alternate text-capitalize">
+                            celebrate failure
+                        </header>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ullam?</p>
+                    </div>
+                    <div class="col d-flex flex-column align-items-center">
+                        <h4 class="text-green font-weight-bold text-uppercase">
+                            self-advocacy?
+                        </h4>
+                        <header class="text-green text-capitalize">
+                            tell your story
+                        </header>
+                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur, ullam?</p>
+                    </div>
+
+                </div>
+            </div>
+            <!-- THREE TRAITS EXPLAINED END -->
+
+            <!-- FEW MORE THINGS -->
+            <div class="container my-4">
+                <h3 class="h3">A few more things about All Stars:</h3>
+                <ul class="list-group">
+                    <li class="list-group-item">All Stars are self-reflective and are enthusiastic about the future</li>
+                    <li class="list-group-item">An All Star is willing to take risks and embraces failure</li>
+                    <li class="list-group-item">All Stars are curious about the world and enlist the help of others</li>
+                    <li class="list-group-item">Works toward a common goal; listens, seeks input, contributes, and shares the spotlight</li>
+                </ul>
+            </div>
+            <!-- FEW MORE THINGS END -->
+
+
+            <hr class="sep border-ascBlue">
+
+            <!-- SCORING TABLE -->
+            <div class="container-fluid scoring-table">
+                <p class="h1 text-center">
+                    How to Score Applications
+                </p>
+                <div class="container">
+                    <p class="m-0">The Summer Intensive application included 3 short essay questions. </p>
+                    <p class="m-0">You will score each applicant answer <span class="font-italic">individually</span>.</p>
+                </div>
+                <table class="table border mt-3">
+                    <thead class="black white-text">
+                        <tr class="text-center">
+                            <th class="border-bottom-0" scope="col">Score</th>
+                            <th class="border-bottom-0" scope="col">Description</th>
+                            <th class="border-bottom-0" scope="col">Result</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="text-ascBlue">
+                            <th class="text-center h2" scope="row">2</th>
+                            <td class="border">
+                                <ul class="pl-2 m-0">
+                                    <li>
+                                            Took great care to write strong, compelling essays
+                                        </li>
+                                        <li>
+                                                Demonstrates strength in all three competencies
+                                        </li>
+                                        <li>
+                                                Shows enthusiasm for a rigorous, six-week learning program
+                                        </li>
+                                    </ul>
+                            </td>
+                            <td class="border">The <span class="font-italic text-accent">spark</span> is strong in this one! Definitely a good fit for
+                                the All Star Code Summer Intensive.</td>
+                        </tr>
+                        <tr class="text-accent">
+                            <th class="text-center h2" scope="row">1</th>
+                            <td class="border">
+                                    <ul class="pl-2 m-0">
+                                            <li>
+                                                Demonstrates strength in at least two competencies
+                                            </li>
+                                            <li>
+                                                Shows readiness and interest in a rigorous six-week learning program
+                                            </li>
+                                        </ul>
+                            </td>
+                            <td class="border">Possibly a good fit for the All Star Code Summer
+                                Intensive; needs further review</td>
+                        </tr>
+
+                        <tr class="text-red">
+                            <th class="text-center h2" scope="row">0</th>
+                            <td class="border">
+                                <ul class="pl-2 m-0">
+                                    <li>
+                                        Has made little or no effort to answer all six questions
+                                    </li>
+                                    <li>
+                                        Does not demonstrate strength in any of the three competencies
+                                    </li>
+                                    <li>
+                                        Is not ready for a rigorous, six-week learning program
+                                    </li>
+                                </ul>
+                            </td>
+                            <td class="border">Not a good fit for the All Star Code Summer Intensive</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- SCORING TABLE END-->
+
+            <!-- THINGS TO REMEMBER -->
+            <div class="container">
+                <header class="h3 text-uppercase">
+                    things to remember...
+                </header>
+                <ul class="list-group">
+                        <li class="list-group-item">These are high school kids with a wide range of educational opportunities and experiences. 
+                            <br> Look for the <span class="font-italic text-accent">spark</span> !</li>
+                        <li class="list-group-item">Your score will be added to two other scores, so don't fear making the "wrong choice" </li>
+                        <li class="list-group-item">Grade each application individually; avoid side-by-side comparisons or "saving your 2s." 
+                            <br>If it's good, it's good!</li>
+                    </ul>
+            </div>
+            <!-- THINGS TO REMEMBER END -->
+
+            <hr class="sep border-ascBlue">
+            <!-- EXAMPLES -->
+            <h2 class="h2">Examples</h2>
+            <div class="container-fluid m-3 rubric-examples-container">
+                <div class="rubric-example-container">
+                    <header class="h4 text-ascBlue">Score of 2</header>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                </div>
+                <div class="rubric-example-container">
+                    <header class="h4 text-accent">Score of 1</header>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                </div>
+                <div class="rubric-example-container">
+                    <header class="h4 text-red">Score of 0</header>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                    <div class="example">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sapiente eaque deleniti saepe at quisquam iure inventore eveniet totam veniam minus!</div>
+                </div>
+            </div>
+            <!-- EXAMPLES END -->
+
+            <!-- RUBRIC NAV -->
+            <div class="w-100">
+                <nav class="d-flex justify-content-between">
+                    <a class="" href="/dashboard">To Dashboard</a>
+                    <a class="" href="/applicant">Start Reading!</a>
+                </nav>
+            </div>
+            <!-- RUBRIC NAV END -->
+
+        </div>
+        <%include ../partials/footer%>
+    </div>
+</body>
+
+</html>

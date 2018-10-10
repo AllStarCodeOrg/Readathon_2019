@@ -11,7 +11,15 @@ module.exports = function(dbHandler){
         res.locals.msg = req.session.msg;
         req.session.msg = null;
       }
-      res.render('dashboard', { title: 'Dashboard' });
+      dbHandler.getUserScores(user.id)
+        .then(data=>{
+          res.locals.data = data;
+          res.render('dashboard', { title: 'Dashboard' });
+        })
+        .catch(err=>{
+          console.log("Problem getting user scores: ",err);
+          res.render("dashboard", { title: 'Dashboard' });
+        })
     }
   });
   

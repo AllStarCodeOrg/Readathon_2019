@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<%include ../partials/head%>
+
+<body>
+    <div class="main-container d-flex vh-100 flex-column">
+        <%include ../partials/nav%>
+        <div class="content-container">
+            <div class="container d-flex flex-center">
+                <!-- Default form subscription -->
+                <form class="text-center border border-light p-5 w-50" action="/profile" method="POST">
+
+                    <p class="h4 mb-1 text-left">Profile for: <span class="text-orange pl-2">
+                            <%= user.name%> </span></p>
+
+                    <p class="h5 mb-2 text-left">Applicant Batch: <span class="text-orange pl-2">
+                            <%=user.month%> </span></p>
+                    <p class="h5 mb-4 text-left">Email: <span class="text-orange pl-2">
+                            <%=user.email%> </span></p>
+
+                    <%if(locals.msg){%>
+                    <%if(locals.msg.success){%>
+                    <p class="alert alert-success mb-4">
+                        <%=locals.msg.success%>
+                    </p>
+                    <%}else if(locals.msg.error){%>
+                    <p class="alert alert-danger mb-4">
+                        <%=locals.msg.error%>
+                    </p>
+                    <%}%>
+                    <%}else{%>
+                    <p>Change your password:</p>
+                    <%}%>
+
+                    <input type="password" name="oldPassword" class="form-control mb-2" placeholder="Old Password"
+                        autofocus>
+                    <small class="text-muted mb-4 d-block">
+                        Password should be at least 4 characters long
+                    </small>
+
+                    <input type="password" name="newPassword" class="form-control mb-4" placeholder="New Password">
+                    <input type="password" name="newPassword2" class="form-control mb-4" placeholder="Confirm Password">
+
+                    <!-- Sign in button -->
+                    <button class="btn btn-info btn-block" type="submit">Submit</button>
+                </form>
+                <!-- Default form subscription -->
+            </div>
+        </div>
+        <%include ../partials/footer%>
+    </div>
+</body>
+
+</html>

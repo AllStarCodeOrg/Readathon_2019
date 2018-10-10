@@ -1,4 +1,4 @@
-<nav class="row no-gutters my-3 fixed-top">
+<nav class="row no-gutters">
     <a href="/dashboard" class="col d-flex justify-content-center align-items-center text-center">
         <%= monthStr %> Readathon
     </a>
@@ -6,8 +6,8 @@
     <div class="col-8 d-flex">
         <!-- PROG BAR -->
         <div class="progress md-progress align-self-center w-100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 50%"
-                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">10 out of 20 (50%)</div>
+            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: <%= progressStats.perc %>"
+                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><%=progressStats.completed%> out of <%=progressStats.total%> (<%=progressStats.perc%>%)</div>
         </div>
         <!-- PROG BAR END -->
     </div>
@@ -22,5 +22,4 @@
     <a class="col d-flex justify-content-center align-items-center text-center" href="/logout">
         Logout
     </a>
-
 </nav>

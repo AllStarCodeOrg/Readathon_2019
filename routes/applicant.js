@@ -1,6 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const userFilterForApplicantID = function(req,res,next){
+  const user = req.user;
+  const userId = user.id;
+
+  // if user is done
+  // else redirect to "/applicant", which will handle intention
+}
 module.exports = function (dbHandler) {
 
   router.get('/', function (req, res, next) {
@@ -22,22 +29,31 @@ module.exports = function (dbHandler) {
 
   router.get('/:id', function (req, res, next) {
     const asc_id = req.params.id;
-    dbHandler.getApplicantByASCID(asc_id)
-      .then(applicant => {
-        res.locals.applicant = applicant;
-        res.render("applicant", {
-          title: `Applicant: ${applicant.asc_id}`
-        });
-      })
-      .catch(err => {
-        req.session.msg = {error: "Cannot access that applicant"};
-        res.redirect("/dashboard");
+    dbHandler.findIncompleteApplicant(req.user.id)
+      .then(proper_asc_id=>{
+        if(proper_asc_id!==asc_id){
+          req.session.msg = {error:`Unauthorized attempt to access applicant ${asc_id}`};
+          return res.redirect("/dashboard");
+        }
+        dbHandler.getApplicantByASCID(asc_id)
+          .then(applicant => {
+            res.locals.applicant = applicant;
+            res.render("applicant", {
+              title: `Applicant: ${applicant.asc_id}`
+            });
+          })
+          .catch(err => {
+            console.log("Problem getting applicant by ASCID: ", err);
+            req.session.msg = {error: "Cannot access that applicant"};
+            res.redirect("/dashboard");
+          })
       })
   });
 
   router.post('/:id', function (req, res, next) {
     const asc_id = req.params.id;
-    const userId = req.user.id;
+    const user = req.user;
+    const userId = user.id;
 
     dbHandler.getApplicantByASCID(asc_id)
       .then(applicant => {
@@ -68,12 +84,24 @@ module.exports = function (dbHandler) {
 
         dbHandler.incrementApplicantReads(userId, asc_id, scores, comment)
           .then(()=>{
-            req.session.msg = {success: `Completed Applicant ${asc_id}!`};
-            res.redirect("/dashboard");
+            dbHandler.checkUserDoneness(user)
+            .then(result=>{
+                if(result){
+                  req.session.msg = {success: `Completed Applicant ${asc_id} as your last applicant! Please give feedback on how we can improve the Readathon reader experience`};
+                }else{
+                  req.session.msg = {success: `Completed Applicant ${asc_id}!`};
+                }
+                res.redirect("/dashboard");
+              })
+              .catch(err=>{
+                console.log("Problem checking user applicant availibility: ", err);
+                req.session.msg.error = `Problem checking on user applicant availibility`;
+                res.redirect("/dashboard");
+              })
           })
           .catch(err=>{
             console.log(`Problem incrementing applicant reads (user: ${userId}, asc_id: ${asc_id})`, err);
-            req.session.msg = {error: `Could not complete applicant ${asc_id}`};
+            req.session.msg = {error: `Applicant ${asc_id} not properly updated`};
             res.redirect("/dashboard");
           })
       })

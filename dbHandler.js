@@ -21,14 +21,16 @@ module.exports = new class DbHandler {
     }
     
     createTables(){
-        this.db.exec("CREATE TABLE 'users' ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `email` TEXT NOT NULL UNIQUE, `password` TEXT NOT NULL, `admin` INTEGER DEFAULT 0, `alumni` INTEGER DEFAULT 0, `month_access` INTEGER, `first_time` INTEGER DEFAULT 0 );");
+        this.db.exec("CREATE TABLE 'users' ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `email` TEXT NOT NULL UNIQUE, `password` TEXT NOT NULL, `admin` INTEGER DEFAULT 0, `alumni` INTEGER DEFAULT 0, `month_access` INTEGER, `first_time` INTEGER DEFAULT 0, `done` INTEGER DEFAULT 0 );");
         this.db.exec(`CREATE TABLE 'applicants' ('airtable_id' TEXT UNIQUE NOT NULL, 'asc_id' TEXT UNIQUE NOT NULL, 'month_applied' INTEGER, 'essay_1' TEXT, 'essay_2' TEXT, 'essay_3' TEXT, 'read_count' INTEGER DEFAULT 0, 'complete' INTEGER DEFAULT 0);`);
         this.db.exec(`CREATE TABLE 'readScores' ('userId' INTEGER, 'asc_id' TEXT,'essay_score_1' INTEGER, 'essay_score_2' INTEGER, 'essay_score_3' INTEGER ,'essay_score' INTEGER, 'comment' TEXT);`);
     }
 
     getAirtableDataLoop(){
         this._getAirtableDataLoop();
-        setInterval(()=>this._getAirtableDataLoop(), 1000 * 60 * 60); // retrieves data every hour
+        setInterval(()=>{
+            this._getAirtableDataLoop()
+        }, 1000 * 60 * 60); // retrieves data every hour
     }
 
     _getAirtableDataLoop(){
@@ -38,6 +40,31 @@ module.exports = new class DbHandler {
                 // .then(()=>this.keepOnlyLastMonthApplicants())
             )
             .catch(err=>console.log(err));
+    }
+
+    /**
+     * Return true if user's password successfully updates.
+     */
+    changeUserPassword(user, oldPassword, newPassword){
+        const currentHash = user.password;
+        const self = this;
+        return new Promise((res, rej)=>{
+            bcrypt.compare(oldPassword, currentHash,(err, sameness)=>{
+                if(err) return rej(err);
+                if(!sameness) return res({error:"'Old Password' provided did not match original"});
+                bcrypt.hash(newPassword, saltRounds, function(err, hash){
+                    if(err) return rej(err);
+                    const sql ="UPDATE users SET password=$newPassword WHERE id = $userId";
+                    self.db.run(sql, {
+                        $userId: user.id,
+                        $newPassword: hash,
+                    }, function(err){
+                        if(err) return rej(err);
+                        res({});
+                    });
+                })
+            })
+        })
     }
 
     /**
@@ -77,15 +104,48 @@ module.exports = new class DbHandler {
     async getNextApplicant(user){
         const userId = user.id;
         const incompleteApplicant_asc_id = await this.findIncompleteApplicant(userId);
-
         if(incompleteApplicant_asc_id){
             return incompleteApplicant_asc_id;
         }
-
         const availApplicantASCID = await this.getAvailableApplicant(user);
         return availApplicantASCID;
     }
-    
+
+    checkUserDoneness(user){
+        let sql;
+        const userId = user.id;
+        const self = this;
+        if(user.alumni===1){
+            sql = `SELECT asc_id FROM applicants WHERE read_count<3 AND asc_id NOT IN (SELECT readScores.asc_id from users JOIN readScores ON users.id=readScores.userId WHERE users.alumni=1 GROUP BY readScores.asc_id)`;
+            return new Promise((res,rej)=>{
+                this.db.get(sql, function(err, row){
+                    if (err) return rej(err);
+                    if(!row){
+                        return res(row);
+                    }else{
+                        self.setUserDone(userId)
+                            .then(data=>res(data))
+                            .catch(err=>rej(err))
+                    }
+                })
+            })
+        }else{
+            sql = `SELECT asc_id FROM applicants WHERE asc_id NOT IN (SELECT applicants.asc_id FROM applicants LEFT JOIN readScores ON applicants.asc_id=readScores.asc_id WHERE readScores.userId=? OR applicants.read_count > 2);`;
+            return new Promise((res,rej)=>{
+                this.db.get(sql, userId, function(err, row){
+                    if (err) return rej(err);
+                    if(!row){
+                        self.setUserDone(userId)
+                            .then(()=>res(true))
+                            .catch(err=>rej(err))
+                    }else{
+                        res(false);
+                    }
+                })
+            })        
+        }
+    }
+
     getAvailableApplicant(user){
         const self = this;
         let sql;
@@ -100,7 +160,8 @@ module.exports = new class DbHandler {
                     }else{
                         const asc_id = row.asc_id;
                         self.holdApplicant(userId, asc_id)
-                            .then(()=>res(asc_id))
+                            .then(info=>res(info))
+                            .catch(err=>rej(err))
                     }
                 })
             })
@@ -114,7 +175,8 @@ module.exports = new class DbHandler {
                     }else{
                         const asc_id = row.asc_id;
                         self.holdApplicant(userId, asc_id)
-                            .then(()=>res(asc_id))
+                            .then(info=>res(info))
+                            .catch(err=>rej(err))
                     }
                 })
             })        
@@ -123,13 +185,16 @@ module.exports = new class DbHandler {
 
     holdApplicant(userId,asc_id){
         return new Promise((res,rej)=>{
-            const sql = 'INSERT INTO readScores (userID, asc_id) VALUES ($userId,$asc_id); UPDATE applicants SET read_count=(SELECT read_count FROM applicants WHERE asc_id=$asc_id)+1 WHERE asc_id=$asc_id;';
-            const statement = this.db.prepare(sql);
-            statement.run({$userId:userId, $asc_id:asc_id}, function(err){
+            const sql1 = 'INSERT INTO readScores (userID, asc_id) VALUES ($userId,$asc_id);' 
+            const sql2 = 'UPDATE applicants SET read_count=(SELECT read_count FROM applicants WHERE asc_id=?)+1 WHERE asc_id=?;';
+            const data = {$userId:userId, $asc_id:asc_id};
+            this.db.run(sql1,data,(err)=>{
                 if (err) return rej(err);
-                res();
-            });
-            statement.finalize();
+                this.db.run(sql2,[asc_id,asc_id],(err)=>{
+                    if (err) return rej(err);
+                    res(asc_id);
+                })
+            })
         })
     }
 
@@ -141,6 +206,16 @@ module.exports = new class DbHandler {
                 if(!row) return res(row);
                 res(row.asc_id); // undefined if not found
             })
+        })
+    }
+
+    getApplicantsStats(){
+        return new Promise((res,rej)=>{
+            const sql = "SELECT applicants.asc_id, applicants.read_count, applicants.complete, applicants.month_applied, sum(readScores.essay_score_1) AS essay_1_total, sum(readScores.essay_score_2) AS essay_2_total, sum(readScores.essay_score_3) AS essay_3_total, sum(readScores.essay_score) AS essay_total FROM applicants LEFT JOIN readScores ON readScores.asc_id=applicants.asc_id GROUP BY applicants.asc_id ORDER BY essay_total DESC;";
+            this.db.all(sql,(err,rows)=>{
+                if(err) return rej(err);
+                res(rows);
+            });
         })
     }
 
@@ -353,12 +428,35 @@ module.exports = new class DbHandler {
         }
     }
 
-    setUserVisited(userID){
+    setUserVisited(userId){
         return new Promise((res, rej)=>{    
             const sql ="UPDATE users SET first_time = 1 WHERE id = ?";
-            this.db.run(sql, userID, function(err){
+            this.db.run(sql, userId, function(err){
                 if(err) return rej(err);
                 res();
+            });
+        })
+    }
+    
+    setUserDone(userId){
+        return new Promise((res, rej)=>{    
+            const sql ="UPDATE users SET done = 1 WHERE id = ?";
+            this.db.run(sql, userId, function(err){
+                if(err) return rej(err);
+                res();
+            });
+        })
+    }
+    
+
+
+    getProgressStats(){
+        return new Promise((res, rej)=>{    
+            const sql ="SELECT count(*) AS total, sum(complete) AS completed FROM applicants;";
+            this.db.get(sql, function(err, row){
+                if(err) return rej(err);
+                row.perc = ((row.completed/row.total)*100).toFixed(2);
+                res(row);
             });
         })
     }
@@ -376,6 +474,83 @@ module.exports = new class DbHandler {
             essay_2: apiRecord.fields["essay_2"],
             essay_3: apiRecord.fields["essay_3"]
         });
+    }
+
+    getReadScoresWithUsers(){
+        return new Promise((res,rej)=>{
+            const sql = "SELECT users.name as 'username', asc_id, essay_score_1,essay_score_2,essay_score_3, essay_score, comment  FROM readScores  JOIN users ON users.id=readScores.userId;";
+            this.db.all(sql,(err,rows)=>{
+                if(err) return rej(err);
+                res(rows);
+            });
+        })
+    }
+
+    getAvgAppScore(){
+        return new Promise((res,rej)=>{
+            const sql = "SELECT avg(essay_score) as avg FROM readScores;";
+            this.db.get(sql,(err,row)=>{
+                if(err) return rej(err);
+                res(row.avg);
+            });
+        })
+    }
+
+    getSampleStdEssayScore(){
+        return new Promise((res,rej)=>{
+            const sql = "SELECT SUM((essay_score -(SELECT AVG(essay_score) FROM readScores)) * (essay_score -(SELECT AVG(essay_score) FROM readScores)))/(count(*)-1) AS sample_std, AVG(essay_score) AS avg FROM readScores;";
+            this.db.get(sql,(err,stats)=>{
+                if(err) return rej(err);
+                res(stats);
+            });
+        });
+    }
+
+    async getUserStats_admin(){
+        const stats = await this.getSampleStdEssayScore();
+        const avg = await this.getAvgAppScore();
+        return new Promise((res,rej)=>{
+            const sql = "SELECT users.name AS 'username', count(*) AS count, AVG(essay_score_1) AS 'essay_score_1_avg', AVG(essay_score_2) AS 'essay_score_2_avg', AVG(essay_score_3) AS 'essay_score_3_avg', AVG(essay_score) AS 'essay_score_avg' FROM readScores JOIN users ON users.id = readScores.userId GROUP BY readScores.userId ORDER BY count(*) DESC;";
+            this.db.all(sql,(err,rows)=>{
+                if(err) return rej(err);
+                const output = {
+                    userStats: rows,
+                    avg: avg,
+                    stats: stats
+                }
+                res(output);
+            });
+        });
+    }
+
+    getUserApplicants(userId){
+        return new Promise((res,rej)=>{
+            const sql="SELECT * FROM readScores WHERE userId=?;";
+            this.db.all(sql,userId,(err,rows)=>{
+                if(err) return rej(err);
+                res(rows);
+            })
+        });
+    }
+    
+    getUserScores(userId){
+        return new Promise((res,rej)=>{
+            const sql="SELECT count(*) AS count, AVG(essay_score_1) AS 'essay_score_1_avg', AVG(essay_score_2) AS 'essay_score_2_avg', AVG(essay_score_3) AS 'essay_score_3_avg', AVG(essay_score) AS 'essay_score_avg' FROM readScores WHERE userId=?;";
+            this.db.get(sql,userId,(err,row)=>{
+                if(err) return rej(err);
+                res(row);
+            })
+        });
+    }
+
+    async getUserStats(userId){
+        const userApplicants = await this.getUserApplicants(userId);
+        const userScores = await this.getUserScores(userId);
+
+        return {
+            userApplicants: userApplicants,
+            userScores: userScores
+        }
     }
 
     getApplicantByAirtableID(airtable_id){

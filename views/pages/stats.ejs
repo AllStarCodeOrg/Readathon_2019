@@ -1,7 +1,110 @@
+<!DOCTYPE html>
+<html>
 <%include ../partials/head%>
-<%include ../partials/nav%>
 
-<h1>Stats</h1>
-<h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis debitis dolore sit tempora at eveniet recusandae molestias dolor! Reiciendis saepe quos repellat, laborum, eaque, praesentium veniam ut vel mollitia consequatur non distinctio similique voluptatibus facere amet quis vitae iure nemo! Hic, eveniet nisi. Error consectetur officia, asperiores provident praesentium doloremque!</h2>
-<%include ../partials/footer%>
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" defer></script>
+    <div class="main-container d-flex vh-100 flex-column">
+        <%include ../partials/nav%>
+        <div class="content-container">
+            <%if(!data){%>
+                <div class="d-flex flex-center flex-column">
+                    <img width="400px" src="https://cdn-images-1.medium.com/max/1600/1*_JE2TlWFhcR5SwGqG2h7hg.gif" alt="No data gif">
+                    <h2>Trying to put your stats together, but there's no data!</h2>
+                    <h3 class="muted-text"><a href="/applicant">Start Reading!</a></h3>
+                </div>
+            <%}else{%>
+                <h2><%=data%></h2>
+            <div class="readathonStats-container container d-flex flex-column border border-purple mt-3 w-75 text-center">
+                <h2>Stats for:
+                    <%=user.name%>
+                </h2>
+                <div class="userStats-container d-flex flex-column">
+                    <h3>Avg Applicant Score:
+                        <%=(data.userScores.essay_score_avg).toFixed(2)%>
+                    </h3>
+                    <h3>Total Applicants Read:
+                        <%=data.userScores.count%>
+                    </h3>
+                </div>
+                <canvas id="scoreTotals"></canvas>
+                <canvas id="scoresByEssay"></canvas>
+            </div>
+            <script>
+                var data2 = <%-dataForGraph_scoreTotals%>;
+                var ctx2 = document.getElementById("scoreTotals").getContext("2d");
 
+                var data3 = <%-dataForGraph_scoresByEssay%>;
+                var ctx3 = document.getElementById("scoresByEssay").getContext("2d");
+                window.onload = () => {
+                    new Chart(ctx2, {
+                        type: "bar",
+                        data: data2,
+                        options: {
+                            legend: {
+                                display: false
+                            },
+                            title: {
+                                display: true,
+                                text: "Final Scores Given"
+                            },
+                            scales: {
+                                yAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Score given (0-6)"
+                                    },
+                                    ticks: {
+                                        stepSize: 1,
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Student ID"
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                    new Chart(ctx3, {
+                        type: "bar",
+                        data: data3,
+                        options: {
+                            legend: {
+                                display: true
+                            },
+                            title: {
+                                display: true,
+                                text: "Scores broken down by Question"
+                            },
+                            scales: {
+                                yAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "# of scores given"
+                                    },
+                                    ticks: {
+                                        stepSize: 1,
+                                        beginAtZero: true
+                                    }
+                                }],
+                                xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: "Application Question"
+                                    }
+                                }]
+                            }
+                        }
+                    });
+                }
+            </script>
+            <%}%>
+        </div>
+        <%include ../partials/footer%>
+    </div>
+</body>
+
+</html>

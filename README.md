@@ -1,11 +1,13 @@
 # Readathon_2019
 
 # TO DO LIST
-- working progress bar
-- Populate Stats
-- Populate Rubric (Nadine)
-- proper "holy grail" format
-- test on glitch!
+- Populate Rubric (Nadine) - use old one 
+- refactor
+- Add Style!
+- MUST BE USABLE ON MOBILE
 
 # NICE TO HAVES
-- add ReadScore list for admin with delete option
+- have a log file
+- add list of applicants graded by user to stats (with individual views)
+- Admin edit/delete ReadScore in list
+- live updating for admin/users (progress bar, tables, etc)

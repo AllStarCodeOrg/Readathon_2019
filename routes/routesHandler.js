@@ -18,6 +18,14 @@ const getMonthStr = function(){
     return date.toLocaleString("en-us", { month: "long" });
   }
 
+  const userDoneHandler = function(req,res,next){
+    const user = req.user;
+    if(user.done){
+      res.redirect("/dashboard");
+    }else{
+      next();
+    }
+  }
 module.exports = function (app, dbHandler) {
 
     // adding local variables
@@ -25,22 +33,34 @@ module.exports = function (app, dbHandler) {
         res.locals.monthStr = getMonthStr();
         res.locals.isAuthenticated = req.isAuthenticated();
         res.locals.user = req.user;
-        next();
+        dbHandler.getProgressStats()
+            .then(stats=>{
+                res.locals.progressStats = {
+                    total: stats.total,
+                    completed: stats.completed,
+                    perc: stats.perc
+                }
+                next();
+            })
+            .catch(err=>{
+                console.log("Could not get progress stats");
+                next();
+            })
     })
     
     var indexRouter = require('./index')(dbHandler);
     app.use('/', indexRouter);
     
-    // authenticated
+    // authenticated past this point
     app.use(authenticationHandler);
 
     var dashboardRouter = require('./dashboard')(dbHandler);
     app.use('/dashboard', dashboardRouter);
     
     var applicantRouter = require('./applicant')(dbHandler);
-    app.use('/applicant', applicantRouter);
+    app.use('/applicant', userDoneHandler, applicantRouter);
     
-    // admin authenticated
+    // admin authenticated past this point
     app.use(adminAuth);
     var adminRouter = require('./admin')(dbHandler);
     app.use('/admin', adminRouter);

@@ -8,11 +8,50 @@ var months = [
   ];
 
 function monthNumToName(monthnum) {
-  return months[monthnum];
+  return months[Number(monthnum)];
 }
 function monthNameToNum(monthname) {
-  var month = months.indexOf(monthname);
-  return month;
+  return months.indexOf(monthname);
+}
+
+  /**
+   * Returns array of standard deviations from each
+   */
+  const calcStds = function(avg,std_dev, avgArr){
+    return avgArr.map(userAvg=>(avg-userAvg)/std_dev);
+  }
+
+function GetZPercent(z) {
+
+  // z == number of standard deviations from the mean
+
+  // if z is greater than 6.5 standard deviations from the mean the
+  // number of significant digits will be outside of a reasonable range
+
+  if (z < -6.5) {
+    return 0.0;
+  }
+
+  if (z > 6.5) {
+    return 1.0;
+  }
+
+  var factK = 1;
+  var sum = 0;
+  var term = 1;
+  var k = 0;
+  var loopStop = Math.exp(-23);
+
+  while(Math.abs(term) > loopStop) {
+    term = .3989422804 * Math.pow(-1,k) * Math.pow(z,k) / (2 * k + 1) / Math.pow(2,k) * Math.pow(z,k+1) / factK;
+    sum += term;
+    k++;
+    factK *= k;
+  }
+
+  sum += 0.5;
+
+  return sum;
 }
 
 const adminError = function(res,err){
@@ -166,6 +205,41 @@ module.exports = function(dbHandler){
       })
       .catch(err=>adminError(res,err));
   })
+
+  router.get("/readScores",function(req,res){
+    dbHandler.getReadScoresWithUsers()
+      .then(readScoresWithUsers=>{
+        res.locals.readScores = readScoresWithUsers;
+        res.render("readScores",{title:"Read Scores"});
+      })
+  });
+
+  router.get("/userStats",function(req,res){
+    dbHandler.getUserStats_admin()
+      .then(output=>{
+        const {userStats, stats, avg} = output;
+        const std_devs = calcStds(stats.avg, stats.sample_std,userStats.map(userStat=>userStat.essay_score_avg));
+        for(let i = 0; i < std_devs.length; i++){
+          userStats[i].perc = (50-GetZPercent(std_devs[i]).toFixed(4)*100).toFixed(2);
+        }
+        res.locals.userStats = userStats;
+        res.locals.avg = avg;
+        res.render("userStats",{title:"User Stats"});
+      })
+  });
+
+
+  router.get("/applicants",function(req,res){
+    dbHandler.getApplicantsStats()
+      .then(applicants=>{
+        for(const applicant of applicants){
+          applicant.month_applied_str = monthNumToName(applicant.month_applied);
+        }
+        res.locals.applicants = applicants;
+        res.render("admin_applicant.ejs", {title: "Applicants"});
+      })
+      .catch(err=>adminError(res,"Problem loading Applicants"));
+  });
 
   return router;
 }

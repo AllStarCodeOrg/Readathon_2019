@@ -1,3 +1,4 @@
+/* MAIN */
 :root{
   --ascBlue:#51C1E9;
   --primaryLight:#FFFFFF;
@@ -9,16 +10,139 @@
 }
 
 body{
-  padding-top: 84px;
+  margin:0;
+}
+.vh-100{
+  height: 100vh;
+}
+.w-33{
+  width: 33.333%;
 }
 
-.text-red{
-  color: var(--red);
+.content-container{
+  flex:1;
+  overflow-y: auto;
 }
-
+.text-ascBlue{
+  color: var(--ascBlue);
+}
+.text-primaryLight{
+  color: var(--primaryLight);
+}
+.text-primaryDark{
+  color: var(--primaryDark);
+}
+.text-accent{
+  color: var(--accent);
+}
+.text-alternate{
+  color: var(--alternate);
+}
 .text-green{
   color: var(--green);
 }
+.text-red{
+  color: var(--red);
+}
+.border-ascBlue{
+  border-color: var(--ascBlue)!important;
+}
+.border-primaryLight{
+  border-color: var(--primaryLight)!important;
+}
+.border-primaryDark{
+  border-color: var(--primaryDark)!important;
+}
+.border-accent{
+  border-color: var(--accent)!important;
+}
+.border-alternate{
+  border-color: var(--alternate)!important;
+}
+.border-green{
+  border-color: var(--green)!important;
+}
+.border-red{
+  border-color: var(--red)!important;
+}
+
+hr.sep {
+  width: 75%;
+  border: 0;
+  height: 2px;
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(81,193,232,0.75), rgba(0,0,0,0));
+  background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(81,193,232,0.75), rgba(0,0,0,0));
+  background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(81,193,232,0.75), rgba(0,0,0,0));
+  background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(81,193,232,0.75), rgba(0,0,0,0));
+  color: #333;
+  }
+
+/* MAIN END */
+
+/* DASHBOARD */
+/* DASHBOARD END */
+
+/* RUBRIC */
+.scoring-table .table td,
+.scoring-table .table th
+{
+  vertical-align: middle;
+}
+
+.rubric-examples-container{
+  display: grid;
+  grid-gap: 16px;
+}
+
+.rubric-example-container{
+  display: grid;
+  grid-template: 1fr 4fr/ repeat(3, 1fr);
+  grid-gap: 4px;
+}
+
+.rubric-example-container header{
+  grid-column: 1/4;
+  text-align: center;
+}
+
+.example{
+  border-style: solid;
+  border-width: 1px;
+}
+
+.rubric-example-container:nth-child(1) .example{
+  border-color: var(--ascBlue);
+}
+.rubric-example-container:nth-child(2) .example{
+  border-color: var(--accent);
+}
+.rubric-example-container:nth-child(3) .example{
+  border-color: var(--red);
+}
+
+.example:nth-child(2)::before{
+  content:"Q1) What do you hope to achieve by the end of the Summer Intensive?";
+  display: block;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+.example:nth-child(3)::before{
+  content:"Q2) Can you tell us about a time you struggled with something? What was challenging about it? What did you do?";
+  display: block;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+.example:nth-child(4)::before{
+  content:"Q3) Describe a moment from your upbringing where your ethnic background helped to shape your perspective.";
+  display: block;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+
+
+
+/* RUBRIC END */
+
 /* LOGIN */
 #applyPage{
   right: 0;
@@ -30,7 +154,6 @@ body{
 }
 
 .login-progress{
-  margin-bottom: 60px;
   --prog-h: 50px;
   height:var(--prog-h);
 }
@@ -41,16 +164,7 @@ body{
 }
 
 /* DASHBOARD */
-.vh-100{
-  height: 100vh;
-}
-.vh-75{
-  height: 75vh;
-}
 
-.w-33{
-  width: 33.333%;
-}
 
 .three-cards a{
   border-color: var(--ascBlue)!important;

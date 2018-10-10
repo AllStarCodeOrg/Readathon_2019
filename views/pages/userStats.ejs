@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <%include ../partials/head_admin%>
-
 <body>
   <script type="text/javascript">
     window.onload = () => {
@@ -23,6 +22,7 @@
     <%include ../partials/nav%>
     <div class="content-container-admin d-flex">
       <%include ../partials/admin_sidebar%>
+      <!-- CONTENT AREA START -->
       <div class="content-area">
         <!-- MAIN CONTENT AREA -->
         <div class="main-content-container container flex-grow">
@@ -40,6 +40,9 @@
           </div>
           <%}else{%>
           <h1>Read Scores</h1>
+          <h2>Average Essay Score:
+            <%=avg%>
+          </h2>
 
           <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
@@ -47,54 +50,49 @@
                 <th class="th-sm">Reader
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Applicant
+                <th class="th-sm"># of applicants read
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Essay 1
+                <th class="th-sm">Essay 1 Avg
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Essay 2
+                <th class="th-sm">Essay 2 Avg
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Essay 3
+                <th class="th-sm">Essay 3 Avg
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Total Score
+                <th class="th-sm">Total Score Avg
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
-                <th class="th-sm">Comment
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Apply Changes
+                <th class="th-sm">Total Score percentile dev. from overall avg
                   <i class="fa fa-sort float-right" aria-hidden="true"></i>
                 </th>
               </tr>
             </thead>
             <tbody>
-              <%for(const readScore of readScores){%>
+              <%for (const userStat of userStats){%>
               <tr>
                 <td>
-                  <%=readScore.username%>
+                  <%=userStat.username%>
                 </td>
                 <td>
-                  <%=readScore.asc_id%>
+                  <%=userStat.count%>
                 </td>
                 <td>
-                  <%=readScore.essay_score_1%>
+                  <%=(userStat.essay_score_1_avg).toFixed(2)%>
                 </td>
                 <td>
-                  <%=readScore.essay_score_2%>
+                  <%=(userStat.essay_score_2_avg).toFixed(2)%>
                 </td>
                 <td>
-                  <%=readScore.essay_score_3%>
+                  <%=(userStat.essay_score_3_avg).toFixed(2)%>
                 </td>
                 <td>
-                  <%=readScore.essay_score%>
+                  <%=(userStat.essay_score_avg).toFixed(2)%>
                 </td>
                 <td>
-                  <%=readScore.comment%>
-                </td>
-                <td>Submit</td>
+                  <%=userStat.perc%>%</td>
               </tr>
               <%}%>
             </tbody>
@@ -105,6 +103,7 @@
         </div>
         <!-- MAIN CONTENT AREA END -->
       </div>
+      <!-- CONTENT AREA end -->
     </div>
     <%include ../partials/footer%>
   </div>

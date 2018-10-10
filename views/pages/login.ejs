@@ -1,72 +1,77 @@
+<!DOCTYPE html>
+<html>
 <%include ../partials/head%>
 
-<div class="container-fluid flex flex-center flex-column text-center">
-    <a id="applyPage" href="#" class="position-fixed fixed-right text-center m-3">
-        <i class="fa fa-clipboard" aria-hidden="true"></i>
-        <p>Apply Page</p>
-    </a>
+<body>
+    <div class="main-container d-flex vh-100 flex-column">
+        <div class="content-container">
 
-    <!-- HEADER -->
-    <p class="h2 mt-3">ASC Readathon for 2019 SI Applicants</p>
-    <p class="h3"><%= monthStr %> Batch</p>
-    <!-- HEADER END -->
-    
-    <!-- LOGIN -->
-    <!-- Material form subscription -->
-<div class="card w-50 mt-4">
+            <div class="container-fluid flex flex-center flex-column text-center">
 
-        <h5 class="card-header info-color white-text text-center py-4">
-            <strong>Readathon Login</strong>
-        </h5>
-    
-        <!--Card content-->
-        <div class="card-body px-lg-5">
-    
-            <!-- Form -->
-            <form class="text-center" action="/" method="POST">
-    
-                <%if(locals.errors){%>
-                    <%for(const error of errors){%>
-                        <p class="alert alert-danger p-1"><%= error%></p>
-                    <%}%>
-                <%}else{%>
-                    <p>Readathon participants should have received an email 📩 with their temporary password</p>
-                    
-                    <br>
-                    <p>Once logged in 🎉, feel free to change your password</p>
-                    <%}%>
-                    
-                <!-- E-mail -->
+                <!-- HEADER -->
+                <p class="h2 mt-3">ASC Readathon for 2019 SI Applicants</p>
+                <p class="h3">
+                    <%= monthStr %> Batch</p>
+                <!-- HEADER END -->
+                <!-- PROG BAR -->
+                <div class="login-progress progress md-progress w-50">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
+                        style="width: <%= progressStats.perc %>" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><%=progressStats.completed%> out of <%=progressStats.total%> (<%=progressStats.perc%>%)</div>
+                    </div>
+                    <!-- PROG BAR END -->
+                <!-- LOGIN -->
+                <!-- Material form subscription -->
+                <div class="card w-50 mt-4">
 
-                <!-- <i class="fa fa-envelope-o" aria-hidden="true"></i> -->
-                <div class="md-form">
-                    <input type="email" name="email" class="form-control">
-                    <label for="email">E-mail</label>
+                    <h5 class="card-header info-color white-text text-center py-4">
+                        <strong>Readathon Login</strong>
+                    </h5>
+
+                    <!--Card content-->
+                    <div class="card-body px-lg-5">
+
+                        <!-- Form -->
+                        <form class="text-center" action="/" method="POST">
+
+                            <%if(locals.errors){%>
+                            <%for(const error of errors){%>
+                            <p class="alert alert-danger p-1">
+                                <%= error%>
+                            </p>
+                            <%}%>
+                            <%}else{%>
+                            <p>Readathon participants should have received an email with their temporary password</p>
+
+                            <br>
+                            <p>Once logged in, you can change your password under "Profile"</p>
+                            <%}%>
+
+                            <div class="md-form">
+                                <input type="email" name="email" class="form-control">
+                                <label for="email">E-mail</label>
+                            </div>
+                            <!-- Password -->
+                            <div class="md-form mt-3">
+                                <input type="password" name="password" class="form-control">
+                                <label for="password">Password</label>
+                            </div>
+
+
+                            <!-- Sign in button -->
+                            <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Sign
+                                in</button>
+
+                        </form>
+                        <!-- Form -->
+
+                    </div>
+
                 </div>
-                <!-- Password -->
-                <div class="md-form mt-3">
-                    <input type="password" name="password" class="form-control">
-                    <label for="password">Password</label>
-                </div>
-    
-    
-                <!-- Sign in button -->
-                <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Sign in</button>
-    
-            </form>
-            <!-- Form -->
-    
+                <!-- LOGIN END -->
+            </div>
         </div>
-    
+        <%include ../partials/footer%>
     </div>
-    <!-- LOGIN END -->
+</body>
 
-    <!-- PROG BAR -->
-    <div class="login-progress progress md-progress position-fixed fixed-bottom">
-        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">10 out of 20 (50%)</div>
-    </div>
-    <!-- PROG BAR END -->
-</div>
-
-<%include ../partials/footer%>
-
+</html>

@@ -1,110 +1,130 @@
-:root{
+/* MAIN */
+:root {
     --light: #F2EFEA;
     --orange: #FC7753;
     --grey: rgba(89, 101, 111, 1);
     --pink: rgba(156, 82, 139, 1);
     --dark: rgba(29, 30, 44, 1);
 }
-body{
+
+body {
     background-color: var(--dark);
+    margin: 0;
 }
 
-div{
+.content-container-admin {
+    flex: 1;
+}
+
+.content-area{
+    overflow-y: auto;
+    flex:1;
+}
+
+/* MAIN END */
+div {
     color: var(--light);
 }
 
-a{
+a {
     color: var(--pink);
 }
 
-.bg-success{
-    background-color: var(--pink)!important;
+.sidebar{
+    max-width: 300px;
+}
+.bg-success {
+    background-color: var(--pink) !important;
 }
 
-.social-icon{
+.social-icon {
     font-size: 3rem;
 }
 
-.social-icon:hover{
+.social-icon:hover {
     color: var(--orange);
 }
 
-.sidebar>a{
-    background:var(--grey);
+.sidebar>a {
+    background: var(--grey);
     color: var(--light);
     border: 3px var(--pink) solid;
-    transition: 
+    transition:
         background-color 300ms ease,
         color 300ms ease;
 }
-.sidebar>a:hover{
+
+.sidebar>a:hover {
     background-color: var(--orange);
-    color:var(--dark);
+    color: var(--dark);
 }
 
-.main-content-container{
+.main-content-container {
     overflow-y: auto;
 }
 
-.border-orange{
-    border-color: var(--orange)!important;
+.border-orange {
+    border-color: var(--orange) !important;
 }
 
-.bg-orange{
+.bg-orange {
     background-color: var(--orange);
 }
 
-.bg-light{
+.bg-light {
     background-color: var(--light);
 }
 
-.bg-pink{
+.bg-pink {
     background-color: var(--pink);
 }
 
-.text-pink{
-    color: var(--pink)!important;
+.text-pink {
+    color: var(--pink) !important;
 }
 
 input[type="checkbox"] {
-    transform:scale(2, 2);
-  }
+    transform: scale(2, 2);
+}
 
-#genButton{
+#genButton {
     margin-left: 16px;
     border: none;
     color: var(--light);
 }
 
-#genButton:focus{
+#genButton:focus {
     background-color: var(--pink);
 }
+
 /* TABLE */
-#userTable{
+#userTable {
     background-color: var(--grey);
 }
-.table-bordered{
+
+.table-bordered {
     border-color: var(--orange);
 }
-#userTable_filter_div{
+
+#userTable_filter_div {
     display: flex;
     justify-content: center;
 }
 
 td,
-th{
+th {
     text-align: center;
-    border-color: var(--orange)!important;
+    border-color: var(--orange) !important;
 }
 
-td > a{
-    color:var(--orange)!important;
+td>a {
+    color: var(--orange) !important;
 }
 
-.table-striped tbody tr:nth-of-type(odd){
-    background-color: rgba(0,0,0,.25);
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: rgba(0, 0, 0, .25);
 }
 
-thead{
+thead {
     background-color: var(--pink);
 }

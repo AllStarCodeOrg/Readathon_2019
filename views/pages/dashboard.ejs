@@ -1,35 +1,59 @@
+<!DOCTYPE html>
+<html>
 <%include ../partials/head%>
-<%include ../partials/nav%>
-
-    <div class="container-fluid vh-75">
-        <%if(locals.msg){%>
-            <%if(locals.msg.success){%>
-                <p class="alert alert-success"><%=locals.msg.success%></p>
-            <%}else if(locals.msg.error){%>
-                <p class="alert alert-error"><%=locals.msg.error%></p>
+<body>
+    <div class="main-container d-flex vh-100 flex-column">
+        <%include ../partials/nav%>
+        <div class="content-container">
+            <%if(locals.msg){%>
+            <div class="container d-flex justify-content-center">
+                <%if(locals.msg.success){%>
+                <p class="alert alert-success text-center w-50">
+                    <%=locals.msg.success%>
+                </p>
+                <%}%>
+                <%if(locals.msg.error){%>
+                <p class="alert alert-danger text-center w-50">
+                    <%=locals.msg.error%>
+                </p>
+                <%}%>
+            </div>
             <%}%>
-        <%}%>
 
-        <!-- THREE CARDS -->
-        <div class="three-cards flex-center justify-content-around">
-            <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow" href="/rubric">
-                <p class="card-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></p>
-                <header class="h2">Scoring Rubric</header>
-                <small>Learn how to properly score an applicant's essay</small>
-            </a>
-            <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow" href="/applicant">
-                <p class="card-icon"><i class="fa fa-eye" aria-hidden="true"></i></p>
-                <header class="h2">Read Next Applicant</header>
-                <h2>📚</h2>
-            </a>
-            <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow" href="/stats">
-                <p class="card-icon"><i class="fa fa-bar-chart" aria-hidden="true"></i></p>
-                <header class="h2">Stats</header>
-                <small>You've read: 0 essay(s)</small>
-            </a>
+            <!-- THREE CARDS -->
+            <div class="three-cards flex-center justify-content-around">
+                <%if(!user.done){%>
+                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                    href="/rubric">
+                    <p class="card-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></p>
+                    <header class="h2">Scoring Rubric</header>
+                    <small>Learn how to properly score an applicant's essay</small>
+                </a>
+                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                    href="/applicant">
+                    <p class="card-icon"><i class="fa fa-eye" aria-hidden="true"></i></p>
+                    <header class="h2">Read Next Applicant</header>
+                    <h2>📚</h2>
+                </a>
+                <%}else{%>
+                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                    target="_blank" href="https://allstarcode.typeform.com/to/JT1ILM">
+                    <p class="card-icon"><i class="fa fa-group" aria-hidden="true"></i></p>
+                    <header class="h2">Improve the Readathon</header>
+                    <h2>📚</h2>
+                </a>
+                <%}%>
+                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                    href="/stats">
+                    <p class="card-icon"><i class="fa fa-bar-chart" aria-hidden="true"></i></p>
+                    <header class="h2">Stats</header>
+                    <small>You've completed <%=data.count%> applicant<% if(data.count!==1){%>s<%}%></small>
+                </a>
+            </div>
+
         </div>
-
+        <%include ../partials/footer%>
     </div>
+</body>
 
-
-<%include ../partials/footer%>
+</html>

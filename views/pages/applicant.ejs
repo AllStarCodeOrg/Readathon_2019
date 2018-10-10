@@ -1,122 +1,130 @@
+<!DOCTYPE html>
+<html>
 <%include ../partials/head%>
-<%include ../partials/nav%>
 
-<div class="container">
-    <p class="h1 text-center">Applicant:
-        <%=applicant.asc_id%>
-    </p>
+<body>
+    <div class="main-container d-flex vh-100 flex-column">
+        <%include ../partials/nav%>
+        <div class="content-container">
+            <div class="container">
+                <p class="h1 text-center">Applicant:
+                   <span class="text-red"> <%=applicant.asc_id%></span>
+                </p>
 
-    <%if (locals.errors){%>
-        <%for (const error of errors){%>
-            <p class="alert alert-danger"><%=error%></p>
-        <%}%>
-    <%}%>
-    <form action="/applicant/<%=applicant.asc_id%>" method="POST">
+                <%if (locals.errors){%>
+                <%for (const error of errors){%>
+                <p class="alert alert-danger">
+                    <%=error%>
+                </p>
+                <%}%>
+                <%}%>
+                <form action="/applicant/<%=applicant.asc_id%>" method="POST">
 
-        <!-- ESSAY 1 -->
-        <div>
-            <h2 class="muted-text">
-                Q1) Lorem ipsum dolor, sit amet consectetur adipisicing elit. At soluta quisquam dolores consectetur
-                quae id recusandae voluptate tempore qui expedita.
-            </h2>
-            <p class="m3">
-                <%=applicant.essay_1%>
-            </p>
-            <div class="form-control d-flex justify-content-around w-50 m-auto">
-                <div class="d-flex">
-                <label for="essay_1_score" class="mr-2">Score: </label>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="0" required>
-                    <p class="m-0">0</p>
-                </div>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mx-2" type="radio" name="essay_1_score" value="1" required>
-                    <p class="m-0">1</p>
-                </div>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_1_score" value="2" required>
-                    <p class="m-0">2</p>
-                </div>
-            </div>
+                    <!-- ESSAY 1 -->
+                    <div>
+                        <h2 class="muted-text text-ascBlue">
+                            Q1) What do you hope to achieve by the end of the Summer Intensive?
+                        </h2>
+                        <p class="m3">
+                            <%=applicant.essay_1%>
+                        </p>
+                        <div class="form-control d-flex justify-content-around w-50 m-auto">
+                            <div class="d-flex">
+                                <label for="essay_1_score" class="mr-2">Score: </label>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="essay_1_score" value="0" required>
+                                    <p class="m-0">0</p>
+                                </div>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mx-2" type="radio" name="essay_1_score" value="1" required>
+                                    <p class="m-0">1</p>
+                                </div>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="essay_1_score" value="2" required>
+                                    <p class="m-0">2</p>
+                                </div>
+                            </div>
 
-                <div>
-                    <a href="/rubric" target="_blank">Rubric</a>
-                </div>
+                            <div>
+                                <a href="/rubric" target="_blank">Rubric</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- ESSAY 2 -->
+                    <div>
+                        <h2 class="muted-text text-alternate">
+                            Q2) Can you tell us about a time you struggled with something? What was challenging about it? What did you do?
+                        </h2>
+                        <p class="m3">
+                            <%=applicant.essay_2%>
+                        </p>
+                        <div class="form-control d-flex justify-content-around w-50 m-auto">
+                            <div class="d-flex">
+                                <label for="essay_2_score" class="mr-2">Score: </label>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="essay_2_score" value="0" required>
+                                    <p class="m-0">0</p>
+                                </div>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mx-2" type="radio" name="essay_2_score" value="1" required>
+                                    <p class="m-0">1</p>
+                                </div>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="essay_2_score" value="2" required>
+                                    <p class="m-0">2</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <a href="/rubric" target="_blank">Rubric</a>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    <!-- ESSAY 3 -->
+                    <div>
+                        <h2 class="muted-text text-green">
+                            Q3) Describe a moment from your upbringing where your ethnic background helped to shape your perspective.
+                        </h2>
+                        <p class="m3">
+                            <%=applicant.essay_3%>
+                        </p>
+                        <div class="form-control d-flex justify-content-around w-50 m-auto">
+                            <div class="d-flex">
+                                <label for="essay_3_score" class="mr-2">Score: </label>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="essay_3_score" value="0" required>
+                                    <p class="m-0">0</p>
+                                </div>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mx-2" type="radio" name="essay_3_score" value="1" required>
+                                    <p class="m-0">1</p>
+                                </div>
+                                <div class="radio_button d-flex align-items-center">
+                                    <input class="mr-1" type="radio" name="essay_3_score" value="2" required>
+                                    <p class="m-0">2</p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <a href="/rubric" target="_blank">Rubric</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group rounded md-form blue-border">
+                        <i class="fa fa-pencil prefix"></i>
+                        <label for="comment">Comment:</label>
+                        <textarea class="form-control  md-textarea" name="comment" rows="3"></textarea>
+                    </div>
+                    <!-- Submit in button -->
+                    <button class="btn btn-info btn-block my-4" type="submit">Submit Scores</button>
+                </form>
             </div>
         </div>
-<hr>
-        <!-- ESSAY 1 -->
-        <div>
-            <h2 class="muted-text">
-                Q2) Lorem ipsum dolor, sit amet consectetur adipisicing elit. At soluta quisquam dolores consectetur
-                quae id recusandae voluptate tempore qui expedita.
-            </h2>
-            <p class="m3">
-                <%=applicant.essay_2%>
-            </p>
-            <div class="form-control d-flex justify-content-around w-50 m-auto">
-                <div class="d-flex">
-                <label for="essay_2_score" class="mr-2">Score: </label>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_2_score" value="0" required>
-                    <p class="m-0">0</p>
-                </div>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mx-2" type="radio" name="essay_2_score" value="1" required>
-                    <p class="m-0">1</p>
-                </div>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_2_score" value="2" required>
-                    <p class="m-0">2</p>
-                </div>
-            </div>
+        <%include ../partials/footer%>
+    </div>
+</body>
 
-                <div>
-                    <a href="/rubric" target="_blank">Rubric</a>
-                </div>
-            </div>
-        </div>
-<hr>
-        <!-- ESSAY 3 -->
-        <div>
-            <h2 class="muted-text">
-                Q3) Lorem ipsum dolor, sit amet consectetur adipisicing elit. At soluta quisquam dolores consectetur
-                quae id recusandae voluptate tempore qui expedita.
-            </h2>
-            <p class="m3">
-                <%=applicant.essay_3%>
-            </p>
-            <div class="form-control d-flex justify-content-around w-50 m-auto">
-                <div class="d-flex">
-                <label for="essay_3_score" class="mr-2">Score: </label>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_3_score" value="0" required>
-                    <p class="m-0">0</p>
-                </div>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mx-2" type="radio" name="essay_3_score" value="1" required>
-                    <p class="m-0">1</p>
-                </div>
-                <div class="radio_button d-flex align-items-center">
-                    <input class="mr-1" type="radio" name="essay_3_score" value="2" required>
-                    <p class="m-0">2</p>
-                </div>
-            </div>
-
-                <div>
-                    <a href="/rubric" target="_blank">Rubric</a>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group rounded md-form blue-border">
-                <i class="fa fa-pencil prefix"></i>
-            <label for="comment">Comment:</label>
-            <textarea class="form-control  md-textarea" name="comment" rows="3"></textarea>
-        </div>
-        <!-- Submit in button -->
-        <button class="btn btn-info btn-block my-4" type="submit">Submit Scores</button>
-    </form>
-</div>
-
-<%include ../partials/footer%>
+</html>

@@ -1,3 +1,22 @@
-<h1><%= message %></h1>
-<h2><%= error.status %></h2>
-<pre><%= error.stack %></pre>
+<!DOCTYPE html>
+<html>
+<%include ../partials/head%>
+<body>
+        <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Great+Vibes" rel="stylesheet">
+        <div class="main-container d-flex vh-100 flex-column">
+            <nav class="row no-gutters">
+                <a href="/dashboard" class="col d-flex justify-content-center align-items-center text-center m-4">
+                    <%= monthStr %> Readathon
+                </a>
+            </nav>
+        <div class="content-container d-flex flex-center flex-column alert-danger">
+            <h1 style="font-family: 'Amatic SC', cursive;            ">
+                Whoops, something went amiss!
+            </h1>
+            <h1 style="font-family: 'Great Vibes', cursive;"><%= error.status%></h1>
+            <img src="https://orig14.deviantart.net/26b5/f/2016/275/6/5/toonforce_spongebob_by_holmesxeoncore_daczpob_by_holmesxeoncore-dajobnw.gif" alt="error gif">
+        </div>
+<%include ../partials/footer%>
+</div>
+</body>
+</html>
