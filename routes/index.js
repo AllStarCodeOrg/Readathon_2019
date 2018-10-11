@@ -2,20 +2,31 @@ const express = require('express');
 const router = express.Router();
 const passport = require("passport");
 
-var months = [
-    'January', 'February', 'March', 'April', 'May',
-    'June', 'July', 'August', 'September',
-    'October', 'November', 'December'
-];
+/**
+ * Handles empty stats edge case.
+ */
+const emptyDataHandler = function (res) {
+    res.locals.data = null;
+    res.render("stats", {
+        title: "Statistics"
+    });
+}
 
+/**
+ * Return name of month converted from number (0-11).
+ */
 function monthNumToName(monthnum) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September',
+      'October', 'November', 'December'
+    ];
     return months[Number(monthnum)];
-}
-
-function monthNameToNum(monthname) {
-    return months.indexOf(monthname);
-}
-
+  }
+  
+/**
+ * Returns object with parsed statistical data.
+ */
 const applicantScoreParser = data => {
     const scoreCounts = {
         "0": 0,
@@ -72,13 +83,9 @@ const applicantScoreParser = data => {
         scoresByEssay: scoresByEssay
     }
 }
+
 module.exports = function (dbHandler) {
     router.get('/', function (req, res, next) {
-        if (req.session.msg) {
-            res.locals.msg = req.session.msg;
-            req.session.msg = null;
-        }
-
         if (req.session.oldInfo) {
             res.locals.oldInfo = req.session.oldInfo;
             req.session.oldInfo = null;
@@ -150,13 +157,6 @@ module.exports = function (dbHandler) {
         });
     });
 
-    const emptyDataHandler = function (res) {
-        res.locals.data = null;
-        res.render("stats", {
-            title: "Statistics"
-        });
-    }
-
     router.get('/stats', function (req, res, next) {
         res.locals.user = req.user;
         dbHandler.getUserStats(req.user.id)
@@ -223,10 +223,6 @@ module.exports = function (dbHandler) {
 
     router.get('/profile', function (req, res, next) {
         req.user.month = req.user.month_access ? monthNumToName(req.user.month_access) : "💎";
-        if (req.session.msg) {
-            res.locals.msg = req.session.msg;
-            req.session.msg = null;
-        }
         res.render("profile", {
             title: `${req.user.name}'s Profile`
         });

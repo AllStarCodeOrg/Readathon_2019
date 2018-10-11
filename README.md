@@ -2,9 +2,6 @@
 
 # TO DO LIST
 - refactor
-    - both CSS files
-    - folder system reorg/removal
-    - stray functions
     - dbHandler.js (refactoring names?)
 - Add Style!
 - MUST BE USABLE ON MOBILE

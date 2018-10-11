@@ -1,3 +1,6 @@
+/**
+ * Handles user authentication.
+ */
 const authenticationHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
         return next();
@@ -5,6 +8,9 @@ const authenticationHandler = (req, res, next) => {
     res.redirect('/');
 }
 
+/**
+ * Handles admin authentication.
+ */
 const adminAuth = (req, res, next) => {
     if (req.user.admin === 1) {
         return next();
@@ -12,35 +18,52 @@ const adminAuth = (req, res, next) => {
     res.redirect('/logout');
 }
 
-const getMonthStr = function(){
+/**
+ * Returns the current Readathon batch's month as a string.
+ */
+const getMonthStr = function () {
     const date = new Date();
     date.setMonth(date.getMonth() - 1);
-    return date.toLocaleString("en-us", { month: "long" });
-  }
+    return date.toLocaleString("en-us", {
+        month: "long"
+    });
+}
 
-  const userDoneHandler = function(req,res,next){
+/**
+ * Handles edge case when user is done with Readathon.
+ * Simply saves processing time.
+ * Prevents user from accessing applicants.
+ */
+const userDoneHandler = function (req, res, next) {
     const user = req.user;
-    if(user.done){
-      res.redirect("/dashboard");
-    }else{
-      next();
+    if (user.done) {
+        res.redirect("/dashboard");
+    } else {
+        next();
     }
-  }
-  const passingErrorHandler = function(req,res,next){
-      if(req.session.msg){
-          res.locals.msg = req.session.msg;
-          req.session.msg = null;
-      }
-      next();
-  }
+}
+
+/**
+ * Handles passing errors through session.
+ */
+const passingErrorHandler = function (req, res, next) {
+    if (req.session.msg) {
+        res.locals.msg = req.session.msg;
+        req.session.msg = null;
+    }
+    next();
+}
 module.exports = function (app, dbHandler) {
 
-    const injectLocalVariables = function(req,res,next){
+    /**
+     * Injects pertinant global variables.
+     */
+    const injectLocalVariables = function (req, res, next) {
         res.locals.monthStr = getMonthStr();
         res.locals.isAuthenticated = req.isAuthenticated();
         res.locals.user = req.user;
         dbHandler.getProgressStats()
-            .then(stats=>{
+            .then(stats => {
                 res.locals.progressStats = {
                     total: stats.total,
                     completed: stats.completed,
@@ -48,33 +71,33 @@ module.exports = function (app, dbHandler) {
                 }
                 next();
             })
-            .catch(err=>{
+            .catch(err => {
                 console.log("Could not get progress stats");
                 next();
             })
-      }
-    
+    }
 
     // adding local variables
     app.use(injectLocalVariables);
 
     // handling passing error messages
     app.use(passingErrorHandler);
-    
+
     var indexRouter = require('./index')(dbHandler);
     app.use('/', indexRouter);
-    
+
     // authenticated past this point
     app.use(authenticationHandler);
 
     var dashboardRouter = require('./dashboard')(dbHandler);
     app.use('/dashboard', dashboardRouter);
-    
+
     var applicantRouter = require('./applicant')(dbHandler);
     app.use('/applicant', userDoneHandler, applicantRouter);
-    
+
     // admin authenticated past this point
     app.use(adminAuth);
+    
     var adminRouter = require('./admin')(dbHandler);
     app.use('/admin', adminRouter);
 }
