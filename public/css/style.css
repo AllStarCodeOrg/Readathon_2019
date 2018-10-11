@@ -81,8 +81,43 @@ hr.sep {
 
 /* MAIN END */
 
+/* LOGIN */
+#applyPage{
+  right: 0;
+  top: 0;
+}
+
+#applyPage>i{
+  font-size: 2rem;
+}
+
+.login-progress{
+  --prog-h: 50px;
+  height:var(--prog-h);
+}
+
+.login-progress div{
+  color: var(--primaryDark);
+  height:var(--prog-h);
+}
+
+/* LOGIN END */
+
 /* DASHBOARD */
+.three-cards a{
+  border-color: var(--ascBlue)!important;
+  color: var(--ascBlue);
+  height: 230px;
+}
+.card-icon{
+  color: var(--accent);
+  font-size: 2rem;
+  text-shadow: 2px 1px var(--alternate);
+}
 /* DASHBOARD END */
+
+/* PROFILE */
+/* PROFILE END */
 
 /* RUBRIC */
 .scoring-table .table td,
@@ -141,43 +176,8 @@ hr.sep {
   margin-bottom: .5rem;
 }
 
-
-
 /* RUBRIC END */
 
-/* LOGIN */
-#applyPage{
-  right: 0;
-  top: 0;
-}
-
-#applyPage>i{
-  font-size: 2rem;
-}
-
-.login-progress{
-  --prog-h: 50px;
-  height:var(--prog-h);
-}
-
-.login-progress div{
-  color: var(--primaryDark);
-  height:var(--prog-h);
-}
-
-/* DASHBOARD */
-
-
-.three-cards a{
-  border-color: var(--ascBlue)!important;
-  color: var(--ascBlue);
-  height: 230px;
-}
-.card-icon{
-  color: var(--accent);
-  font-size: 2rem;
-  text-shadow: 2px 1px var(--alternate);
-}
 
 /* APPLICANT */
 .applicant-container{
@@ -189,7 +189,6 @@ hr.sep {
 }
 
 .blue-border .md-textarea:focus {
-  /* box-shadow: 0 1px 0 0 #4285f4; */
   border-bottom: 2px solid var(--alternate)!important;
   box-shadow: 0 1px 0 0 #a285dc40!important;
 }
@@ -197,3 +196,7 @@ hr.sep {
 .md-form .prefix.active {
   color: var(--alternate)!important;
 }
+/* APPLICANT END*/
+
+/* STATS */
+/* STATS END */

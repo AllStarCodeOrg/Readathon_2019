@@ -26,10 +26,16 @@ const getMonthStr = function(){
       next();
     }
   }
+  const passingErrorHandler = function(req,res,next){
+      if(req.session.msg){
+          res.locals.msg = req.session.msg;
+          req.session.msg = null;
+      }
+      next();
+  }
 module.exports = function (app, dbHandler) {
 
-    // adding local variables
-    app.use((req,res,next)=>{
+    const injectLocalVariables = function(req,res,next){
         res.locals.monthStr = getMonthStr();
         res.locals.isAuthenticated = req.isAuthenticated();
         res.locals.user = req.user;
@@ -46,7 +52,14 @@ module.exports = function (app, dbHandler) {
                 console.log("Could not get progress stats");
                 next();
             })
-    })
+      }
+    
+
+    // adding local variables
+    app.use(injectLocalVariables);
+
+    // handling passing error messages
+    app.use(passingErrorHandler);
     
     var indexRouter = require('./index')(dbHandler);
     app.use('/', indexRouter);

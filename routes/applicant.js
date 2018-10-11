@@ -68,10 +68,8 @@ module.exports = function (dbHandler) {
         const errors = req.validationErrors();
         res.locals.applicant = applicant;
         if (errors) {
-            return res.render("applicant", {
-              title: `Applicant: ${applicant.asc_id}`,
-              errors: errors.map(error => error.msg)
-            })
+          req.session.msg = {error:errors[0].msg};
+          return res.redirect(`/applicant/${asc_id}`);
         }
 
         const scores = {

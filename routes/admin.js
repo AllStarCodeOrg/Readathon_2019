@@ -59,13 +59,6 @@ const adminError = function(res,err){
   res.render("admin",{title: "Admin"});
 }
 
-const parseSessionData = function(res,req){
-  if(req.session.msg){
-    res.locals.msg = req.session.msg;
-    req.session.msg = null;
-  }
-}
-
 module.exports = function(dbHandler){
   
   router.get('/', function(req, res, next) {
@@ -88,10 +81,6 @@ module.exports = function(dbHandler){
   });
 
   router.get('/user', function(req, res, next) {
-    if(req.session.msg){
-      res.locals.msg = req.session.msg;
-      req.session.msg = null;
-    }
     const readathonUser = {      
       name:"",
       email:"",
@@ -141,8 +130,6 @@ module.exports = function(dbHandler){
       .then(readathonUser=>{
         if(!readathonUser) return adminError(res,`Could not find user with id=${id}`);
         res.locals.readathonUser = readathonUser;
-        
-        parseSessionData(res,req);
         
         res.render("editUser",{title: "Edit User"});
       })

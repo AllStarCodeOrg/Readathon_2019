@@ -7,10 +7,6 @@ module.exports = function(dbHandler){
     if(user.first_time===0){
       res.redirect('/rubric');
     }else{
-      if(req.session.msg){
-        res.locals.msg = req.session.msg;
-        req.session.msg = null;
-      }
       dbHandler.getUserScores(user.id)
         .then(data=>{
           res.locals.data = data;

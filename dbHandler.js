@@ -3,7 +3,6 @@ const dbFile = process.env.DB_FILEPATH;
 const base = require('airtable').base('appI6ReVlk9nCsFUB');
 const table = 'Raw Applicants';
 const view = "Readathon";
-const Applicant = require("./models/applicant");
 
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
@@ -461,21 +460,6 @@ module.exports = new class DbHandler {
         })
     }
 
-    /**
-     * Returns Applicant Object parsed from API Record.
-     */
-    parseAirtableRecord(apiRecord){
-        return new Applicant({
-            record:apiRecord,
-            airtable_id: apiRecord.id,
-            asc_id: apiRecord.fields["asc_id"],
-            month_applied: apiRecord.fields["month_received_int"],
-            essay_1: apiRecord.fields["essay_1"],
-            essay_2: apiRecord.fields["essay_2"],
-            essay_3: apiRecord.fields["essay_3"]
-        });
-    }
-
     getReadScoresWithUsers(){
         return new Promise((res,rej)=>{
             const sql = "SELECT users.name as 'username', asc_id, essay_score_1,essay_score_2,essay_score_3, essay_score, comment  FROM readScores  JOIN users ON users.id=readScores.userId;";
@@ -568,7 +552,8 @@ module.exports = new class DbHandler {
      */
     async populateApplicantDB(apiRecords){
         if(apiRecords.length===0) return;
-        this.applicants = apiRecords.map(this.parseAirtableRecord);
+        // this.applicants = apiRecords.map(this.parseAirtableRecord);
+        this.applicants = apiRecords;
         let sql = "INSERT INTO applicants (airtable_id, asc_id, month_applied, essay_1, essay_2, essay_3) VALUES";
 
         // INSERTING MULTIPLE VALUES AT ONCE
@@ -576,17 +561,18 @@ module.exports = new class DbHandler {
         const paramInject = [];
         for(const applicant of this.applicants){
             // don't want duplicates
-            const foundApplicant = await this.getApplicantByAirtableID(applicant.airtable_id);
+            // const foundApplicant = await this.getApplicantByAirtableID(applicant.airtable_id);
+            const foundApplicant = await this.getApplicantByAirtableID(applicant.id);
             if(foundApplicant) continue;
             
             paramInject.push("(?,?,?,?,?,?)");
             
-            sqlParams.push(applicant.airtable_id);
-            sqlParams.push(applicant.asc_id);
-            sqlParams.push(applicant.month_applied-1);
-            sqlParams.push(applicant.essay_1);
-            sqlParams.push(applicant.essay_2);
-            sqlParams.push(applicant.essay_3);
+            sqlParams.push(applicant.id);
+            sqlParams.push(applicant.fields["asc_id"]);
+            sqlParams.push(applicant.fields["month_received_int"]-1);
+            sqlParams.push(applicant.fields["essay_1"]);
+            sqlParams.push(applicant.fields["essay_2"]);
+            sqlParams.push(applicant.fields["essay_3"]);
         }
 
         if(paramInject.length===0) return;

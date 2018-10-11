@@ -33,12 +33,12 @@
                         <!-- Form -->
                         <form class="text-center" action="/" method="POST">
 
-                            <%if(locals.errors){%>
-                            <%for(const error of errors){%>
-                            <p class="alert alert-danger p-1">
-                                <%= error%>
-                            </p>
-                            <%}%>
+                            <%if(locals.msg){%>
+                                <%for(const error of msg.errors){%>
+                                <p class="alert alert-danger p-1">
+                                    <%= error%>
+                                </p>
+                                <%}%>
                             <%}else{%>
                             <p>Readathon participants should have received an email with their temporary password</p>
 
@@ -47,12 +47,12 @@
                             <%}%>
 
                             <div class="md-form">
-                                <input type="email" name="email" class="form-control">
+                                <input type="email" name="email" class="form-control" <%if(locals.oldInfo){%>value="<%=oldInfo.email%>"<%}%>>
                                 <label for="email">E-mail</label>
                             </div>
                             <!-- Password -->
                             <div class="md-form mt-3">
-                                <input type="password" name="password" class="form-control">
+                                <input type="password" name="password" class="form-control" <%if(locals.oldInfo){%>value="<%=oldInfo.password%>"<%}%>>
                                 <label for="password">Password</label>
                             </div>
 

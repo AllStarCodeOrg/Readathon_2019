@@ -2,10 +2,12 @@
 
 # TO DO LIST
 - refactor
+    - both CSS files
+    - folder system reorg/removal
+    - stray functions
+    - dbHandler.js (refactoring names?)
 - Add Style!
 - MUST BE USABLE ON MOBILE
-- add login reuse of email when rejected
-- When user created, go back to add new user
 
 # NICE TO HAVES
 - have a log file

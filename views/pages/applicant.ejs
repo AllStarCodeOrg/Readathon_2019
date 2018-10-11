@@ -11,12 +11,10 @@
                    <span class="text-red"> <%=applicant.asc_id%></span>
                 </p>
 
-                <%if (locals.errors){%>
-                <%for (const error of errors){%>
+                <%if (locals.msg){%>
                 <p class="alert alert-danger">
-                    <%=error%>
+                    <%=msg.error%>
                 </p>
-                <%}%>
                 <%}%>
                 <form action="/applicant/<%=applicant.asc_id%>" method="POST">
 
