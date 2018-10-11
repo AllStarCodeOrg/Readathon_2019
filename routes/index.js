@@ -123,19 +123,18 @@ var months = [
   
   const emptyDataHandler = function(res){
     res.locals.data = null;
-    return res.render("stats",{title: "Statistics"});
+    res.render("stats",{title: "Statistics"});
   }
 
   router.get('/stats', function(req, res, next) {
     res.locals.user = req.user;
     dbHandler.getUserStats(req.user.id)
         .then(data=>{
-            console.log(data);
             if(data.userApplicants.length===0){
-                emptyDataHandler();
+                return emptyDataHandler(res);
             }
             if(!data.userApplicants.essay_score){
-                emptyDataHandler();
+                return emptyDataHandler(res);
             }
             res.locals.data = data;
             const parsedUserScores = applicantScoreParser(data);
