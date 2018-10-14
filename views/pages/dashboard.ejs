@@ -1,12 +1,16 @@
 <!DOCTYPE html>
 <html>
 <%include ../partials/head%>
+
 <body>
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <!-- particles.js container -->
+    <div id="particles-js"></div>
     <div class="main-container d-flex vh-100 flex-column">
         <%include ../partials/nav%>
         <div class="content-container">
             <%if(locals.msg){%>
-            <div class="container d-flex justify-content-center">
+            <div class="alert-container container d-flex justify-content-center mt-3">
                 <%if(locals.msg.success){%>
                 <p class="alert alert-success text-center w-50">
                     <%=locals.msg.success%>
@@ -21,39 +25,146 @@
             <%}%>
 
             <!-- THREE CARDS -->
-            <div class="three-cards flex-center justify-content-around">
+            <div class="three-cards">
                 <%if(!user.done){%>
-                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                <a class="card-green text-center w-30 rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
                     href="/rubric">
-                    <p class="card-icon"><i class="fa fa-info-circle" aria-hidden="true"></i></p>
+                    <p class="card-icon"><i class="fa fa-info" aria-hidden="true"></i></p>
                     <header class="h2">Scoring Rubric</header>
-                    <small>Learn how to properly score an applicant's essay</small>
+                    <p>Learn how to properly score an applicant's essay</p>
                 </a>
-                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                <a class="card-red text-center w-30 rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
                     href="/applicant">
-                    <p class="card-icon"><i class="fa fa-eye" aria-hidden="true"></i></p>
+                    <img src="/static/images/3.jpg" alt="">
                     <header class="h2">Read Next Applicant</header>
-                    <h2>📚</h2>
+                    <p>Read and score your next applicant</p>
                 </a>
                 <%}else{%>
-                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                <a class="text-center w-30 rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
                     target="_blank" href="https://allstarcode.typeform.com/to/JT1ILM">
                     <p class="card-icon"><i class="fa fa-group" aria-hidden="true"></i></p>
                     <header class="h2">Improve the Readathon</header>
-                    <h2>📚</h2>
+                    <p>A quick survey</p>
                 </a>
                 <%}%>
-                <a class="text-center w-25 border border-primary rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
+                <a class="card-alternate text-center w-30 rounded mb-2 animated fadeInUp hoverable p-4 flex-grow"
                     href="/stats">
                     <p class="card-icon"><i class="fa fa-bar-chart" aria-hidden="true"></i></p>
                     <header class="h2">Stats</header>
-                    <small>You've completed <%=data.count%> applicant<% if(data.count!==1){%>s<%}%></small>
+                    <p>You've completed
+                        <span class="font-weight-bold data_count">
+                                <%=data.count%>
+                        </span>
+                         applicant<% if(data.count!==1){%>s
+                        <%}%></p>
                 </a>
             </div>
 
         </div>
         <%include ../partials/footer%>
     </div>
+    <!-- particle.js -->
+    <script src="/static/js/particles.js" defer></script>
+    <script>
+        window.onload = function () {
+
+            // Particles.js
+            const particles_obj = {
+                "particles": {
+                    "number": {
+                        "value": 30,
+                        "density": {
+                            "enable": true,
+                            "value_area": 800
+                        }
+                    },
+                    "color": {
+                        "value": "#51C1E9"
+                    },
+                    "shape": {
+                        "type": "star",
+                        "stroke": {
+                            "width": 0,
+                            "color": "#000000"
+                        },
+                        "polygon": {
+                            "nb_sides": 5
+                        }
+                    },
+                    "opacity": {
+                        "value": 0.5,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 1,
+                            "opacity_min": 0.1,
+                            "sync": false
+                        }
+                    },
+                    "size": {
+                        "value": 10,
+                        "random": true,
+                        "anim": {
+                            "enable": false,
+                            "speed": 80,
+                            "size_min": 1,
+                            "sync": false
+                        }
+                    },
+                    "line_linked": {
+                        "enable": false,
+                        "distance": 300,
+                        "color": "#ffffff",
+                        "opacity": 0.4,
+                        "width": 2
+                    },
+                    "move": {
+                        "enable": true,
+                        "speed": .25,
+                        "direction": "top",
+                        "random": true,
+                        "straight": false,
+                        "out_mode": "out",
+                        "bounce": false,
+                        "attract": {
+                            "enable": false,
+                            "rotateX": 600,
+                            "rotateY": 1200
+                        }
+                    }
+                },
+                "interactivity": {
+                    "detect_on": "window",
+                    "events": {
+                        "onhover": {
+                            "enable": true,
+                            "mode": "bubble"
+                        },
+                        "onclick": {
+                            "enable": true,
+                            "mode": "push"
+                        },
+                        "resize": true
+                    },
+                    "modes": {
+                        "bubble": {
+                            "distance": 100,
+                            "size": 5,
+                            "duration": 2,
+                            "opacity": 0.8,
+                            "speed": 1
+                        },
+                        "push": {
+                            "particles_nb": 1
+                        }
+                    }
+                },
+                "retina_detect": false
+            }
+
+            particlesJS('particles-js', particles_obj);
+        }
+    </script>
 </body>
 
 </html>

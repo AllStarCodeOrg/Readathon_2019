@@ -3,31 +3,90 @@
 <%include ../partials/head%>
 
 <body>
+    <link rel="stylesheet" href="/static/css/stats.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js" defer></script>
     <div class="main-container d-flex vh-100 flex-column">
         <%include ../partials/nav%>
         <div class="content-container">
             <%if(!data){%>
-                <div class="d-flex flex-center flex-column">
-                    <img width="400px" src="https://cdn-images-1.medium.com/max/1600/1*_JE2TlWFhcR5SwGqG2h7hg.gif" alt="No data gif">
-                    <h2>Trying to put your stats together, but there's no data!</h2>
-                    <h3 class="muted-text"><a href="/applicant">Start Reading!</a></h3>
-                </div>
+            <div class="no-data d-flex flex-center flex-column">
+                <img width="400px" src="https://cdn-images-1.medium.com/max/1600/1*_JE2TlWFhcR5SwGqG2h7hg.gif" alt="No data gif">
+                <h2>Trying to put your stats together, but there's no data!</h2>
+                <a class="h3 text-red" href="/applicant">Start Reading</a>
+            </div>
             <%}else{%>
-            <div class="readathonStats-container container d-flex flex-column border border-purple mt-3 w-75 text-center">
-                <h2>Stats for:
-                    <%=user.name%>
-                </h2>
-                <div class="userStats-container d-flex flex-column">
-                    <h3>Avg Applicant Score:
-                        <%=(data.userScores.essay_score_avg).toFixed(2)%>
-                    </h3>
-                    <h3>Total Applicants Read:
-                        <%=data.userScores.count%>
-                    </h3>
+            <div class="readathonStats-container d-flex align-items-center flex-column text-center p-2">
+                <h2 class="text-primaryDark"><%=user.name%>'s Readathon Stats</h2>
+                <div class="data-container rounded">
+                    <div class="graph-container rounded">
+                        <canvas id="scoreTotals"></canvas>
+                    </div>
+                    <div class="userStats-container">
+                        <h3>Total Applicants Read:
+                            <span class="text-primaryDark"><%=data.userScores.count%></span>
+                        </h3>
+                        <h3>Avg Applicant Score:
+                            <span class="text-primaryDark"><%=(data.userScores.essay_score_avg).toFixed(2)%></span>
+                        </h3>
+                    </div>
                 </div>
-                <canvas id="scoreTotals"></canvas>
-                <canvas id="scoresByEssay"></canvas>
+
+                <data class="data-container rounded">
+                    <div class="graph-container rounded">
+                        <canvas id="scoresByEssay"></canvas>
+                    </div>
+                    <div class="userStats-container">
+                        <h3>Avg. Question #1 Score:
+                            <span class="text-primaryDark"><%=parsedUserScores.avgScoreByEssay["Question #1"]%></span>
+                        </h3>
+                        <h3>Avg. Question #2 Score:
+                            <span class="text-primaryDark"><%=parsedUserScores.avgScoreByEssay["Question #2"]%></span>
+                        </h3>
+                        <h3>Avg. Question #3 Score:
+                            <span class="text-primaryDark"><%=parsedUserScores.avgScoreByEssay["Question #3"]%></span>
+                        </h3>
+                    </div>
+                </data>
+
+                <div class="data-container">
+                        <table class="table rounded">
+                            <thead class="bg-red text-primaryLight">
+                                <tr>
+                                    <th scope="col">ASC ID</th>
+                                    <th scope="col">Q1 Score</th>
+                                    <th scope="col">Q2 Score</th>
+                                    <th scope="col">Q3 Score</th>
+                                    <th scope="col">Total Score</th>
+                                    <th scope="col">Comment</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%for(const applicant of data.userApplicants){%>
+                                <tr>
+                                    <th scope="row">
+                                        <%=applicant.asc_id%>
+                                    </th>
+                                    <td>
+                                        <%=applicant.essay_score_1%>
+                                    </td>
+                                    <td>
+                                        <%=applicant.essay_score_2%>
+                                    </td>
+                                    <td>
+                                        <%=applicant.essay_score_3%>
+                                    </td>
+                                    <td>
+                                        <%=applicant.essay_score%>
+                                    </td>
+                                    <td>
+                                        <%=applicant.comment%>
+                                    </td>
+                                </tr>
+                                <%}%>
+                            </tbody>
+                        </table>
+                    </div>
+
             </div>
             <script>
                 var data2 = <%-dataForGraph_scoreTotals%>;

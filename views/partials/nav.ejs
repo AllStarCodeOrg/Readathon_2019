@@ -1,25 +1,32 @@
-<nav class="row no-gutters">
-    <a href="/dashboard" class="col d-flex justify-content-center align-items-center text-center">
-        <%= monthStr %> Readathon
+<nav class="row no-gutters bg-primaryDark pb-1">
+    <a href="/dashboard" class="col-3 d-flex justify-content-center align-items-center text-center">
+        <%= monthStr %> <br> Readathon Dashboard
     </a>
 
-    <div class="col-8 d-flex">
+    <div class="col d-flex pb-2 px-2 text-ascBlue">
         <!-- PROG BAR -->
-        <div class="progress md-progress align-self-center w-100">
-            <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" style="width: <%= progressStats.perc %>"
-                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><%=progressStats.completed%> out of <%=progressStats.total%> (<%=progressStats.perc%>%)</div>
+        <div class="mt-3 w-100">
+            <p class="prog-bar-info mb-2 text-center">
+                Current Progress: <%=progressStats.completed%> out of <%=progressStats.total%> applicants completed
+            </p>
+            <div class="prog-bar progress md-progress w-100">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-accent" role="progressbar"
+                    style="width: <%= progressStats.perc %>%" aria-valuenow="50" aria-valuemin="0"
+                    aria-valuemax="100">
+                    <%=progressStats.perc%>%</div>
+            </div>
         </div>
         <!-- PROG BAR END -->
     </div>
     <%if(user.admin===1 && title!="Admin"){%>
-    <a class="col d-flex justify-content-center align-items-center text-center" href="/admin">
+    <a class="col-1 d-flex justify-content-center align-items-center text-center" href="/admin">
         Admin
     </a>
     <%}%>
-    <a class="col d-flex justify-content-center align-items-center text-center" href="/profile">
+    <a class="col-1 d-flex justify-content-center align-items-center text-center" href="/profile">
         Profile
     </a>
-    <a class="col d-flex justify-content-center align-items-center text-center" href="/logout">
+    <a class="col-1 d-flex justify-content-center align-items-center text-center" href="/logout">
         Logout
     </a>
 </nav>

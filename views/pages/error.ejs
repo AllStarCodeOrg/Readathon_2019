@@ -4,17 +4,17 @@
 <body>
         <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Great+Vibes" rel="stylesheet">
         <div class="main-container d-flex vh-100 flex-column">
-            <nav class="row no-gutters">
-                <a href="/dashboard" class="col d-flex justify-content-center align-items-center text-center m-4">
-                    Back to Readathon
+            <nav class="row no-gutters bg-primaryDark">
+                <a href="/" class="col d-flex justify-content-center align-items-center text-center m-4">
+                    Go to Readathon
                 </a>
             </nav>
-        <div class="content-container d-flex flex-center flex-column alert-danger">
-            <h1 style="font-family: 'Amatic SC', cursive;            ">
+        <div class="content-container d-flex flex-center flex-column">
+            <h1 style="font-family: 'Amatic SC', cursive;">
                 Whoops, something went amiss!
             </h1>
-            <h1 style="font-family: 'Great Vibes', cursive;"><%= error.status%></h1>
-            <img src="https://orig14.deviantart.net/26b5/f/2016/275/6/5/toonforce_spongebob_by_holmesxeoncore_daczpob_by_holmesxeoncore-dajobnw.gif" alt="error gif">
+            <img width="400px" src="/static/images/error.gif" alt="">
+            <h1 style="font-family: 'Great Vibes', cursive;"><%= error.status%> Error</h1>
         </div>
 <%include ../partials/footer%>
 </div>

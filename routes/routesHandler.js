@@ -1,3 +1,8 @@
+const questions = [
+    "What do you hope to achieve by the end of the Summer Intensive?",
+    "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?",
+    "Describe a positive and memorable moment from your upbringing related to your ethnic or cultural background that has helped shape your perspective."
+];
 /**
  * Handles user authentication.
  */
@@ -62,6 +67,7 @@ module.exports = function (app, dbHandler) {
         res.locals.monthStr = getMonthStr();
         res.locals.isAuthenticated = req.isAuthenticated();
         res.locals.user = req.user;
+        res.locals.questions = questions;
         dbHandler.getProgressStats()
             .then(stats => {
                 res.locals.progressStats = {

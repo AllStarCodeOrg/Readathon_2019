@@ -1,15 +1,14 @@
 const fs = require('fs');
-const dbFile = process.env.DB_FILEPATH;
 const base = require('airtable').base('appI6ReVlk9nCsFUB');
-const table = 'Raw Applicants';
-const view = "Readathon";
-
+const dbFile = process.env.DB_FILEPATH;
+const table = process.env.AIRTABLE_TABLE_NAME;
+const view = process.env.AIRTABLE_TABLE_VIEW;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
+const api_freq = 1000 * 60 * 60; // retrieves data every hour
 
 module.exports = new class DbHandler {
     constructor() {
-
         if(!fs.existsSync(dbFile)){
             this.db = require("./db");
             this.createTables();
@@ -19,24 +18,33 @@ module.exports = new class DbHandler {
         this.getAirtableDataLoop();
     }
     
+    /**
+     * Sets up the proper tables for the app's database.
+     */
     createTables(){
         this.db.exec("CREATE TABLE 'users' ( `id` INTEGER PRIMARY KEY AUTOINCREMENT, `name` TEXT, `email` TEXT NOT NULL UNIQUE, `password` TEXT NOT NULL, `admin` INTEGER DEFAULT 0, `alumni` INTEGER DEFAULT 0, `month_access` INTEGER, `first_time` INTEGER DEFAULT 0, `done` INTEGER DEFAULT 0 );");
         this.db.exec(`CREATE TABLE 'applicants' ('airtable_id' TEXT UNIQUE NOT NULL, 'asc_id' TEXT UNIQUE NOT NULL, 'month_applied' INTEGER, 'essay_1' TEXT, 'essay_2' TEXT, 'essay_3' TEXT, 'read_count' INTEGER DEFAULT 0, 'complete' INTEGER DEFAULT 0);`);
         this.db.exec(`CREATE TABLE 'readScores' ('userId' INTEGER, 'asc_id' TEXT,'essay_score_1' INTEGER, 'essay_score_2' INTEGER, 'essay_score_3' INTEGER ,'essay_score' INTEGER, 'comment' TEXT);`);
     }
 
+    /**
+     * Retrieves the Airtable data on a regular cycle.
+     */
     getAirtableDataLoop(){
         this._getAirtableDataLoop();
         setInterval(()=>{
             this._getAirtableDataLoop()
-        }, 1000 * 60 * 60); // retrieves data every hour
+        }, api_freq);
     }
 
+    /**
+     * Helper method for retrieving Airtable data.
+     */
     _getAirtableDataLoop(){
         this.applicants = [];
         this.getAirtableData()
             .then(records=>this.populateApplicantDB(records)
-                // .then(()=>this.keepOnlyLastMonthApplicants())
+                .then(()=>this.keepOnlyLastMonthApplicants())
             )
             .catch(err=>console.log(err));
     }
@@ -83,6 +91,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Filters DB to keep only relevant applicants
+     */
     keepOnlyLastMonthApplicants(){
         let lastMonth = new Date().getMonth();
         if(lastMonth === 0){
@@ -110,6 +121,9 @@ module.exports = new class DbHandler {
         return availApplicantASCID;
     }
 
+    /**
+     * Returns true if the user is done with the readathon.
+     */
     checkUserDoneness(user){
         let sql;
         const userId = user.id;
@@ -145,6 +159,9 @@ module.exports = new class DbHandler {
         }
     }
 
+    /**
+     * Returns a valid applicant for the given user to read.
+     */
     getAvailableApplicant(user){
         const self = this;
         let sql;
@@ -182,6 +199,9 @@ module.exports = new class DbHandler {
         }
     }
 
+    /**
+     * Reserves a spot in the DB for the user to score applicant.
+     */
     holdApplicant(userId,asc_id){
         return new Promise((res,rej)=>{
             const sql1 = 'INSERT INTO readScores (userID, asc_id) VALUES ($userId,$asc_id);' 
@@ -197,6 +217,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Returns the first unscored applicant reserved for the given user.
+     */
     findIncompleteApplicant(userId){
         return new Promise((res,rej)=>{
             const sql = 'SELECT asc_id FROM readScores WHERE userId = ? AND essay_score IS NULL;';
@@ -208,6 +231,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * REturns the statistics of all applicants.
+     */
     getApplicantsStats(){
         return new Promise((res,rej)=>{
             const sql = "SELECT applicants.asc_id, applicants.read_count, applicants.complete, applicants.month_applied, sum(readScores.essay_score_1) AS essay_1_total, sum(readScores.essay_score_2) AS essay_2_total, sum(readScores.essay_score_3) AS essay_3_total, sum(readScores.essay_score) AS essay_total FROM applicants LEFT JOIN readScores ON readScores.asc_id=applicants.asc_id GROUP BY applicants.asc_id ORDER BY essay_total DESC;";
@@ -231,7 +257,9 @@ module.exports = new class DbHandler {
         })
     }
 
-
+    /**
+     * Returns reserved applicants for the given ASC ID that have been scored.
+     */
     getCompleteReadScores(asc_id){
         return new Promise((res,rej)=>{
             const sql = "SELECT * FROM readScores WHERE asc_id=? AND essay_score NOT NULL;";
@@ -332,16 +360,22 @@ module.exports = new class DbHandler {
         return applicant.record;
     }
 
-    findUser(userID){
+    /**
+     * Returns user with given userId.
+     */
+    findUser(userId){
         return new Promise((res,rej)=>{
             const sql = 'SELECT * FROM users WHERE id = ? LIMIT 1;';
-            this.db.get(sql, userID, function(err, row){
+            this.db.get(sql, userId, function(err, row){
                 if (err) return rej(err);
                 res(row);
             })
         })
     }
 
+    /**
+     * Returns user by given email.
+     */
     findUserByEmail(email){
         return new Promise((res,rej)=>{
             const sql = 'SELECT * FROM users WHERE email = ? LIMIT 1;';
@@ -352,6 +386,10 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Returns all users from the DB.
+     * Intended for Admin purposes.
+     */
     getUsers(){
         return new Promise((res,rej)=>{
             const sql = 'SELECT id, name, email, admin, alumni, month_access FROM users;';
@@ -362,6 +400,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Adds a new user to the DB given a SQL parameter-like object.
+     */
     addNewUser({id, name, email, password, admin, alumni, month_access}){
         const self = this;
         return new Promise((res, rej)=>{    
@@ -384,6 +425,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Updates the user given an SQL parameter-like object.
+     */
     updateUser({id, name, email, password, admin, alumni, month_access}){
         const self = this;
         if(password){
@@ -427,6 +471,9 @@ module.exports = new class DbHandler {
         }
     }
 
+    /**
+     * Sets the given userId to having visited the website before.
+     */
     setUserVisited(userId){
         return new Promise((res, rej)=>{    
             const sql ="UPDATE users SET first_time = 1 WHERE id = ?";
@@ -437,6 +484,9 @@ module.exports = new class DbHandler {
         })
     }
     
+    /**
+     * Sets the given userId as having completed their Readathon.
+     */
     setUserDone(userId){
         return new Promise((res, rej)=>{    
             const sql ="UPDATE users SET done = 1 WHERE id = ?";
@@ -446,9 +496,10 @@ module.exports = new class DbHandler {
             });
         })
     }
-    
 
-
+    /**
+     * Returns the basic progress stats for the Readathon.
+     */
     getProgressStats(){
         return new Promise((res, rej)=>{    
             const sql ="SELECT count(*) AS total, sum(complete) AS completed FROM applicants;";
@@ -460,6 +511,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Returns the applicants that have been assigned to a user.
+     */
     getReadScoresWithUsers(){
         return new Promise((res,rej)=>{
             const sql = "SELECT users.name as 'username', asc_id, essay_score_1,essay_score_2,essay_score_3, essay_score, comment  FROM readScores  JOIN users ON users.id=readScores.userId;";
@@ -470,6 +524,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Returns average score for applicants.
+     */
     getAvgAppScore(){
         return new Promise((res,rej)=>{
             const sql = "SELECT avg(essay_score) as avg FROM readScores;";
@@ -480,6 +537,9 @@ module.exports = new class DbHandler {
         })
     }
 
+    /**
+     * Returns the sample standard deviation for scored applicants.
+     */
     getSampleStdEssayScore(){
         return new Promise((res,rej)=>{
             const sql = "SELECT SUM((essay_score -(SELECT AVG(essay_score) FROM readScores)) * (essay_score -(SELECT AVG(essay_score) FROM readScores)))/(count(*)-1) AS sample_std, AVG(essay_score) AS avg FROM readScores;";
@@ -490,6 +550,9 @@ module.exports = new class DbHandler {
         });
     }
 
+    /**
+     * Returns statistics for all users for admin purposed.
+     */
     async getUserStats_admin(){
         const stats = await this.getSampleStdEssayScore();
         const avg = await this.getAvgAppScore();
@@ -507,6 +570,9 @@ module.exports = new class DbHandler {
         });
     }
 
+    /**
+     * Returns all applicant reservations for the given userId.
+     */
     getUserApplicants(userId){
         return new Promise((res,rej)=>{
             const sql="SELECT * FROM readScores WHERE userId=?;";
@@ -517,6 +583,9 @@ module.exports = new class DbHandler {
         });
     }
     
+    /**
+     * Returns the scoring stats for the given userId.
+     */
     getUserScores(userId){
         return new Promise((res,rej)=>{
             const sql="SELECT count(*) AS count, AVG(essay_score_1) AS 'essay_score_1_avg', AVG(essay_score_2) AS 'essay_score_2_avg', AVG(essay_score_3) AS 'essay_score_3_avg', AVG(essay_score) AS 'essay_score_avg' FROM readScores WHERE userId=?;";
@@ -527,6 +596,9 @@ module.exports = new class DbHandler {
         });
     }
 
+    /**
+     * Returns the statistics of the given userId.
+     */
     async getUserStats(userId){
         const userApplicants = await this.getUserApplicants(userId);
         const userScores = await this.getUserScores(userId);
@@ -537,6 +609,9 @@ module.exports = new class DbHandler {
         }
     }
 
+    /**
+     * Returns applicant by airtable ID.
+     */
     getApplicantByAirtableID(airtable_id){
         return new Promise((res,rej)=>{
             const sql = "SELECT * FROM applicants WHERE airtable_id=?;";
@@ -561,7 +636,6 @@ module.exports = new class DbHandler {
         const paramInject = [];
         for(const applicant of this.applicants){
             // don't want duplicates
-            // const foundApplicant = await this.getApplicantByAirtableID(applicant.airtable_id);
             const foundApplicant = await this.getApplicantByAirtableID(applicant.id);
             if(foundApplicant) continue;
             

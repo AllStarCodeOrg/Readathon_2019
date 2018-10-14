@@ -3,75 +3,73 @@
 <%include ../partials/head%>
 
 <body>
-    <div class="main-container d-flex vh-100 flex-column">
-        <div class="content-container">
+    <!-- CUSTOM CSS -->
+    <link rel="stylesheet" href="/static/css/login.css">
+    <div class="main-container d-flex flex-column vh-100">
+        <div class="center-container flex d-flex flex-column">
+            <!-- HEADER -->
+            <div class="login-header md-flex justify-content-around mt-3 p-3 border border-primaryLight rounded">
+                <div class="md-flex flex-column">
+                    <p class="h2 m-0 text-primaryLight">ASC Readathon for 2019 SI Applicants</p>
+                    <p class="h5 text-primaryLight">
+                        <span class="text-primaryDark font-italic"><%= monthStr %></span> Batch</p>
+                    
 
-            <div class="container-fluid flex flex-center flex-column text-center">
-
-                <!-- HEADER -->
-                <p class="h2 mt-3">ASC Readathon for 2019 SI Applicants</p>
-                <p class="h3">
-                    <%= monthStr %> Batch</p>
-                <!-- HEADER END -->
-                <!-- PROG BAR -->
-                <div class="login-progress progress md-progress w-50">
-                        <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar"
-                        style="width: <%= progressStats.perc %>" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"><%=progressStats.completed%> out of <%=progressStats.total%> (<%=progressStats.perc%>%)</div>
+                    <!-- PROG BAR -->
+                    <div class="mt-3 w-100">
+                        <p class="prog-bar-info mb-2">
+                            Current Progress: <%=progressStats.completed%> out of <%=progressStats.total%> applicants completed
+                        </p>
+                        <div class="prog-bar progress md-progress w-100">
+                            <div class="progress-bar progress-bar-striped progress-bar-animated bg-accent" role="progressbar"
+                                style="width: <%= progressStats.perc %>%" aria-valuenow="50" aria-valuemin="0"
+                                aria-valuemax="100">
+                                <%=progressStats.perc%>%</div>
+                        </div>
                     </div>
                     <!-- PROG BAR END -->
-                <!-- LOGIN -->
-                <!-- Material form subscription -->
-                <div class="card w-50 mt-4">
+                </div>
+            </div>
+            <!-- HEADER END -->
+            <!-- LOGIN -->
+            <div class="container-fluid md-flex flex-column flex text-center">
+                <div class="login-container w-50 p-3 border border-primaryLight rounded">
+                    <!-- Form -->
+                    <form class="login-form text-center" action="/" method="POST">
+                        <%if(locals.msg){%>
+                        <%for(const error of msg.errors){%>
+                        <p class="alert alert-danger p-1">
+                            <%= error%>
+                        </p>
+                        <%}%>
+                        <%}%>
 
-                    <h5 class="card-header info-color white-text text-center py-4">
-                        <strong>Readathon Login</strong>
-                    </h5>
+                        <div class="md-form">
+                            <input type="email" name="email" class="form-control" <%if(locals.oldInfo){%>value="
+                            <%=oldInfo.email%>"
+                            <%}%>>
+                            <label for="email">E-mail</label>
+                        </div>
+                        <!-- Password -->
+                        <div class="md-form mt-3">
+                            <input type="password" name="password" class="form-control" <%if(locals.oldInfo){%>value="
+                            <%=oldInfo.password%>"
+                            <%}%>>
+                            <label for="password">Password</label>
+                        </div>
+                        <!-- Sign in button -->
+                        <button class="btn btn-rounded btn-block z-depth-0 my-4 waves-effect bg-alternate border-primaryLight border" type="submit">Sign
+                            in</button>
 
-                    <!--Card content-->
-                    <div class="card-body px-lg-5">
-
-                        <!-- Form -->
-                        <form class="text-center" action="/" method="POST">
-
-                            <%if(locals.msg){%>
-                                <%for(const error of msg.errors){%>
-                                <p class="alert alert-danger p-1">
-                                    <%= error%>
-                                </p>
-                                <%}%>
-                            <%}else{%>
-                            <p>Readathon participants should have received an email with their temporary password</p>
-
-                            <br>
-                            <p>Once logged in, you can change your password under "Profile"</p>
-                            <%}%>
-
-                            <div class="md-form">
-                                <input type="email" name="email" class="form-control" <%if(locals.oldInfo){%>value="<%=oldInfo.email%>"<%}%>>
-                                <label for="email">E-mail</label>
-                            </div>
-                            <!-- Password -->
-                            <div class="md-form mt-3">
-                                <input type="password" name="password" class="form-control" <%if(locals.oldInfo){%>value="<%=oldInfo.password%>"<%}%>>
-                                <label for="password">Password</label>
-                            </div>
-
-
-                            <!-- Sign in button -->
-                            <button class="btn btn-outline-info btn-rounded btn-block z-depth-0 my-4 waves-effect" type="submit">Sign
-                                in</button>
-
-                        </form>
-                        <!-- Form -->
-
-                    </div>
-
+                    </form>
+                    <!-- Form -->
                 </div>
                 <!-- LOGIN END -->
             </div>
         </div>
         <%include ../partials/footer%>
     </div>
+
 </body>
 
 </html>

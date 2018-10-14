@@ -1,9 +1,10 @@
 # Readathon_2019
 
 # TO DO LIST
-- refactor
-    - dbHandler.js (refactoring names?)
 - Add Style!
+    - Rubric
+    - Applicants
+    - Profile
 - MUST BE USABLE ON MOBILE
 
 # NICE TO HAVES

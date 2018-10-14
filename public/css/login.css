@@ -1,0 +1,54 @@
+body {
+    background: url(../images/4d.jpg) center no-repeat;
+    background-size: cover;
+}
+
+@media (max-width: 500px){
+    body{
+        background: url(../images/4m.jpg) center no-repeat;
+        background-size: cover;
+    }
+}
+
+.center-container{
+    align-items: center;
+}
+
+.login-header,
+.login-container{
+    background-color: rgba(81,193,233,0.9);
+}
+.login-header{
+    text-align: center;
+    width: 66%;
+}
+
+.login-progress div {
+    height: var(--prog-h);
+}
+
+.login-container{
+    transform: scale(1.3);
+    min-width: 200px;
+    max-width: 300px;
+}
+
+.md-form label{
+    color: var(--primaryLight)!important;
+}
+
+.md-form input:focus{
+    box-shadow: 0 1px 0 0 var(--primaryLight)!important;
+    border-bottom: 1px solid var(--primaryLight)!important;
+}
+
+.login-form button{
+    transition: all 300ms;
+}
+.login-form button:hover{
+    background-color: var(--green);
+}
+.login-form button:focus{
+    border-color: var(--green)!important;
+    border-width: 2px!important;
+}

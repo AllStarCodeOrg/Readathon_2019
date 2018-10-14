@@ -1,4 +1,6 @@
 /* MAIN */
+@import url('https://fonts.googleapis.com/css?family=PT+Sans+Narrow|PT+Sans:700');
+
 :root{
   --ascBlue:#51C1E9;
   --primaryLight:#FFFFFF;
@@ -7,14 +9,45 @@
   --alternate:#A285dc;
   --green:#9dd052;
   --red:#e25d4f;
+  --bodyFont: 'PT Sans Narrow', sans-serif;
+  --headFont: 'PT Sans', sans-serif;
 }
 
 body{
   margin:0;
+  font-family: var(--bodyFont);
 }
 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+header{
+  font-family: var(--headFont);
+}
+
+.md-flex{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+.flex{
+  flex:1;
+}
 .vh-100{
   height: 100vh;
+}
+
+.w-30{
+  width: 30%;
 }
 
 .w-33{
@@ -64,8 +97,27 @@ body{
 .border-green{
   border-color: var(--green)!important;
 }
-.border-red{
-  border-color: var(--red)!important;
+
+.bg-ascBlue{
+  background-color: var(--ascBlue);
+}
+.bg-primaryLight{
+  background-color: var(--primaryLight);
+}
+.bg-primaryDark{
+  background-color: var(--primaryDark);
+}
+.bg-accent{
+  background-color: var(--accent);
+}
+.bg-alternate{
+  background-color: var(--alternate);
+}
+.bg-green{
+  background-color: var(--green);
+}
+.bg-red{
+  background-color: var(--red);
 }
 
 hr.sep {
@@ -81,40 +133,39 @@ hr.sep {
 
 /* MAIN END */
 
+/* NAV */
+nav{
+  border-bottom: solid 2px var(--ascBlue);
+}
+
+nav a{
+  color: var(--ascBlue);
+  transition: color 500ms;
+  font-size: 1.4rem;
+}
+
+nav a:hover{
+  color: var(--accent);
+}
+
+
+.prog-bar-info{
+  font-size: 1.1rem;
+  letter-spacing: .5px;
+}
+.progress-bar{
+  font-size: 1.3rem;
+}
+.prog-bar {
+  --prog-h: 25px;
+  height: var(--prog-h);
+}
+/* NAV END */
+
 /* LOGIN */
-#applyPage{
-  right: 0;
-  top: 0;
-}
 
-#applyPage>i{
-  font-size: 2rem;
-}
-
-.login-progress{
-  --prog-h: 50px;
-  height:var(--prog-h);
-}
-
-.login-progress div{
-  color: var(--primaryDark);
-  height:var(--prog-h);
-}
 
 /* LOGIN END */
-
-/* DASHBOARD */
-.three-cards a{
-  border-color: var(--ascBlue)!important;
-  color: var(--ascBlue);
-  height: 230px;
-}
-.card-icon{
-  color: var(--accent);
-  font-size: 2rem;
-  text-shadow: 2px 1px var(--alternate);
-}
-/* DASHBOARD END */
 
 /* PROFILE */
 /* PROFILE END */
@@ -134,48 +185,37 @@ hr.sep {
 .rubric-example-container{
   display: grid;
   grid-template: 1fr 4fr/ repeat(3, 1fr);
-  grid-gap: 4px;
+  grid-gap: 1px;
 }
 
 .rubric-example-container header{
   grid-column: 1/4;
   text-align: center;
+  color: var(--primaryLight);
+  margin: 5px 0;
 }
 
-.example{
+.rubric-example-container{
   border-style: solid;
   border-width: 1px;
 }
 
-.rubric-example-container:nth-child(1) .example{
+.example{
+  background-color:var(--primaryLight);
+  padding: 10px;
+}
+.rubric-example-container:nth-child(1){
   border-color: var(--ascBlue);
+  background-color: var(--ascBlue);
 }
-.rubric-example-container:nth-child(2) .example{
+.rubric-example-container:nth-child(2){
   border-color: var(--accent);
+  background-color: var(--accent);
 }
-.rubric-example-container:nth-child(3) .example{
+.rubric-example-container:nth-child(3){
   border-color: var(--red);
+  background-color: var(--red);
 }
-
-.example:nth-child(2)::before{
-  content:"Q1) What do you hope to achieve by the end of the Summer Intensive?";
-  display: block;
-  font-weight: bold;
-  margin-bottom: .5rem;
-}
-.example:nth-child(3)::before{
-  content:"Q2) Can you tell us about a time you struggled with something? What was challenging about it? What did you do?";
-  display: block;
-  font-weight: bold;
-  margin-bottom: .5rem;
-}
-.example:nth-child(4)::before{
-  content:"Q3) Describe a moment from your upbringing where your ethnic background helped to shape your perspective.";
-  display: block;
-  font-weight: bold;
-  margin-bottom: .5rem;
-}
-
 /* RUBRIC END */
 
 
@@ -200,3 +240,12 @@ hr.sep {
 
 /* STATS */
 /* STATS END */
+
+/* FOOTER */
+footer.page-footer .footer-copyright{
+  font-size: 1.5rem;
+  color: var(--ascBlue);
+  background-color: var(--primaryDark);
+  border-width: 2px!important;
+}
+/* FOOTER END */

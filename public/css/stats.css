@@ -1,0 +1,51 @@
+.no-data a{
+    transition: color 400ms;
+    text-decoration: underline;
+}
+.no-data a:hover{
+    color: var(--ascBlue);
+}
+
+.data-container{
+    display: flex;
+    margin-bottom: 10px;
+    width: 100%;
+    min-width: 800px;
+    max-width: 1000px;
+}
+
+.data-container:nth-child(2){
+    background-color: var(--alternate);
+}
+.data-container:nth-child(3){
+    background-color: var(--ascBlue);
+}
+
+.userStats-container{
+    color: var(--primaryLight);
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.graph-container{
+    position: relative;
+    width: 50%;
+    background-color: var(--primaryLight);
+    margin: 4px;
+}
+
+.table{
+    border: 2px solid var(--red);
+}
+
+.table thead th{
+    border-bottom: none;
+}
+
+.table td,
+.table th{
+    font-size: 1.2rem;
+}

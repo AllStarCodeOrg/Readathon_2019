@@ -68,10 +68,23 @@ const applicantScoreParser = data => {
         }
     }
 
+    const avgScoreByEssay = {
+        "Question #1": [],
+        "Question #2": [],
+        "Question #3": []
+    }
+
     arr.forEach(item => {
         scoresByEssay["Question #1"][item.essay_score_1]++;
+        avgScoreByEssay["Question #1"].push(item.essay_score_1);
         scoresByEssay["Question #2"][item.essay_score_2]++;
+        avgScoreByEssay["Question #2"].push(item.essay_score_2);
         scoresByEssay["Question #3"][item.essay_score_3]++;
+        avgScoreByEssay["Question #3"].push(item.essay_score_3);
+    });
+
+    Object.keys(avgScoreByEssay).forEach(key=>{
+        avgScoreByEssay[key] = avgScoreByEssay[key].reduce((acc,score)=>acc+score)/avgScoreByEssay[key].length;
     })
 
     return {
@@ -80,7 +93,8 @@ const applicantScoreParser = data => {
             labels: labels,
             values: values
         },
-        scoresByEssay: scoresByEssay
+        scoresByEssay: scoresByEssay,
+        avgScoreByEssay: avgScoreByEssay
     }
 }
 
@@ -169,6 +183,7 @@ module.exports = function (dbHandler) {
                 }
                 res.locals.data = data;
                 const parsedUserScores = applicantScoreParser(data);
+                res.locals.parsedUserScores = parsedUserScores;
                 res.locals.dataForGraph_scoreTotals = JSON.stringify({
                     labels: parsedUserScores.scoreTotals.labels,
                     datasets: [{
