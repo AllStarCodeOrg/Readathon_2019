@@ -70,11 +70,7 @@ module.exports = function (app, dbHandler) {
         res.locals.questions = questions;
         dbHandler.getProgressStats()
             .then(stats => {
-                res.locals.progressStats = {
-                    total: stats.total,
-                    completed: stats.completed,
-                    perc: stats.perc
-                }
+                res.locals.progressStats = stats;
                 next();
             })
             .catch(err => {

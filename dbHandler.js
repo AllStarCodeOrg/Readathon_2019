@@ -499,15 +499,34 @@ module.exports = new class DbHandler {
     }
 
     /**
+     * Returns total number of completed application reads.
+     */
+    getCompletedApplicantCount(){
+        return new Promise((res, rej)=>{    
+            const sql ="SELECT count(*) AS completed FROM readScores WHERE essay_score NOT NULL;";
+            this.db.get(sql, function(err, row){
+                if(err) return rej(err);
+                res(row.completed);
+            });
+        })
+    }
+
+    /**
      * Returns the basic progress stats for the Readathon.
      */
     getProgressStats(){
+        const self = this;
         return new Promise((res, rej)=>{    
-            const sql ="SELECT count(*) AS total, sum(complete) AS completed FROM applicants;";
+            const sql ="SELECT count(*) AS total FROM applicants;";
             this.db.get(sql, function(err, row){
                 if(err) return rej(err);
-                row.perc = ((row.completed/row.total)*100).toFixed(2);
-                res(row);
+                self.getCompletedApplicantCount()
+                    .then(completed=>{
+                        row.completed = completed;
+                        row.perc = (completed/(row.total*3)*100).toFixed(2);
+                        res(row);
+                    })
+                    .catch(err=>rej(err))                
             });
         })
     }
