@@ -1,8 +1,5 @@
 const fs = require('fs');
-const base = require('airtable').base('appI6ReVlk9nCsFUB');
 const dbFile = process.env.DB_FILEPATH;
-const table = process.env.AIRTABLE_TABLE_NAME;
-const view = process.env.AIRTABLE_TABLE_VIEW;
 const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const api_freq = 1000 * 60 * 60; // retrieves data every hour
@@ -15,6 +12,10 @@ module.exports = new class DbHandler {
         }else{
             this.db = require("./db");
         }
+        this.base = require('airtable').base('appI6ReVlk9nCsFUB');
+        this.table = process.env.AIRTABLE_TABLE_NAME;
+        this.view = process.env.AIRTABLE_TABLE_VIEW;
+
         this.getAirtableDataLoop();
     }
     
@@ -666,8 +667,8 @@ module.exports = new class DbHandler {
     getAirtableData(){
         const output = [];
         return new Promise((res,rej)=>{
-            base(table).select({
-                view: view
+            this.base(this.table).select({
+                view: this.view
             }).eachPage(function page(records, fetchNextPage) {
                 records.forEach(function(record) {
                     output.push(record);
