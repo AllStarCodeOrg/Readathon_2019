@@ -14,7 +14,7 @@
                 <h2>Trying to put your stats together, but there's no data!</h2>
                 <a class="h3 text-red" href="/applicant">Start Reading</a>
             </div>
-            <%}else{%>
+            <%}else{%>              
             <div class="readathonStats-container d-flex align-items-center flex-column text-center p-2">
                 <h2 class="text-primaryDark"><%=user.name%>'s Readathon Stats</h2>
                 <div class="data-container rounded animated fadeInUp">
@@ -26,7 +26,11 @@
                             <span class="text-primaryDark"><%=data.userScores.count%></span>
                         </h3>
                         <h3>Avg Applicant Score:
-                            <span class="text-primaryDark"><%=(data.userScores.essay_score_avg).toFixed(2)%></span>
+                                <%if(!data.userScores.essay_score_avg){%>
+                                    <span class="text-primaryDark">N/A</span>
+                                <%}else{%>
+                                    <span class="text-primaryDark"><%=(data.userScores.essay_score_avg).toFixed(2)%></span>
+                                <%}%>
                         </h3>
                     </div>
                 </div>
