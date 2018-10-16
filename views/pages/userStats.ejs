@@ -80,19 +80,39 @@
                   <%=userStat.count%>
                 </td>
                 <td>
-                  <%=(userStat.essay_score_1_avg).toFixed(2)%>
+                  <%if(!userStat.essay_score_1_avg){%>
+                    N/A
+                  <%}else{%>
+                    <%=(userStat.essay_score_1_avg).toFixed(2)%>
+                  <%}%>
                 </td>
                 <td>
-                  <%=(userStat.essay_score_2_avg).toFixed(2)%>
+                  <%if(!userStat.essay_score_2_avg){%>
+                    N/A
+                  <%}else{%>
+                    <%=(userStat.essay_score_2_avg).toFixed(2)%>
+                  <%}%>
                 </td>
                 <td>
-                  <%=(userStat.essay_score_3_avg).toFixed(2)%>
+                  <%if(!userStat.essay_score_3_avg){%>
+                    N/A
+                  <%}else{%>
+                    <%=(userStat.essay_score_3_avg).toFixed(2)%>
+                  <%}%>
                 </td>
                 <td>
-                  <%=(userStat.essay_score_avg).toFixed(2)%>
+                  <%if(!userStat.essay_score_avg){%>
+                    N/A
+                  <%}else{%>
+                    <%=(userStat.essay_score_avg).toFixed(2)%>
+                  <%}%>
                 </td>
                 <td>
-                  <%=userStat.perc%>%</td>
+                  <%if(!serStat.perc){%>
+                    N/A
+                  <%}else{%>
+                    <%=userStat.perc%>%</td>
+                  <%}%>
               </tr>
               <%}%>
             </tbody>
