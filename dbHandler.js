@@ -523,7 +523,6 @@ module.exports = new class DbHandler {
                 self.getCompletedApplicantCount()
                     .then(completed=>{
                         row.completed = completed;
-                        row.perc = (completed/(row.total*3)*100).toFixed(2);
                         res(row);
                     })
                     .catch(err=>rej(err))                
