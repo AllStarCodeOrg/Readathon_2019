@@ -3,12 +3,17 @@
 <%include ../partials/head%>
 
 <body>
-    <div class="main-container d-flex vh-100 flex-column">
+    <link rel="stylesheet" href="/static/css/applicant.css">
+    <div class="main-container d-flex vh-100 flex-column text-primaryDark">
         <%include ../partials/nav%>
         <div class="content-container">
+            <div id="options" class="animated fadeInDown">
+                <a href="/rubric" target="_blank">Rubric</a>
+            </div>
             <div class="container">
-                <p class="h1 text-center">Applicant:
-                   <span class="text-red"> <%=applicant.asc_id%></span>
+                <p class="h1 text-center mt-2">Applicant:
+                    <span class="text-red">
+                        <%=applicant.asc_id%></span>
                 </p>
 
                 <%if (locals.msg){%>
@@ -16,108 +21,132 @@
                     <%=msg.error%>
                 </p>
                 <%}%>
-                <form action="/applicant/<%=applicant.asc_id%>" method="POST">
+                <form class="d-flex flex-column align-items-center" action="/applicant/<%=applicant.asc_id%>" method="POST">
 
                     <!-- ESSAY 1 -->
-                    <div>
-                        <h2 class="muted-text text-ascBlue">
-                            Q1) <%= questions[0]%>
-                        </h2>
+                    <section class="animated fadeInUp">
+                        <header class="muted-text text-ascBlue">
+                            Q1)
+                            <%= questions[0]%>
+                        </header>
                         <p class="m3">
                             <%=applicant.essay_1%>
                         </p>
-                        <div class="form-control d-flex justify-content-around w-50 m-auto">
-                            <div class="d-flex">
-                                <label for="essay_1_score" class="mr-2">Score: </label>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mr-1" type="radio" name="essay_1_score" value="0" required>
-                                    <p class="m-0">0</p>
-                                </div>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mx-2" type="radio" name="essay_1_score" value="1" required>
-                                    <p class="m-0">1</p>
-                                </div>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mr-1" type="radio" name="essay_1_score" value="2" required>
-                                    <p class="m-0">2</p>
-                                </div>
+
+                        <!-- RADIO BUTTONS -->
+                        <div class="radio-container d-flex justify-content-center animated flipInX">
+
+                            <header class="radios-h mr-2">Score: </header>
+                            <div class="radios bg-primaryDark">
+                                <label for="essay_1_score_of_0">
+                                    <input type="radio" id="essay_1_score_of_0" name="essay_1_score" class="zero" value="0" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                        <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                        <path d="M256 128c-26.5 0-46.5 11.3-59.9 33.9C182.7 184.5 176 215.3 176 254c0 42.9 6.7 75.3 20.1 97.2C209.5 373 229.5 384 256 384c26.5 0 46.6-11 59.9-32.8C329.3 329.3 336 297 336 254 336 170 309.3 128 256 128zM292.2 330.7c-7.5 16.5-19.6 24.6-36.2 24.6 -16.7 0-28.7-8.1-36.3-24.6 -7.5-16.5-11.2-42-11.2-76.7 0-34.4 3.7-59.2 11.2-74.5 7.6-15.3 19.6-22.9 36.3-22.9 16.6 0 28.8 7.6 36.2 22.9 7.5 15.3 11.3 40.1 11.3 74.5C303.5 288.7 299.8 314.2 292.2 330.7z" /></svg>
+                                </label>
+                                <label for="essay_1_score_of_1">
+                                    <input type="radio" id="essay_1_score_of_1" name="essay_1_score" class="one" value="1" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                        <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                        <path d="M249.7 201.3H188v-25h19.3c6.9 0 13.4-1.2 19.5-3.6 6.2-2.4 11.4-5.6 15.8-9.8 4.4-4.2 7.9-9.2 10.5-15.2 2.7-5.9 4-12.5 4-19.6H284v256h-34.3V201.3z" /></svg>
+                                </label>
+                                <label for="essay_1_score_of_2">
+                                    <input type="radio" id="essay_1_score_of_2" name="essay_1_score" class="two" value="2" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                        <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                        <path d="M176 209.8c2.5-24.4 11-44.1 25.4-59.2 14.3-15 34-22.5 58.9-22.5 12.2 0 23.2 2.1 32.6 6.5 9.4 4.3 17.4 10.1 23.7 17.5 6.3 7.3 11.2 15.5 14.5 24.8 3.3 9.3 4.9 18.8 4.9 28.7 0 8.6-1 16.4-3.1 23.3 -2.1 6.9-5 13-8.7 18.3 -3.7 5.4-8 10.4-13.1 15 -4.9 4.7-10.3 9.1-16.2 13.2 -10.8 8.4-22.1 16.5-33.7 24.2 -11.6 7.8-22.7 16.5-33.4 26.3 -3.9 3.7-7.1 7.4-9.6 11.5 -2.5 4-4.6 9-6.3 15h117.4V384H178.5v-24.2c0-10 3.2-20 9.6-29.6 6.4-9.7 14.4-19.2 24.1-28.2 9.6-9 20.2-17.8 31.8-26.4 11.6-8.5 22.5-16.8 32.9-24.8 7.8-6 14-12.4 18.7-19.2 4.5-6.9 6.9-15.6 6.9-26.3 0-15.2-3.8-27-11.7-35.5 -7.8-8.5-17.9-12.7-30.5-12.7 -15.4 0-27.5 4.7-36.5 14.1 -9 9.4-13.4 22.3-13.4 38.6L176 209.8 176 209.8z" /></svg>
+                                </label>
                             </div>
 
-                            <div>
-                                <a href="/rubric" target="_blank">Rubric</a>
-                            </div>
                         </div>
-                    </div>
-                    <hr>
+                        <!-- RADIO BUTTONS END-->
+                    </section>
+                    <!-- ESSAY 1 END -->
+
                     <!-- ESSAY 2 -->
-                    <div>
-                        <h2 class="muted-text text-alternate">
-                            Q2) <%= questions[1]%>
-                        </h2>
+                    <section class="animated fadeInUp">
+                        <header class="muted-text text-alternate">
+                            Q2)
+                            <%= questions[1]%>
+                        </header>
                         <p class="m3">
                             <%=applicant.essay_2%>
                         </p>
-                        <div class="form-control d-flex justify-content-around w-50 m-auto">
-                            <div class="d-flex">
-                                <label for="essay_2_score" class="mr-2">Score: </label>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mr-1" type="radio" name="essay_2_score" value="0" required>
-                                    <p class="m-0">0</p>
-                                </div>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mx-2" type="radio" name="essay_2_score" value="1" required>
-                                    <p class="m-0">1</p>
-                                </div>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mr-1" type="radio" name="essay_2_score" value="2" required>
-                                    <p class="m-0">2</p>
-                                </div>
-                            </div>
+                        <!-- RADIO BUTTONS -->
+                        <div class="radio-container d-flex justify-content-center animated flipInX">
 
-                            <div>
-                                <a href="/rubric" target="_blank">Rubric</a>
+                                <header class="radios-h mr-2">Score: </header>
+                                <div class="radios bg-primaryDark">
+                                    <label for="essay_2_score_of_0">
+                                        <input type="radio" id="essay_2_score_of_0" name="essay_2_score" class="zero" value="0" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                            <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                            <path d="M256 128c-26.5 0-46.5 11.3-59.9 33.9C182.7 184.5 176 215.3 176 254c0 42.9 6.7 75.3 20.1 97.2C209.5 373 229.5 384 256 384c26.5 0 46.6-11 59.9-32.8C329.3 329.3 336 297 336 254 336 170 309.3 128 256 128zM292.2 330.7c-7.5 16.5-19.6 24.6-36.2 24.6 -16.7 0-28.7-8.1-36.3-24.6 -7.5-16.5-11.2-42-11.2-76.7 0-34.4 3.7-59.2 11.2-74.5 7.6-15.3 19.6-22.9 36.3-22.9 16.6 0 28.8 7.6 36.2 22.9 7.5 15.3 11.3 40.1 11.3 74.5C303.5 288.7 299.8 314.2 292.2 330.7z" /></svg>
+                                    </label>
+                                    <label for="essay_2_score_of_1">
+                                        <input type="radio" id="essay_2_score_of_1" name="essay_2_score" class="one"  value="1" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                            <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                            <path d="M249.7 201.3H188v-25h19.3c6.9 0 13.4-1.2 19.5-3.6 6.2-2.4 11.4-5.6 15.8-9.8 4.4-4.2 7.9-9.2 10.5-15.2 2.7-5.9 4-12.5 4-19.6H284v256h-34.3V201.3z" /></svg>
+                                    </label>
+                                    <label for="essay_2_score_of_2">
+                                        <input type="radio" id="essay_2_score_of_2" name="essay_2_score" class="two" value="2" />
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                            <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                            <path d="M176 209.8c2.5-24.4 11-44.1 25.4-59.2 14.3-15 34-22.5 58.9-22.5 12.2 0 23.2 2.1 32.6 6.5 9.4 4.3 17.4 10.1 23.7 17.5 6.3 7.3 11.2 15.5 14.5 24.8 3.3 9.3 4.9 18.8 4.9 28.7 0 8.6-1 16.4-3.1 23.3 -2.1 6.9-5 13-8.7 18.3 -3.7 5.4-8 10.4-13.1 15 -4.9 4.7-10.3 9.1-16.2 13.2 -10.8 8.4-22.1 16.5-33.7 24.2 -11.6 7.8-22.7 16.5-33.4 26.3 -3.9 3.7-7.1 7.4-9.6 11.5 -2.5 4-4.6 9-6.3 15h117.4V384H178.5v-24.2c0-10 3.2-20 9.6-29.6 6.4-9.7 14.4-19.2 24.1-28.2 9.6-9 20.2-17.8 31.8-26.4 11.6-8.5 22.5-16.8 32.9-24.8 7.8-6 14-12.4 18.7-19.2 4.5-6.9 6.9-15.6 6.9-26.3 0-15.2-3.8-27-11.7-35.5 -7.8-8.5-17.9-12.7-30.5-12.7 -15.4 0-27.5 4.7-36.5 14.1 -9 9.4-13.4 22.3-13.4 38.6L176 209.8 176 209.8z" /></svg>
+                                    </label>
+                                </div>
+    
                             </div>
-                        </div>
-                    </div>
-                    <hr>
+                            <!-- RADIO BUTTONS END-->
+                    </section>
+                    <!-- ESSAY 2 END -->
+
                     <!-- ESSAY 3 -->
-                    <div>
-                        <h2 class="muted-text text-green">
-                            Q3) <%= questions[2]%>
-                        </h2>
+                    <section class="animated fadeInUp">
+                        <header class="muted-text text-green">
+                            Q3)
+                            <%= questions[2]%>
+                        </header>
                         <p class="m3">
                             <%=applicant.essay_3%>
                         </p>
-                        <div class="form-control d-flex justify-content-around w-50 m-auto">
-                            <div class="d-flex">
-                                <label for="essay_3_score" class="mr-2">Score: </label>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mr-1" type="radio" name="essay_3_score" value="0" required>
-                                    <p class="m-0">0</p>
-                                </div>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mx-2" type="radio" name="essay_3_score" value="1" required>
-                                    <p class="m-0">1</p>
-                                </div>
-                                <div class="radio_button d-flex align-items-center">
-                                    <input class="mr-1" type="radio" name="essay_3_score" value="2" required>
-                                    <p class="m-0">2</p>
-                                </div>
+                        <!-- RADIO BUTTONS -->
+                        <div class="radio-container d-flex justify-content-center animated flipInX">
+
+                            <header class="radios-h mr-2">Score: </header>
+                            <div class="radios bg-primaryDark">
+                                <label for="essay_3_score_of_0">
+                                    <input type="radio" id="essay_3_score_of_0" name="essay_3_score" class="zero" value="0" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                        <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                        <path d="M256 128c-26.5 0-46.5 11.3-59.9 33.9C182.7 184.5 176 215.3 176 254c0 42.9 6.7 75.3 20.1 97.2C209.5 373 229.5 384 256 384c26.5 0 46.6-11 59.9-32.8C329.3 329.3 336 297 336 254 336 170 309.3 128 256 128zM292.2 330.7c-7.5 16.5-19.6 24.6-36.2 24.6 -16.7 0-28.7-8.1-36.3-24.6 -7.5-16.5-11.2-42-11.2-76.7 0-34.4 3.7-59.2 11.2-74.5 7.6-15.3 19.6-22.9 36.3-22.9 16.6 0 28.8 7.6 36.2 22.9 7.5 15.3 11.3 40.1 11.3 74.5C303.5 288.7 299.8 314.2 292.2 330.7z" /></svg>
+                                </label>
+                                <label for="essay_3_score_of_1">
+                                    <input type="radio" id="essay_3_score_of_1" name="essay_3_score" class="one"value="1" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                        <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                        <path d="M249.7 201.3H188v-25h19.3c6.9 0 13.4-1.2 19.5-3.6 6.2-2.4 11.4-5.6 15.8-9.8 4.4-4.2 7.9-9.2 10.5-15.2 2.7-5.9 4-12.5 4-19.6H284v256h-34.3V201.3z" /></svg>
+                                </label>
+                                <label for="essay_3_score_of_2">
+                                    <input type="radio" id="essay_3_score_of_2" name="essay_3_score" class="two" value="2" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512">
+                                        <path d="M256 0C114.6 0 0 114.6 0 256c0 141.4 114.6 256 256 256 141.4 0 256-114.6 256-256C512 114.6 397.4 0 256 0zM256 472c-119.3 0-216-96.7-216-216S136.7 40 256 40s216 96.7 216 216S375.3 472 256 472z" />
+                                        <path d="M176 209.8c2.5-24.4 11-44.1 25.4-59.2 14.3-15 34-22.5 58.9-22.5 12.2 0 23.2 2.1 32.6 6.5 9.4 4.3 17.4 10.1 23.7 17.5 6.3 7.3 11.2 15.5 14.5 24.8 3.3 9.3 4.9 18.8 4.9 28.7 0 8.6-1 16.4-3.1 23.3 -2.1 6.9-5 13-8.7 18.3 -3.7 5.4-8 10.4-13.1 15 -4.9 4.7-10.3 9.1-16.2 13.2 -10.8 8.4-22.1 16.5-33.7 24.2 -11.6 7.8-22.7 16.5-33.4 26.3 -3.9 3.7-7.1 7.4-9.6 11.5 -2.5 4-4.6 9-6.3 15h117.4V384H178.5v-24.2c0-10 3.2-20 9.6-29.6 6.4-9.7 14.4-19.2 24.1-28.2 9.6-9 20.2-17.8 31.8-26.4 11.6-8.5 22.5-16.8 32.9-24.8 7.8-6 14-12.4 18.7-19.2 4.5-6.9 6.9-15.6 6.9-26.3 0-15.2-3.8-27-11.7-35.5 -7.8-8.5-17.9-12.7-30.5-12.7 -15.4 0-27.5 4.7-36.5 14.1 -9 9.4-13.4 22.3-13.4 38.6L176 209.8 176 209.8z" /></svg>
+                                </label>
                             </div>
 
-                            <div>
-                                <a href="/rubric" target="_blank">Rubric</a>
-                            </div>
                         </div>
-                    </div>
+                        <!-- RADIO BUTTONS END-->
+                    </section>
 
                     <div class="form-group rounded md-form blue-border">
-                        <i class="fa fa-pencil prefix"></i>
+                        <i class="fa fa-pencil prefix text-ascBlue"></i>
                         <label for="comment">Comment:</label>
                         <textarea class="form-control  md-textarea" name="comment" rows="3"></textarea>
                     </div>
                     <!-- Submit in button -->
-                    <button class="btn btn-info btn-block my-4" type="submit">Submit Scores</button>
+                    <button id="submit-button" class="btn bg-alternate waves-effect" type="submit">Submit Scores</button>
                 </form>
             </div>
         </div>

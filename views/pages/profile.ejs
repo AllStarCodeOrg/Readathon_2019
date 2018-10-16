@@ -3,52 +3,106 @@
 <%include ../partials/head%>
 
 <body>
+    <link rel="stylesheet" href="/static/css/profile.css">
     <div class="main-container d-flex vh-100 flex-column">
         <%include ../partials/nav%>
-        <div class="content-container">
-            <div class="container d-flex flex-center">
-                <!-- Default form subscription -->
-                <form class="text-center border border-light p-5 w-50" action="/profile" method="POST">
-
-                    <p class="h4 mb-1 text-left">Profile for: <span class="text-orange pl-2">
-                            <%= user.name%> </span></p>
-
-                    <p class="h5 mb-2 text-left">Applicant Batch: <span class="text-orange pl-2">
-                            <%=user.month%> </span></p>
-                    <p class="h5 mb-4 text-left">Email: <span class="text-orange pl-2">
-                            <%=user.email%> </span></p>
-
-                    <%if(locals.msg){%>
-                    <%if(locals.msg.success){%>
-                    <p class="alert alert-success mb-4">
-                        <%=locals.msg.success%>
+        <div class="content-container w-50">
+            <div class="spacer bg-primaryLight"></div>
+            <!-- INFO -->
+            <div class="profile-container text-primaryLight bg-primaryDark d-flex flex-column p-3">
+                <p id="profile-name" class="h2 mb-1 text-left">Profile for: 
+                    <span class="text-accent pl-2 animated flipInX"><%= user.name%> </span>
+                        <%if(user.admin){%>
+                            <span class="text-red animated flipInX">(Admin)</span>
+                        <%}%>
+                        <%if(user.alumni){%>
+                            <span class="text-ascBlue animated flipInX">(Alum)</span>
+                        <%}%>
                     </p>
-                    <%}else if(locals.msg.error){%>
-                    <p class="alert alert-danger mb-4">
-                        <%=locals.msg.error%>
-                    </p>
-                    <%}%>
-                    <%}else{%>
-                    <p>Change your password:</p>
-                    <%}%>
-
-                    <input type="password" name="oldPassword" class="form-control mb-2" placeholder="Old Password"
-                        autofocus>
-                    <small class="text-muted mb-4 d-block">
-                        Password should be at least 4 characters long
-                    </small>
-
-                    <input type="password" name="newPassword" class="form-control mb-4" placeholder="New Password">
-                    <input type="password" name="newPassword2" class="form-control mb-4" placeholder="Confirm Password">
-
-                    <!-- Sign in button -->
-                    <button class="btn btn-info btn-block" type="submit">Submit</button>
-                </form>
-                <!-- Default form subscription -->
+                <p class="h3 mb-2 text-left">Applicant Batch: <span class="text-accent pl-2 animated flipInX">
+                        <%=user.month%> </span></p>
+                <p class="h4 text-left">Email: <span class="text-accent pl-2 animated flipInX">
+                    <%=user.email%> </span></p>
             </div>
+            <!-- INFO END -->
+            <%if(!locals.msg){%>
+            <!-- BUTTON -->
+            <button id="changePwdButton" class="bg-primaryDark text-alternate h4 p-2 animated">
+                <span class="animated flipInX">Change Password</span></button>
+            <%}%>
+            <!-- FORM -->
+            <form id="changePwdForm" style="display:<%if(locals.msg){%>block<%}else{%>none<%}%>;" class="text-center p-2 animated faster bg-primaryDark text-primaryLight" action="/profile"
+                method="POST">
+                <%if(locals.msg){%>
+                <%if(locals.msg.success){%>
+                <p class="alert alert-success mb-4">
+                    <%=locals.msg.success%>
+                </p>
+                <%}else if(locals.msg.error){%>
+                <p class="alert alert-danger mb-4">
+                    <%=locals.msg.error%>
+                </p>
+                <%}%>
+                <%}%>
+
+                <input id="oldPassword" type="password" name="oldPassword" class="form-control mb-5" placeholder="Old Password">
+                
+                <input type="password" name="newPassword" class="form-control mb-2" placeholder="New Password">
+                <p class="text-accent mb-2 d-block">
+                    Password should be at least 4 characters long
+                </p>
+                <input type="password" name="newPassword2" class="form-control mb-4" placeholder="Confirm Password">
+
+                <!-- Sign in button -->
+                <button id="submit" class="bg-alternate p-2 text-primaryLight w-50 rounded waves-effect" type="submit">Submit</button>
+            </form>
+            <!-- FORM END -->
         </div>
         <%include ../partials/footer%>
     </div>
+    <script>
+        window.onload = function () {
+            // ANIMATE CSS JQUERY PLUGIN
+            $.fn.extend({
+                animateCss: function (animationName, callback) {
+                    var animationEnd = (function (el) {
+                        var animations = {
+                            animation: 'animationend',
+                            OAnimation: 'oAnimationEnd',
+                            MozAnimation: 'mozAnimationEnd',
+                            WebkitAnimation: 'webkitAnimationEnd',
+                        };
+
+                        for (var t in animations) {
+                            if (el.style[t] !== undefined) {
+                                return animations[t];
+                            }
+                        }
+                    })(document.createElement('div'));
+
+                    this.addClass('animated ' + animationName).one(animationEnd, function () {
+                        $(this).removeClass('animated ' + animationName);
+
+                        if (typeof callback === 'function') callback();
+                    });
+
+                    return this;
+                },
+            });
+            const form = $("#changePwdForm");
+            const button = $("#changePwdButton");
+            const focusTarget = $("#oldPassword");
+            button.on("click", e => {
+                button.animateCss("slideOutUp", ()=>{
+                    button.css("display", "none");
+                    form.css("display", "block");
+                    form.animateCss("fadeInDown",()=>{
+                        focusTarget.focus();
+                    });
+                })
+            })
+        }
+    </script>
 </body>
 
 </html>

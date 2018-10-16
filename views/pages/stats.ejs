@@ -17,7 +17,7 @@
             <%}else{%>
             <div class="readathonStats-container d-flex align-items-center flex-column text-center p-2">
                 <h2 class="text-primaryDark"><%=user.name%>'s Readathon Stats</h2>
-                <div class="data-container rounded">
+                <div class="data-container rounded animated fadeInUp">
                     <div class="graph-container rounded">
                         <canvas id="scoreTotals"></canvas>
                     </div>
@@ -31,24 +31,24 @@
                     </div>
                 </div>
 
-                <data class="data-container rounded">
+                <data class="data-container rounded animated fadeInUp">
                     <div class="graph-container rounded">
                         <canvas id="scoresByEssay"></canvas>
                     </div>
                     <div class="userStats-container">
                         <h3>Avg. Question #1 Score:
-                            <span class="text-primaryDark"><%=parsedUserScores.avgScoreByEssay["Question #1"]%></span>
+                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #1"]).toFixed(2)%></span>
                         </h3>
                         <h3>Avg. Question #2 Score:
-                            <span class="text-primaryDark"><%=parsedUserScores.avgScoreByEssay["Question #2"]%></span>
+                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #2"]).toFixed(2)%></span>
                         </h3>
                         <h3>Avg. Question #3 Score:
-                            <span class="text-primaryDark"><%=parsedUserScores.avgScoreByEssay["Question #3"]%></span>
+                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #3"]).toFixed(2)%></span>
                         </h3>
                     </div>
                 </data>
 
-                <div class="data-container">
+                <div class="data-container animated fadeInUp">
                         <table class="table rounded">
                             <thead class="bg-red text-primaryLight">
                                 <tr>
@@ -76,7 +76,7 @@
                                         <%=applicant.essay_score_3%>
                                     </td>
                                     <td>
-                                        <%=applicant.essay_score%>
+                                        <span class="<%if(applicant.essay_score>4){%> text-ascBlue <%}else if(applicant.essay_score>2){%> text-accent <%}else{%> text-red <%}%> font-weight-bold"><%=applicant.essay_score%></span>
                                     </td>
                                     <td>
                                         <%=applicant.comment%>

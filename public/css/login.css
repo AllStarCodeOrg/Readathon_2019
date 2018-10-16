@@ -10,6 +10,10 @@ body {
     }
 }
 
+.prog-bar{
+    background-color: var(--primaryDark)!important;
+}
+
 .center-container{
     align-items: center;
 }

@@ -3,27 +3,35 @@
 <%include ../partials/head%>
 
 <body>
+    <link rel="stylesheet" href="/static/css/rubric.css">
     <div class="main-container d-flex vh-100 flex-column">
         <%include ../partials/nav%>
-        <div class="content-container d-flex flex-column align-items-center">
+        <div class="content-container d-flex flex-column align-items-center text-primaryDark">
             <!-- RUBRIC NAV -->
             <%include ../partials/rubric_nav%>
             <!-- RUBRIC NAV END -->
 
+            <div id="traits"></div>
             <!-- HEADING -->
             <h1 class="text-ascBlue h1">2019 Readathon Rubric</h1>
             <h3 class="mb-3 h3">All Stars begin with a <span class="font-italic text-accent">spark</span></h3>
-            <p class="muted-text w-75 text-center">
-                Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3 short-answer
-                    questions (50-150 words each)</span> based on a set of traits, or "competencies", that help us spot
-                that <span class="font-italic text-accent">spark</span>. These traits coincide with All Star Code's 3 pillars: <br />
-                <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate Failure</span>,
-                <span class="text-green">Tell Your Story</span>
-            </p>
+            <div class="max-s w-75 text-m">
+                <p>
+                    Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3 short-answer
+                        questions (150 words max)</span> based on a set of traits, or "competencies", that help us spot
+                    that <span class="font-italic text-accent">spark</span>. These traits coincide with All Star Code's 3 pillars: 
+                    <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate Failure</span>,
+                    <span class="text-green">Tell Your Story</span>
+                    <br />
+                </p>
+                <p>
+                    Each application is scored by 3 Readathon participants
+                </p>
+            </div>
             <!-- HEADING END -->
 
             <!-- THREE TRAITS EXPLAINED -->
-            <div class="mx-5">
+            <div class="max-l mx-5 w-75">
                 <div class="row border border-ascBlue text-center">
                     <div class="col d-flex flex-column align-items-center">
                         <h4 class="text-ascBlue font-weight-bold text-uppercase">
@@ -45,12 +53,12 @@
                     </div>
                     <div class="col d-flex flex-column align-items-center">
                         <h4 class="text-green font-weight-bold text-uppercase">
-                            self starter
+                            self-actualized
                         </h4>
                         <header class="text-green text-capitalize">
                             tell your story
                         </header>
-                        <p>Takes initiative; can speak up for themselves and others; can communicate concepts clearly</p>
+                        <p>Is authentic; celebrates other people's success; focuses on real issues; can describe themselves; enjoys what the world has to offer; enjoys the journey, not just the destination</p>
                     </div>
 
                 </div>
@@ -58,7 +66,7 @@
             <!-- THREE TRAITS EXPLAINED END -->
 
             <!-- FEW MORE THINGS -->
-            <div class="container my-4">
+            <div class="container my-4 max-m">
                 <h3 class="h3">A few more things to look out for:</h3>
                 <ul class="list-group">
                     <li class="list-group-item">All Stars are <span class="font-weight-bold">self-reflective</span> and are <span class="font-weight-bold">enthusiastic about the future</span></li>
@@ -71,21 +79,22 @@
 
             <hr class="sep border-ascBlue">
 
+            <div id="scoring"></div>
             <!-- SCORING TABLE -->
-            <div class="container-fluid scoring-table">
+            <div class="container-fluid scoring-table max-l">
                 <p class="h1 text-center">
                     How to Score Applications
                 </p>
-                <div class="container">
+                <div class="container text-m">
                     <p class="m-0">The Summer Intensive application included 3 short-answer questions. </p>
-                    <p class="m-0">You will score each applicant answer <span class="font-italic">individually</span>.</p>
+                    <p class="m-0">You will score each applicant's answer's <span class="font-italic">individually</span>.</p>
                 </div>
                 <table class="table border mt-3">
-                    <thead class="black white-text">
+                    <thead class="bg-primaryDark text-primaryLight">
                         <tr class="text-center">
-                            <th class="border-bottom-0" scope="col">Score</th>
-                            <th class="border-bottom-0" scope="col">Description</th>
-                            <th class="border-bottom-0" scope="col">Result</th>
+                            <th class="border-bottom-0 text-m" scope="col">Score</th>
+                            <th class="border-bottom-0 text-m" scope="col">Description</th>
+                            <th class="border-bottom-0 text-m" scope="col">Result</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -94,15 +103,15 @@
                             <td class="border">
                                 <ul class="pl-2 m-0">
                                     <li>
-                                            Took great care to write strong, compelling answers
-                                        </li>
-                                        <li>
-                                                Demonstrates strength in all three competencies
-                                        </li>
-                                        <li>
-                                                Shows enthusiasm for a rigorous, six-week learning program
-                                        </li>
-                                    </ul>
+                                        Took great care to write strong, compelling answers
+                                    </li>
+                                    <li>
+                                            Demonstrates strength in all three competencies
+                                    </li>
+                                    <li>
+                                            Shows enthusiasm for a rigorous, six-week learning program
+                                    </li>
+                                </ul>
                             </td>
                             <td class="border">The <span class="font-italic text-accent">spark</span> is strong in this one! Definitely a good fit for
                                 the All Star Code Summer Intensive.</td>
@@ -146,7 +155,7 @@
             <!-- SCORING TABLE END-->
 
             <!-- THINGS TO REMEMBER -->
-            <div class="container">
+            <div class="container max-m">
                 <header class="h3 text-uppercase">
                     things to remember...
                 </header>
@@ -175,13 +184,14 @@
                     </div>
                     <div class="question-container">
                         <header class="text-green">Question #3) <%=questions[2]%></header>
-                        <p class="question">Here, we're looking for applicants who are aligned with All Star Code's values of... </p>
+                        <p class="question">Here, we're looking for applicants who display some traits of being self-actualized. Ideal candidates will show at least 2 of the following: being able to accept themselves and others as they are, being realistic, having a sense of personal responsibility, being independant, having a sense of humor, or enjoying achievements as well as the experiences gained along the way.</p>
                     </div>
                 </div>
             </div>            
             <!-- THE QUESTIONS END -->
 
             <hr class="sep border-ascBlue">
+            <div id="examples"></div>
             <!-- EXAMPLES -->
             <style>                
                 .example:nth-child(2)::before{
@@ -212,7 +222,7 @@
                     <header class="h4 text-ascBlue">Score of 2</header>
                     <div class="example">I plan to use what I learn and the connections I make to start my own game design company</div>
                     <div class="example">I thought cooking scrambled eggs would be easy but I kept overcooking or overcooking them. It took me a while but eventually after many attempts and many manny eggs I can finally cook eggs better than anyone</div>
-                    <div class="example">Once, when I was babysitting my baby brother, I </div>
+                    <div class="example"></div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-accent">Score of 1</header>

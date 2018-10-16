@@ -16,9 +16,15 @@
 
 .data-container:nth-child(2){
     background-color: var(--alternate);
+    animation-delay: 250ms;
 }
 .data-container:nth-child(3){
     background-color: var(--ascBlue);
+    animation-delay: 500ms;
+}
+
+.data-container:nth-child(4){
+    animation-delay: 750ms;
 }
 
 .userStats-container{

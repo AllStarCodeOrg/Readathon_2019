@@ -1,0 +1,75 @@
+span{
+    display: inline-block;
+}
+
+#profile-name span:first-child{
+    animation-delay: 300ms;
+}
+#profile-name span:nth-child(2){
+    animation-delay: 500ms;
+}
+#profile-name span:nth-child(3){
+    animation-delay: 700ms;
+}
+
+.spacer{
+    height: 24px;
+    width: 100%;
+    position: relative;
+    z-index: 2000;
+}
+
+.content-container{
+    margin: auto;
+    overflow: hidden;
+    min-width: 400px;
+}
+
+#changePwdButton{
+    border:none;
+    width: 100%;
+    cursor: pointer;
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    text-decoration: underline;
+}
+
+#changePwdButton:focus{
+    outline: none;
+}
+
+#changePwdButton span{
+    animation-delay: 500ms;
+}
+#changePwdForm{
+    border-bottom-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+}
+
+.profile-container{
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid var(--primaryDark);
+    border-top-right-radius: 4px;
+    border-top-left-radius: 4px;
+}
+
+#submit{
+    border: 2px solid var(--primaryLight);
+    cursor: pointer;
+    transition: all 400ms;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+}
+
+#submit:hover{
+    background-color: var(--green);
+}
+
+input:focus{
+    border-color: var(--accent)!important;
+    border-width: 2px;
+    box-shadow: 0 0 0 0 0.2rem var(--accent)!important;
+}

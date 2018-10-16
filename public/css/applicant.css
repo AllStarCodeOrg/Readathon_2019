@@ -1,0 +1,161 @@
+body{
+    background-color: var(--primaryLight);
+}
+
+.applicant-container {
+    overflow-y: auto;
+}
+
+.content-container{
+    position: relative;
+}
+
+#options{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+#options a:first-child{
+    display: block;
+    background: var(--primaryDark);
+    color: var(--green);
+    font-size: 1.3rem;
+    border-bottom: 2px solid var(--ascBlue);
+    border-right: 2px solid var(--ascBlue);
+    border-bottom-right-radius: 1rem;
+    padding: 5px 10px;
+    transition: all 400ms;
+    text-transform: uppercase;
+    width: 8rem;
+    text-align: center;
+}
+
+#options a:first-child:hover{
+    color: var(--accent);
+}
+
+section {
+    box-sizing: border-box;
+    border-radius: 4px;
+    padding: 8px;
+    margin-bottom: 4px;
+}
+
+section header {
+    font-size: 1.3rem;
+    font-weight: 500;
+}
+
+section p {
+    font-family: Roboto, sans-serif;
+}
+
+section:nth-child(1) {
+    border: 2px solid var(--ascBlue);
+    animation-delay: 500ms;    
+}
+
+section:nth-child(1) .radio-container{
+    animation-delay: calc(500ms + 1s);
+}
+
+section:nth-child(2) {
+    border: 2px solid var(--alternate);
+    animation-delay: 750ms;
+}
+section:nth-child(2) .radio-container{
+    animation-delay: calc(750ms + 1s);
+}
+section:nth-child(3) {
+    border: 2px solid var(--green);
+    animation-delay: 1000ms;
+}
+section:nth-child(3) .radio-container{
+    animation-delay: calc(1000ms + 1s);
+}
+.blue-border textarea {
+    border: 1px solid var(--ascBlue);
+}
+
+.blue-border .md-textarea:focus {
+    border-bottom: 2px solid var(--ascBlue) !important;
+    box-shadow: 0 1px 0 0 #a285dc40 !important;
+}
+
+.md-form .prefix.active {
+    color: var(--ascBlue) !important;
+}
+
+.md-form {
+    width: 500px;
+    margin: 1rem auto;
+}
+
+#submit-button{
+    width: 400px;
+    font-size: 1.4rem;
+    transition: all 400ms;
+    border: 2px solid var(--primaryDark);
+    color: var(--primaryDark);
+}
+
+#submit-button:hover{
+    background: var(--green);
+}
+
+/* RADIO BUTTONS */
+label {
+    position: relative;
+    margin: 0;
+}
+
+input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+}
+
+svg {
+    fill: white;
+    height: 2rem;
+    width: 2rem;
+    margin: 0.2rem;
+}
+
+input+svg {
+    cursor: pointer;
+}
+
+input[type="radio"]+svg {
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+input[class="zero"]:hover+svg,
+input[class="zero"]:checked+svg,
+input[class="zero"]:focus+svg {
+    fill: var(--red);
+}
+
+input[class="one"]:hover+svg,
+input[class="one"]:checked+svg,
+input[class="one"]:focus+svg {
+    fill: var(--accent);
+}
+
+input[class="two"]:hover+svg,
+input[class="two"]:checked+svg,
+input[class="two"]:focus+svg {
+    fill: var(--ascBlue);
+}
+
+.radios-h{
+    display: flex;
+    align-items: center;
+}
+
+.radios{
+    padding: .5rem;
+    border-radius: 2rem;
+}

@@ -16,6 +16,7 @@
 body{
   margin:0;
   font-family: var(--bodyFont);
+  overflow: hidden;
 }
 
 h1,
@@ -131,20 +132,25 @@ hr.sep {
   color: #333;
   }
 
+  .outlined{
+    text-shadow: 0 0 2px var(--primaryDark);
+}
 /* MAIN END */
 
 /* NAV */
-nav{
+nav.main-nav{
   border-bottom: solid 2px var(--ascBlue);
+  z-index: 10;
 }
 
-nav a{
+nav.main-nav a{
   color: var(--ascBlue);
   transition: color 500ms;
   font-size: 1.4rem;
+  text-transform: uppercase;
 }
 
-nav a:hover{
+nav.main-nav a:hover{
   color: var(--accent);
 }
 
@@ -153,6 +159,11 @@ nav a:hover{
   font-size: 1.1rem;
   letter-spacing: .5px;
 }
+
+.progress{
+  background-color: #ffffff25!important;
+}
+
 .progress-bar{
   font-size: 1.3rem;
 }
@@ -161,85 +172,6 @@ nav a:hover{
   height: var(--prog-h);
 }
 /* NAV END */
-
-/* LOGIN */
-
-
-/* LOGIN END */
-
-/* PROFILE */
-/* PROFILE END */
-
-/* RUBRIC */
-.scoring-table .table td,
-.scoring-table .table th
-{
-  vertical-align: middle;
-}
-
-.rubric-examples-container{
-  display: grid;
-  grid-gap: 16px;
-}
-
-.rubric-example-container{
-  display: grid;
-  grid-template: 1fr 4fr/ repeat(3, 1fr);
-  grid-gap: 1px;
-}
-
-.rubric-example-container header{
-  grid-column: 1/4;
-  text-align: center;
-  color: var(--primaryLight);
-  margin: 5px 0;
-}
-
-.rubric-example-container{
-  border-style: solid;
-  border-width: 1px;
-}
-
-.example{
-  background-color:var(--primaryLight);
-  padding: 10px;
-}
-.rubric-example-container:nth-child(1){
-  border-color: var(--ascBlue);
-  background-color: var(--ascBlue);
-}
-.rubric-example-container:nth-child(2){
-  border-color: var(--accent);
-  background-color: var(--accent);
-}
-.rubric-example-container:nth-child(3){
-  border-color: var(--red);
-  background-color: var(--red);
-}
-/* RUBRIC END */
-
-
-/* APPLICANT */
-.applicant-container{
-  overflow-y: auto;
-}
-
-.blue-border textarea {
-  border: 1px solid var(--ascBlue);
-}
-
-.blue-border .md-textarea:focus {
-  border-bottom: 2px solid var(--alternate)!important;
-  box-shadow: 0 1px 0 0 #a285dc40!important;
-}
-
-.md-form .prefix.active {
-  color: var(--alternate)!important;
-}
-/* APPLICANT END*/
-
-/* STATS */
-/* STATS END */
 
 /* FOOTER */
 footer.page-footer .footer-copyright{

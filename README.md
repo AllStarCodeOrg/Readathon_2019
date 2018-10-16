@@ -3,8 +3,6 @@
 # TO DO LIST
 - Add Style!
     - Rubric
-    - Applicants
-    - Profile
 - MUST BE USABLE ON MOBILE
 
 # NICE TO HAVES

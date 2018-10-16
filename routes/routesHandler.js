@@ -1,7 +1,7 @@
 const questions = [
     "What do you hope to achieve by the end of the Summer Intensive?",
     "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?",
-    "Describe a positive and memorable moment from your upbringing related to your ethnic or cultural background that has helped shape your perspective."
+    "Describe a moment from your life that helped shape your view of the world. Consider your ethnic or cultural background when answering this question."
 ];
 /**
  * Handles user authentication.
