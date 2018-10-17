@@ -1,13 +1,12 @@
-<nav class="main-nav row no-gutters bg-primaryDark pb-1">
-    <a href="/dashboard" class="col-3 d-flex justify-content-center align-items-center text-center">
-        <%= monthStr %> <br> Readathon Dashboard
+<nav class="main-nav navbar bg-primaryDark pb-1">
+    <a class="navbar-brand" href="/dashboard">
+        <img src="/static/images/logo_horizontal.png" alt="">
     </a>
-
-    <div class="col d-flex pb-2 px-2 text-ascBlue">
-        <!-- PROG BAR -->
-        <div class="mt-3 w-100">
+    <!-- PROG BAR -->
+    <div class="prog-bar-container d-flex pb-2 px-2 text-ascBlue">
+        <div class="mt-1 w-100">
             <p class="prog-bar-info mb-2 text-center">
-                Total Readathon Progress: <%=progressStats.completed%> out of <%=progressStats.total%> applicants completed
+                Total Readathon Progress: <%=progressStats.completed%> out of <%=progressStats.total%> total reads needed
             </p>
             <div class="prog-bar progress md-progress w-100">
                 <div class="progress-bar progress-bar-striped progress-bar-animated bg-accent" role="progressbar"
@@ -16,17 +15,27 @@
                     <%=progressStats.perc%>%</div>
             </div>
         </div>
-        <!-- PROG BAR END -->
     </div>
-    <%if(user.admin===1 && title!="Admin"){%>
-    <a class="col-1 d-flex justify-content-center align-items-center text-center" href="/admin">
-        Admin
-    </a>
-    <%}%>
-    <a class="col-1 d-flex justify-content-center align-items-center text-center" href="/profile">
-        Profile
-    </a>
-    <a class="col-1 d-flex justify-content-center align-items-center text-center" href="/logout">
-        Logout
-    </a>
+    <!-- PROG BAR END -->
+
+    <div class="link-container">
+        <%if(user.admin===1){%>
+        <a class="<%if(title==="Admin"){%>active<%}%> nav-item" href="/admin">
+            Admin
+        </a>
+        <%}%>
+        <a class="<%if(title==="Dashboard"){%>active<%}%> nav-item" href="/dashboard">
+            Dashboard
+        </a>
+        <a class="<%if(title==="Profile"){%>active<%}%> nav-item" href="/profile">
+            Profile
+        </a>
+        <a class="nav-item" href="/logout">
+            Logout
+        </a>
+    
+        <a href="javascript:void(0);" class="hamburger ml-3 mr-2" onclick="swap()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
 </nav>

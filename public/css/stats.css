@@ -55,3 +55,55 @@
 .table th{
     font-size: 1.2rem;
 }
+
+/* RESPONSIVE */
+@media (max-width: 850px){
+    .graph-container{
+        width: 75%;
+    }
+    .data-container{
+        flex-direction: column;
+        align-items: center;
+        min-width: initial;
+    }
+}
+
+@media (max-width: 590px){
+    .table thead tr th:nth-child(2),
+    .table thead tr th:nth-child(3),
+    .table thead tr th:nth-child(4),
+    .table tbody tr td:nth-child(2),
+    .table tbody tr td:nth-child(3),
+    .table tbody tr td:nth-child(4)
+    {
+        display: none;
+    }
+
+}
+
+@media (max-width: 535px){
+    .graph-container{
+        width: 97%;
+    }
+}
+
+@media (max-width: 420px){
+    .userStats-container h3{
+        font-size: 1.4rem!important;
+    }
+
+    .graph-container{
+        display: none;
+    }
+    .data-container{
+        background-color: transparent!important;
+    }
+
+    .data-container:nth-child(2) .userStats-container{
+        color: var(--alternate);
+    }
+    .data-container:nth-child(3) .userStats-container{
+        color: var(--ascBlue);
+    }
+
+}

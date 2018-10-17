@@ -3,7 +3,7 @@ body{
 }
 
 .applicant-container {
-    overflow-y: auto;
+    padding: 0 15px;
 }
 
 .content-container{
@@ -158,4 +158,36 @@ input[class="two"]:focus+svg {
 .radios{
     padding: .5rem;
     border-radius: 2rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 610px){
+    #options{
+        position: initial;
+        width: 100%;
+    }
+    #options a:first-child{
+        border-right: none;
+        border-bottom-right-radius: 0;
+        width: 100%;
+    }
+    .md-form{
+        width: 400px;
+    }
+}
+@media (max-width: 450px){
+    .radios-h{
+        display: none;
+    }
+
+    .md-form{
+        width: 90%!important;
+    }
+    #submit-button{
+        width: 90%;
+    }
+
+    .applicant-container{
+        padding: 0 4px;
+    }
 }

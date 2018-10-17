@@ -13,27 +13,31 @@
 
             <div id="traits"></div>
             <!-- HEADING -->
-            <h1 class="text-ascBlue h1">2019 Readathon Rubric</h1>
-            <h3 class="mb-3 h3">All Stars begin with a <span class="font-italic text-accent">spark</span></h3>
-            <div class="max-s w-75 text-m">
-                <p>
-                    Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3 short-answer
-                        questions (150 words max)</span> based on a set of traits, or "competencies", that help us spot
-                    that <span class="font-italic text-accent">spark</span>. These traits coincide with All Star Code's 3 pillars: 
-                    <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate Failure</span>,
-                    <span class="text-green">Tell Your Story</span>
-                    <br />
-                </p>
-                <p>
-                    Each application is scored by 3 Readathon participants
-                </p>
+            <div class="heading">
+                <div class="d-flex flex-column align-items-center">
+                    <h1 class="text-center text-ascBlue h1">2019 Readathon Rubric</h1>
+                    <h3 class="text-center mb-3 h3">All Stars begin with a <span class="font-italic text-accent">spark</span></h3>
+                    <div class="text-center max-s w-75 text-m">
+                        <p>
+                            Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3 short-answer
+                                questions (150 words max)</span> based on a set of traits, or "competencies", that help us spot
+                            that <span class="font-italic text-accent">spark</span>. These traits coincide with All Star Code's 3 pillars: 
+                            <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate Failure</span>,
+                            <span class="text-green">Tell Your Story</span>
+                            <br />
+                        </p>
+                        <p>
+                            Each application is scored by 3 Readathon participants
+                        </p>
+                    </div>
+                </div>
             </div>
             <!-- HEADING END -->
 
             <!-- THREE TRAITS EXPLAINED -->
-            <div class="max-l mx-5 w-75">
-                <div class="row border border-ascBlue text-center">
-                    <div class="col d-flex flex-column align-items-center">
+            <div class="three-traits border border-ascBlue text-center max-l mx-5 w-75">
+                <div class="d-flex">
+                    <div class="d-flex flex-column align-items-center">
                         <h4 class="text-ascBlue font-weight-bold text-uppercase">
                             hustle
                         </h4>
@@ -42,7 +46,7 @@
                         </header>
                         <p>Shows enthusiasm and ambition; seeks out and takes advantage of opportunities; takes an entrepreneurial and problem solving approach</p>
                     </div>
-                    <div class="col d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
                         <h4 class="text-alternate font-weight-bold text-uppercase">
                             growth mindset
                         </h4>
@@ -51,7 +55,7 @@
                         </header>
                         <p>Seeks new challenges and believes effort and attitude make all the difference; sees failure as part of the learning process and bounces back quickly from setbacks</p>
                     </div>
-                    <div class="col d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center">
                         <h4 class="text-green font-weight-bold text-uppercase">
                             self-actualized
                         </h4>
@@ -60,7 +64,6 @@
                         </header>
                         <p>Is authentic; celebrates other people's success; focuses on real issues; can describe themselves; enjoys what the world has to offer; enjoys the journey, not just the destination</p>
                     </div>
-
                 </div>
             </div>
             <!-- THREE TRAITS EXPLAINED END -->
@@ -106,7 +109,7 @@
                                         Took great care to write strong, compelling answers
                                     </li>
                                     <li>
-                                            Demonstrates strength in all three competencies
+                                            Demonstrates strength in the relevant competency
                                     </li>
                                     <li>
                                             Shows enthusiasm for a rigorous, six-week learning program
@@ -121,7 +124,7 @@
                             <td class="border">
                                     <ul class="pl-2 m-0">
                                             <li>
-                                                Demonstrates strength in at least two competencies
+                                                Demonstrates some strength in the relevant competency
                                             </li>
                                             <li>
                                                 Shows readiness and interest in a rigorous six-week learning program
@@ -140,7 +143,7 @@
                                         Has made little or no effort to answer all six questions
                                     </li>
                                     <li>
-                                        Does not demonstrate strength in any of the three competencies
+                                        Does not demonstrate strength in the relevant competency
                                     </li>
                                     <li>
                                         Is not ready for a rigorous, six-week learning program
@@ -171,7 +174,7 @@
 
             <hr class="sep border-ascBlue">
             <!-- THE QUESTIONS -->
-            <div class="container">
+            <div class="w-90">
                 <h2 class="text-capitalize text-center">the questions explained</h2>
                 <div class="question-grid-container">
                     <div class="question-container">
@@ -180,11 +183,11 @@
                     </div>
                     <div class="question-container">
                         <header class="text-alternate">Question #2) <%=questions[1]%></header>
-                        <p class="question">We're looking to see how applicant handles failure. Ideal candidates will use failure and criticism to their benefit and learn from their mistakes. Less ideal candidates will be embarassed by failure and give up in order to continue doing what they're already good at.</p>
+                        <p class="question">We're looking to see how applicants handle failure. Ideal candidates will use failure and criticism to their benefit and learn from their mistakes. Less ideal candidates will be embarassed by failure and give up in order to continue doing what they're already good at.</p>
                     </div>
                     <div class="question-container">
                         <header class="text-green">Question #3) <%=questions[2]%></header>
-                        <p class="question">Here, we're looking for applicants who display some traits of being self-actualized. Ideal candidates will show at least 2 of the following: being able to accept themselves and others as they are, being realistic, having a sense of personal responsibility, being independant, having a sense of humor, or enjoying achievements as well as the experiences gained along the way.</p>
+                        <p class="question">Here, we're looking for applicants who display some traits of being self-actualized. Ideal candidates will show at least 2 of the following: being able to accept themselves and others as they are, being realistic, having a sense of personal responsibility, being independant, having a sense of humor, and/or appreciating achievements along with the experiences gained along the way.</p>
                     </div>
                 </div>
             </div>            
@@ -220,20 +223,20 @@
             <div class="container-fluid m-3 rubric-examples-container">
                 <div class="rubric-example-container">
                     <header class="h4 text-ascBlue">Score of 2</header>
-                    <div class="example">I plan to use what I learn and the connections I make to start my own game design company</div>
-                    <div class="example">I thought cooking scrambled eggs would be easy but I kept overcooking or overcooking them. It took me a while but eventually after many attempts and many manny eggs I can finally cook eggs better than anyone</div>
+                    <div class="example">...I plan to use what I learn and the connections I make to start my own game design company...</div>
+                    <div class="example">...I thought cooking scrambled eggs would be easy but I kept overcooking or undercooking them. It took me a while but eventually after many attempts and many manny eggs I can finally cook eggs better than anyone...</div>
                     <div class="example"></div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-accent">Score of 1</header>
-                    <div class="example">Lately I've been curious about how computers work, so I think it would be a great opportunity to learn to code</div>
-                    <div class="example">I had poor grades in math, so I decided to pick myself up and study. I asked my math teacher for help and my grades started to improve</div>
+                    <div class="example">...Lately I've been curious about how computers work, so I think it would be a great opportunity to learn to code...</div>
+                    <div class="example">...I had poor grades in math, so I decided to pick myself up and study. I asked my math teacher for help and my grades started to improve...</div>
                     <div class="example"></div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-red">Score of 0</header>
-                    <div class="example">I always wanted to go to a coding bootcamp. The free laptop will be good to have too</div>
-                    <div class="example">When I came to a new school everyone was into soccer, so I tried out for the team. Everyone was better than me, though, so I played tennis with my friends, which I was better at and it was more fun</div>
+                    <div class="example">...I always wanted to go to a coding bootcamp. The free laptop will be good to have too...</div>
+                    <div class="example">...When I came to a new school everyone was into soccer, so I tried out for the team. Everyone was better than me, though, so I played tennis with my friends, which I was better at and it was more fun...</div>
                     <div class="example"></div>
                 </div>
             </div>

@@ -56,3 +56,20 @@ body {
     border-color: var(--green)!important;
     border-width: 2px!important;
 }
+
+/* RESPONSIVE */
+@media (max-width: 560px){
+    .login-header div p:not(:first-child),
+    .login-header div div:last-child{
+        display: none;
+    }
+}
+@media (max-width: 420px){
+    .login-header p{
+        font-size: 1.7rem;
+    }
+
+    .login-header{
+        width: 90%;
+    }
+}
