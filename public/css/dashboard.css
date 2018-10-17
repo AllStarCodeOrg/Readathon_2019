@@ -115,6 +115,10 @@ body{
     .three-cards a{
         width: 80%;
     }
+
+    .alert-container{
+        position: inherit;
+    }
 }
 
 @media (max-width: 465px){

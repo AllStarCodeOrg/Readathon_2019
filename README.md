@@ -1,12 +1,10 @@
 # Readathon_2019
 
 # TO DO LIST
-- Add Style!
-    - Rubric
-    - light touch up to admin
-- MUST BE USABLE ON MOBILE
+- finalize rubric
 - ensure lowercase name and email
 - ensure proper cap display of name everywhere
+
 
 # NICE TO HAVES
 - have a log file

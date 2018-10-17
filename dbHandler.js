@@ -356,7 +356,7 @@ module.exports = new class DbHandler {
      * Returns live airtable record. 
      */
     findAirtableRecordByASCID(asc_id){
-        const applicant = this.applicants.find(applicant=>applicant.asc_id===asc_id);
+        const applicant = this.applicants.find(applicant=>applicant.fields["asc_id"]===asc_id);
         if(!applicant) return applicant;
         return applicant.record;
     }

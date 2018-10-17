@@ -149,7 +149,7 @@
     .max-s,
     .max-m
     {
-        width: 90%!important;
+        width: 100%!important;
         max-width: initial;
     }
 }
@@ -229,5 +229,9 @@
 
     .table td{
         border-color: var(--primaryDark)!important;
+    }
+
+    ul{
+        list-style-type:none;
     }
 }
