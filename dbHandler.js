@@ -135,11 +135,11 @@ module.exports = new class DbHandler {
                 this.db.get(sql, function(err, row){
                     if (err) return rej(err);
                     if(!row){
-                        return res(row);
-                    }else{
                         self.setUserDone(userId)
-                            .then(data=>res(data))
+                            .then(()=>res(true))
                             .catch(err=>rej(err))
+                    }else{
+                        return res(false);
                     }
                 })
             })
@@ -356,9 +356,7 @@ module.exports = new class DbHandler {
      * Returns live airtable record. 
      */
     findAirtableRecordByASCID(asc_id){
-        const applicant = this.applicants.find(applicant=>applicant.fields["asc_id"]===asc_id);
-        if(!applicant) return applicant;
-        return applicant.record;
+        return this.applicants.find(applicant=>applicant.fields["asc_id"]===asc_id);
     }
 
     /**
