@@ -1,7 +1,7 @@
 const questions = [
+    "According to Professor Gideon Rosen of Princeton University, 'Culture is what presents us with the kinds of valuable things that can fill a life.' Describe one valuable thing that your cultural, ethnic, or family background has given you, and how it informs your perspective.",
     "What do you hope to achieve by the end of the Summer Intensive?",
-    "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?",
-    "Describe a moment from your life that helped shape your view of the world. Consider your ethnic or cultural background when answering this question."
+    "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?"
 ];
 /**
  * Handles user authentication.
