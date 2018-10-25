@@ -113,6 +113,9 @@ module.exports = function (dbHandler) {
         });
     });
 
+    // annoying favicon requests
+    router.get('/favicon.ico', (req, res) => res.sendStatus(204));
+
     router.post('/', function (req, res, next) {
         passport.authenticate("local", (err, userObj, info) => {
             if (err) return next(err);
