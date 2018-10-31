@@ -89,7 +89,7 @@ module.exports = function (app, dbHandler) {
     // handling passing error messages
     app.use(passingErrorHandler);
 
-    var indexRouter = require('./index')(dbHandler);
+    var indexRouter = require('./index')(dbHandler,authenticationHandler);
     app.use('/', indexRouter);
 
     // authenticated past this point

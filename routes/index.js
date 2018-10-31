@@ -98,7 +98,7 @@ const applicantScoreParser = data => {
     }
 }
 
-module.exports = function (dbHandler) {
+module.exports = function (dbHandler, authenticationHandler) {
     router.get('/', function (req, res, next) {
         if (req.session.oldInfo) {
             res.locals.oldInfo = req.session.oldInfo;
@@ -161,18 +161,24 @@ module.exports = function (dbHandler) {
 
     router.get('/rubric', function (req, res, next) {
         const user = req.user;
-        if (user.first_time === 0) {
-            return dbHandler.setUserVisited(user.id)
-                .then(() => {
-                    res.render("rubric", {
-                        title: "Rubric"
+        if(user){
+            if (user.first_time === 0) {
+                return dbHandler.setUserVisited(user.id)
+                    .then(() => {
+                        res.render("rubric", {
+                            title: "Rubric"
+                        });
                     });
-                });
+            }
         }
         res.render("rubric", {
             title: "Rubric"
         });
     });
+
+    // authentication required after this point
+    router.use(authenticationHandler);
+
 
     router.get('/stats', function (req, res, next) {
         res.locals.user = req.user;

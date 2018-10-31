@@ -5,24 +5,36 @@
 <body>
     <link rel="stylesheet" href="/static/css/rubric.css">
     <div class="main-container d-flex vh-100 flex-column">
+        <%if(user){%>
         <%include ../partials/nav%>
+        <%}%>
         <div class="content-container d-flex flex-column align-items-center text-primaryDark">
             <!-- RUBRIC NAV -->
+            <%if(user){%>
             <%include ../partials/rubric_nav%>
+            <%}%>
             <!-- RUBRIC NAV END -->
 
             <div id="traits"></div>
             <!-- HEADING -->
             <div class="heading w-100">
                 <div class="d-flex flex-column align-items-center">
+                    <%if(user){%>
                     <h1 class="text-center text-ascBlue h1">2019 Readathon Rubric</h1>
+                    <%}else{%>
+                    <h1 class="text-center text-ascBlue h1 mt-4">All Star Code Application Part 2 Rubric</h1>
+                    <%}%>
                     <h3 class="text-center mb-3 h3">All Stars begin with a <span class="font-italic text-accent">spark</span></h3>
                     <div class="text-center max-s w-75 text-m">
                         <p>
-                            Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3 short-answer
-                                questions (150 words max)</span> based on a set of traits, or "competencies", that help us spot
-                            that <span class="font-italic text-accent">spark</span>. These traits coincide with All Star Code's 3 pillars: 
-                            <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate Failure</span>,
+                            Applicants for the 2019 Summer Intensive were given <span class="font-weight-bold">3
+                                short-answer
+                                questions (150 words max)</span> based on a set of traits, or "competencies", that help
+                            us spot
+                            that <span class="font-italic text-accent">spark</span>. These traits coincide with All
+                            Star Code's 3 pillars:
+                            <span class="text-ascBlue">Dare Greatly</span>, <span class="text-alternate">Celebrate
+                                Failure</span>,
                             <span class="text-green">Tell Your Story</span>
                             <br />
                         </p>
@@ -35,7 +47,7 @@
             <!-- HEADING END -->
 
             <!-- THREE TRAITS EXPLAINED -->
-            <div class="three-traits border border-ascBlue text-center max-l mx-5 w-75">
+            <div class="three-traits border border-ascBlue text-center mx-5 w-75">
                 <div class="d-flex">
                     <div class="d-flex flex-column align-items-center">
                         <h4 class="text-ascBlue font-weight-bold text-uppercase">
@@ -44,7 +56,8 @@
                         <header class="text-ascBlue text-capitalize">
                             dare greatly
                         </header>
-                        <p>Shows enthusiasm and ambition; seeks out and takes advantage of opportunities; takes an entrepreneurial and problem solving approach</p>
+                        <p>Shows enthusiasm and ambition; seeks out and takes advantage of opportunities; takes an
+                            entrepreneurial and problem solving approach</p>
                     </div>
                     <div class="d-flex flex-column align-items-center">
                         <h4 class="text-alternate font-weight-bold text-uppercase">
@@ -53,7 +66,8 @@
                         <header class="text-alternate text-capitalize">
                             celebrate failure
                         </header>
-                        <p>Seeks new challenges and believes effort and attitude make all the difference; sees failure as part of the learning process and bounces back quickly from setbacks</p>
+                        <p>Seeks new challenges and believes effort and attitude make all the difference; sees failure
+                            as part of the learning process and bounces back quickly from setbacks</p>
                     </div>
                     <div class="d-flex flex-column align-items-center">
                         <h4 class="text-green font-weight-bold text-uppercase">
@@ -62,7 +76,9 @@
                         <header class="text-green text-capitalize">
                             tell your story
                         </header>
-                        <p>Is authentic; celebrates other people's success; focuses on real issues; can describe themselves; enjoys what the world has to offer; enjoys the journey, not just the destination</p>
+                        <p>Is authentic; celebrates other people's success; focuses on real issues; can describe
+                            themselves; enjoys what the world has to offer; enjoys the journey, not just the
+                            destination</p>
                     </div>
                 </div>
             </div>
@@ -72,124 +88,78 @@
             <div class="container my-4 max-m">
                 <h3 class="h3">A few more things to look out for:</h3>
                 <ul class="list-group">
-                    <li class="list-group-item">All Stars are <span class="font-weight-bold">self-reflective</span> and are <span class="font-weight-bold">enthusiastic about the future</span></li>
-                    <li class="list-group-item">An All Star is <span class="font-weight-bold">willing to take risks</span> and embraces failure</li>
-                    <li class="list-group-item">All Stars are <span class="font-weight-bold">curious about the world</span> and <span class="font-weight-bold">enlist the help of others</span></li>
-                    <li class="list-group-item">Works toward a common goal; listens, seeks input, contributes, and shares the spotlight</li>
+                    <li class="list-group-item">All Stars are <span class="font-weight-bold">self-reflective</span> and
+                        are <span class="font-weight-bold">enthusiastic about the future</span></li>
+                    <li class="list-group-item">An All Star is <span class="font-weight-bold">willing to take risks</span>
+                        and embraces failure</li>
+                    <li class="list-group-item">All Stars are <span class="font-weight-bold">curious about the world</span>
+                        and <span class="font-weight-bold">enlist the help of others</span></li>
+                    <li class="list-group-item">Works toward a common goal; listens, seeks input, contributes, and
+                        shares the spotlight</li>
                 </ul>
             </div>
             <!-- FEW MORE THINGS END -->
 
             <hr class="sep border-ascBlue">
-
             <div id="scoring"></div>
-            <!-- SCORING TABLE -->
-            <div class="container-fluid scoring-table max-l">
-                <p class="h1 text-center">
-                    How to Score Applications
-                </p>
-                <div class="container text-m">
-                    <p class="m-0">The Summer Intensive application included 3 short-answer questions. </p>
-                    <p class="m-0">You will score each applicant's answer's <span class="font-italic">individually</span>.</p>
-                </div>
-                <table class="table border mt-3">
-                    <thead class="bg-primaryDark text-primaryLight">
-                        <tr class="text-center">
-                            <th class="border-bottom-0 text-m" scope="col">Score</th>
-                            <th class="border-bottom-0 text-m" scope="col">Description</th>
-                            <th class="border-bottom-0 text-m" scope="col">Result</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="text-ascBlue">
-                            <th class="text-center h2" scope="row">2</th>
-                            <td class="border">
-                                <ul class="pl-2 m-0">
-                                    <li>
-                                        Took great care to write strong, compelling answers
-                                    </li>
-                                    <li>
-                                            Demonstrates strength in the relevant competency
-                                    </li>
-                                    <li>
-                                            Shows enthusiasm for a rigorous, six-week learning program
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="border">The <span class="font-italic text-accent">spark</span> is strong in this one! Definitely a good fit for
-                                the All Star Code Summer Intensive.</td>
-                        </tr>
-                        <tr class="text-accent">
-                            <th class="text-center h2" scope="row">1</th>
-                            <td class="border">
-                                    <ul class="pl-2 m-0">
-                                            <li>
-                                                Demonstrates some strength in the relevant competency
-                                            </li>
-                                            <li>
-                                                Shows readiness and interest in a rigorous six-week learning program
-                                            </li>
-                                        </ul>
-                            </td>
-                            <td class="border">Possibly a good fit for the All Star Code Summer
-                                Intensive; needs further review</td>
-                        </tr>
-
-                        <tr class="text-red">
-                            <th class="text-center h2" scope="row">0</th>
-                            <td class="border">
-                                <ul class="pl-2 m-0">
-                                    <li>
-                                        Has made little or no effort to answer the question
-                                    </li>
-                                    <li>
-                                        Does not demonstrate strength in the relevant competency
-                                    </li>
-                                    <li>
-                                        Is not ready for a rigorous, six-week learning program
-                                    </li>
-                                </ul>
-                            </td>
-                            <td class="border">Not a good fit for the All Star Code Summer Intensive</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- SCORING TABLE END-->
-
-            <!-- THINGS TO REMEMBER -->
-            <div class="container max-m">
-                <header class="h3 text-uppercase">
-                    things to remember...
-                </header>
-                <ul class="list-group">
-                        <li class="list-group-item">These are high school kids with a wide range of educational opportunities and experiences. 
-                            <br> Look for the <span class="font-italic text-accent">spark</span> !</li>
-                        <li class="list-group-item">Your score will be added to two other scores, so don't fear making the "wrong choice" </li>
-                        <li class="list-group-item">Grade each application individually; avoid side-by-side comparisons or "saving your 2s." 
-                        <br>If it's good, it's good!</li>
-                    </ul>
-            </div>
-            <!-- THINGS TO REMEMBER END -->
-
-            <hr class="sep border-ascBlue">
             <!-- THE QUESTIONS -->
             <div class="w-90">
-                <h2 class="text-capitalize text-center">the questions explained</h2>
+                <h2 class="text-capitalize text-center">How to Score Applications</h2>
                 <div class="question-grid-container">
-                    <div class="question-container">
-                        <header class="text-ascBlue">Question #1) <%=questions[0]%></header>
-                        <p class="question">With this question we're focused on finding motivated applicants. Ideal candidates will already have a vision of what life after the Summer Intensive looks like for them. Less ideal candidates will be motivated by more immediate aspects from the SI, such as learning how to code or the amenities that come with being in the program.</p>
+                    <div class="question-container border border-ascBlue p-2 mb-2">
+                        <header class="text-ascBlue">Question #1)
+                            <%=questions[0]%>
+                        </header>
+                        <p class="question">With this question we're focused on finding motivated applicants. Ideal
+                            candidates will already have a vision of what life after the Summer Intensive looks like
+                            for them. Less ideal candidates will be motivated by more immediate aspects from the SI,
+                            such as learning how to code or the amenities that come with being in the program.</p>
+                        <p class="question">
+                            <span class="text-ascBlue">Score of 2</span> - Applicant is <span class="font-italic">clearly
+                                motivated</span> to be in the SI - applicant views the SI as an opportunity that will
+                            significantly benefit their future
+                            <br><span class="text-accent">Score of 1</span> - Applicant is <span class="font-italic">somewhat
+                                motivated</span> to be in the SI - applicant sees benefit in experiencing the SI
+                            <br><span class="text-red">Score of 0</span> - Applicant is not motivated to attend the SI
+                            - applicant does not view attending the SI as an opportunity
+                        </p>
                     </div>
-                    <div class="question-container">
-                        <header class="text-alternate">Question #2) <%=questions[1]%></header>
-                        <p class="question">We're looking to see how applicants handle failure. Ideal candidates will use failure and criticism to their benefit and learn from their mistakes. Less ideal candidates will be embarassed by failure and give up in order to continue doing what they're already good at.</p>
+                    <div class="question-container border border-alternate p-2 mb-2">
+                        <header class="text-alternate">Question #2)
+                            <%=questions[1]%>
+                        </header>
+                        <p class="question">We're looking to see how applicants handle failure. Ideal candidates will
+                            use
+                            failure and criticism to their benefit and learn from their mistakes. Less ideal candidates
+                            will be embarassed by failure and give up in order to continue doing what they're already
+                            good
+                            at.</p>
+                        <p class="question">
+                            <span class="text-ascBlue">Score of 2</span> - Applicant <span class="font-italic">clearly</span>
+                            sees some struggles or challenges can be beneficially used as learning experiences -
+                            applicant
+                            believes their skills can be developed over time with effort
+                            <br><span class="text-accent">Score of 1</span> - Applicant may not see struggles or
+                            challenges
+                            as something to avoid - applicant may believe putting in effort is rewarding in itself
+                            <br><span class="text-red">Score of 0</span> - Applicant views challenges as something to
+                            avoid
+                            - applicant does not believe their skills can change over time
+                        </p>
                     </div>
-                    <div class="question-container">
-                        <header class="text-green">Question #3) <%=questions[2]%></header>
-                    <p class="question">
-                        Readers are NOT asked to assess the validity of an applicant's culture, ethnicity, or family background. For example: a student might consider an online game to be part of their culture. We're looking for how applicants connect an aspect of their background to their perspective that demonstrates at least 2 self-actualized traits:
-                    </p>
+                    <div class="question-container border border-green p-2 mb-2">
+                        <header class="text-green">Question #3)
+                            <%=questions[2]%>
+                        </header>
+                        <p class="question">
+                            Readers are NOT asked to assess the validity of an applicant's culture, ethnicity, or
+                            family
+                            background. For example: a student might consider an online game to be part of their
+                            culture.
+                            We're
+                            looking for how applicants connect an aspect of their background to their perspective that
+                            demonstrates at least 2 self-actualized traits:
+                        </p>
                         <ul>
                             <li>being able to accept themselves and others as they are</li>
                             <li>being realistic</li>
@@ -198,71 +168,143 @@
                             <li>having a sense of humor</li>
                             <li>appreciating achievements along with the experiences gain </li>
                         </ul>
-                    <p class="question">                        
-                        <span class="text-ascBlue">Score of 2</span> - Applicant describes a <span class="font-italic">specific</span> aspect of their background that clearly connects to their perspective - demonstrates 2 or more self-actualized traits
-                        <br><span class="text-accent">Score of 1</span> - Applicant describes a <span class="font-italic">general</span> aspect of their background or perspective that connect in muddled or unclear way - demonstrates 1 or more self-actualized traits
-                        <br><span class="text-red">Score of 0</span> - Applicant has an unclear aspect of their background or perspective, with little or no connection between the two
+                        <p class="question">
+                            <span class="text-ascBlue">Score of 2</span> - Applicant describes a <span class="font-italic">specific</span>
+                            aspect of their background that clearly connects to their perspective - demonstrates 2 or
+                            more
+                            self-actualized traits
+                            <br><span class="text-accent">Score of 1</span> - Applicant describes a <span class="font-italic">general</span>
+                            aspect of their background or perspective that connect in a muddled or unclear way -
+                            demonstrates 1
+                            or more self-actualized traits
+                            <br><span class="text-red">Score of 0</span> - Applicant has an unclear aspect of their
+                            background
+                            or perspective, with little or no connection between the two
                         </p>
                     </div>
                 </div>
-            </div>            
+            </div>
+            <%if(user){%>
+            <!-- THINGS TO REMEMBER -->
+            <div class="container max-m">
+                <header class="h3 text-uppercase">
+                    things to remember...
+                </header>
+                <ul class="list-group">
+                    <li class="list-group-item">These are high school kids with a wide range of educational
+                        opportunities and experiences.
+                        <br> Look for the <span class="font-italic text-accent">spark</span> !</li>
+                    <li class="list-group-item">Your score will be added to two other scores, so don't fear making the
+                        "wrong choice" </li>
+                    <li class="list-group-item">Grade each application individually; avoid side-by-side comparisons or
+                        "saving your 2s."
+                        <br>If it's good, it's good!</li>
+                </ul>
+            </div>
+            <!-- THINGS TO REMEMBER END -->
+            <%}%>
             <!-- THE QUESTIONS END -->
 
-            <hr class="sep border-ascBlue">
+            <%if(user){%>
+                <hr class="sep border-ascBlue">
             <div id="examples"></div>
             <!-- EXAMPLES -->
-            <style>                
-                .example:nth-child(2)::before{
-                content:"Q1) ";
-                color:var(--ascBlue);
-                display: inline;
-                font-weight: bold;
-                margin-bottom: .5rem;
+            <style>
+                .example:nth-child(2)::before {
+                    content: "Q1) ";
+                    color: var(--ascBlue);
+                    display: inline;
+                    font-weight: bold;
+                    margin-bottom: .5rem;
                 }
-                .example:nth-child(3)::before{
-                content:"Q2) ";
-                color:var(--alternate);
-                display: inline;
-                font-weight: bold;
-                margin-bottom: .5rem;
+
+                .example:nth-child(3)::before {
+                    content: "Q2) ";
+                    color: var(--alternate);
+                    display: inline;
+                    font-weight: bold;
+                    margin-bottom: .5rem;
                 }
-                .example:nth-child(4)::before{
-                content:"Q3) ";
-                color:var(--green);
-                display: inline;
-                font-weight: bold;
-                margin-bottom: .5rem;
+
+                .example:nth-child(4)::before {
+                    content: "Q3) ";
+                    color: var(--green);
+                    display: inline;
+                    font-weight: bold;
+                    margin-bottom: .5rem;
                 }
             </style>
             <h2 class="h2">Examples</h2>
             <div class="container-fluid m-3 rubric-examples-container">
                 <div class="rubric-example-container">
                     <header class="h4 text-ascBlue">Score of 2</header>
-                    <div class="example">...I plan to use what I learn and the connections I make to start my own game design company...</div>
-                    <div class="example">...I thought cooking scrambled eggs would be easy but I kept overcooking or undercooking them. It took me a while but eventually after many attempts and many manny eggs I can finally cook eggs better than anyone...</div>
-                    <div class="example">...I'm not sure if this counts, but I spend a lot of time with my friends playing soccer. My coach told us that even the best players in the world keep trying to get better. For the big game, I practiced any chance I could. I even practiced in the house, but my mom complained after I broke some dishes. It felt great to see my improvement every day. We ended up losing the big game, but I was still happy...</div>
+                    <div class="example">...I plan to use what I learn and the connections I make to start my own game
+                        design
+                        company...</div>
+                    <div class="example">...I thought cooking scrambled eggs would be easy but I kept overcooking or
+                        undercooking them. It took me a while but eventually after many attempts and many manny eggs I
+                        can
+                        finally cook eggs better than anyone...</div>
+                    <div class="example">...I'm not sure if this counts, but I spend a lot of time with my friends
+                        playing
+                        soccer. My coach told us that even the best players in the world keep trying to get better. For
+                        the
+                        big
+                        game, I practiced any chance I could. I even practiced in the house, but my mom complained
+                        after I
+                        broke some dishes. It felt great to see my improvement every day. We ended up losing the big
+                        game,
+                        but
+                        I was still happy...</div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-accent">Score of 1</header>
-                    <div class="example">...Lately I've been curious about how computers work, so I think it would be a great opportunity to learn to code...</div>
-                    <div class="example">...I had poor grades in math, so I decided to pick myself up and study. I asked my math teacher for help and my grades started to improve...</div>
-                    <div class="example">...Growing up me and my family would enjoy Thanksgiving together. Last year, we volunteereed at a shelter for the holiday. It was great helping others. I asked my dad if we could do this every year and he said yes...</div>
+                    <div class="example">...Lately I've been curious about how computers work, so I think it would be a
+                        great
+                        opportunity to learn to code...</div>
+                    <div class="example">...I had poor grades in math, so I decided to pick myself up and study. I
+                        asked my
+                        math teacher for help and my grades started to improve...</div>
+                    <div class="example">...Growing up me and my family would enjoy Thanksgiving together. Last year,
+                        we
+                        volunteereed at a shelter for the holiday. It was great helping others. I asked my dad if we
+                        could
+                        do
+                        this every year and he said yes...</div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-red">Score of 0</header>
-                    <div class="example">...I always wanted to go to a coding bootcamp. The free laptop will be good to have too...</div>
-                    <div class="example">...When I came to a new school everyone was into soccer, so I tried out for the team. Everyone was better than me, though, so I played tennis with my friends, which I was better at and it was more fun...</div>
-                    <div class="example">...My family goes to church every Sunday. After we leave, we have lunch together at the restaurant nearby. We hang out and eat for over and hour. I really enjoy eating and spending time with my family...</div>
+                    <div class="example">...I always wanted to go to a coding bootcamp. The free laptop will be good to
+                        have
+                        too...</div>
+                    <div class="example">...When I came to a new school everyone was into soccer, so I tried out for
+                        the
+                        team.
+                        Everyone was better than me, though, so I played tennis with my friends, which I was better at
+                        and
+                        it
+                        was more fun...</div>
+                    <div class="example">...My family goes to church every Sunday. After we leave, we have lunch
+                        together
+                        at
+                        the restaurant nearby. We hang out and eat for over and hour. I really enjoy eating and
+                        spending
+                        time
+                        with my family...</div>
                 </div>
             </div>
             <!-- EXAMPLES END -->
-
+            <%}%>
             <!-- RUBRIC NAV -->
+            <%if(user){%>
             <%include ../partials/rubric_nav%>
+            <%}%>
             <!-- RUBRIC NAV END -->
-
         </div>
-        <%include ../partials/footer%>
+
+    </div>
+
+    <%include ../partials/footer%>
     </div>
 </body>
 

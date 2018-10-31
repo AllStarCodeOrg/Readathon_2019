@@ -3,6 +3,13 @@
     --rubric-nav-timer: 100ms;
 }
 
+#scoring,
+#examples
+{
+position: relative;
+top: -10px;
+}
+
 .w-90{
     width: 90%;
 }
@@ -97,6 +104,10 @@
 
 .scoring-table .table td {
     font-size: 1.2rem;
+}
+
+.question-container .question:last-child{
+    margin:0;
 }
 
 .rubric-examples-container {

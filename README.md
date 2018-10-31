@@ -4,6 +4,8 @@
 - finalize rubric
 - ensure lowercase name and email
 - ensure proper cap display of name everywhere
+- Make Rublic public facing for students
+- alter rubric scoring to have individual scoring
 
 
 # NICE TO HAVES
