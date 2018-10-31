@@ -152,6 +152,7 @@
                             <%=questions[2]%>
                         </header>
                         <p class="question">
+                            <%if(user){%>
                             Readers are NOT asked to assess the validity of an applicant's culture, ethnicity, or
                             family
                             background. For example: a student might consider an online game to be part of their
@@ -159,8 +160,11 @@
                             We're
                             looking for how applicants connect an aspect of their background to their perspective that
                             demonstrates at least 2 self-actualized traits:
-                        </p>
-                        <ul>
+                            <%}else{%>
+                                Readers are NOT asked to assess the validity of an applicant's culture, ethnicity, or family background. Whether online, offline, niche, or academic, a reader should be looking for how an applicant connects their background to their perspective. Some of the traits we are looking for are:
+                            <%}%>
+                            </p>
+                            <ul>
                             <li>being able to accept themselves and others as they are</li>
                             <li>being realistic</li>
                             <li>having a sense of personal responsibility</li>
