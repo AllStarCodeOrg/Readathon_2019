@@ -97,8 +97,9 @@ module.exports = new class DbHandler {
      */
     keepOnlyLastMonthApplicants(){
         let lastMonth = new Date().getMonth();
-        if(lastMonth === 0){
-            lastMonth = 12;
+        lastMonth--;
+        if(lastMonth < 0){
+            lastMonth = 11;
         }
         return new Promise((res,rej)=>{
             const sql = "DELETE FROM applicants WHERE month_applied <> ?;";
@@ -500,9 +501,10 @@ module.exports = new class DbHandler {
      * Returns total number of completed application reads.
      */
     getCompletedApplicantCount(){
-        return new Promise((res, rej)=>{    
-            const sql ="SELECT count(*) AS completed FROM readScores WHERE essay_score NOT NULL;";
-            this.db.get(sql, function(err, row){
+        return new Promise((res, rej)=>{
+            const month = new Date().getMonth()-1;
+            const sql ="SELECT count(*) AS completed FROM readScores JOIN applicants ON applicants.asc_id=readScores.asc_id WHERE applicants.month_applied=? AND readScores.essay_score NOT NULL;";
+            this.db.get(sql, month, function(err, row){
                 if(err) return rej(err);
                 res(row.completed);
             });
@@ -644,7 +646,6 @@ module.exports = new class DbHandler {
      */
     async populateApplicantDB(apiRecords){
         if(apiRecords.length===0) return;
-        // this.applicants = apiRecords.map(this.parseAirtableRecord);
         this.applicants = apiRecords;
         let sql = "INSERT INTO applicants (airtable_id, asc_id, month_applied, essay_1, essay_2, essay_3) VALUES";
 
