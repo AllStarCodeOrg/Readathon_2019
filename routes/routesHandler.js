@@ -3,12 +3,38 @@ const questions = [
     "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?",
     "According to Professor Gideon Rosen of Princeton University, 'Culture is what presents us with the kinds of valuable things that can fill a life.' Describe one valuable thing that your cultural, ethnic, or family background has given you, and how it informs your perspective."
 ];
+
+const DENY_ACCESS = false;
+
+/**
+ * Returns true if user is permitted to access the Readathon for the month.
+ */
+const permittedForMonth = user => {
+    let result;
+    const userMonth = user.month_access;
+    if(userMonth === null){
+        result = true;
+    }else{
+        const currentMonth = new Date().getMonth();
+        result = userMonth===currentMonth;
+    }
+
+    return !DENY_ACCESS && result;
+}
 /**
  * Handles user authentication.
  */
 const authenticationHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
-        return next();
+        // if user is not allowed for the month, go to information page
+        if(permittedForMonth(req.user)){
+            return next();
+        }else{
+            req.session.msg = {
+                error: "You do not have permission to access the Readathon at this time"
+            }
+            return res.redirect("/issue");
+        }
     }
     res.redirect('/');
 }

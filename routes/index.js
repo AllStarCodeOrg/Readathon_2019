@@ -176,6 +176,9 @@ module.exports = function (dbHandler, authenticationHandler) {
         });
     });
 
+    router.get('/issue',function(req,res,next){
+        res.render("issue", {title: "Issue"});
+    });
     // authentication required after this point
     router.use(authenticationHandler);
 
