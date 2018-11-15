@@ -39,6 +39,12 @@ a {
 
 .social-icon {
     font-size: 3rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.social-icon span{
+    font-size: 20px;
 }
 
 .social-icon:hover {

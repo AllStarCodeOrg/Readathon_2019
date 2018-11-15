@@ -5,11 +5,13 @@
 - ensure lowercase name and email
 - ensure proper cap display of name everywhere
 
+11/15
 - ~~Scrolling not responding to flick properly~~
 - ~~Mobile feedback survey not working (device - safari iPhone X)~~
-- fix problem w/admin sorting users
+- ~~problem w/admin sorting users~~
 - ~~Typeform survey shouldn't resubmit~~
-- Add survey summary link to admin- https://admin.typeform.com/form/JT1ILM/results#summary
+- ~~Add survey summary link to admin- https://admin.typeform.com/form/JT1ILM/results#summary~~
+- ~~resolved "cryptile" vulnerability~~
 
 # NICE TO HAVES
 - have a log file
