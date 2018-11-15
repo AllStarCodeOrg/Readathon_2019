@@ -135,13 +135,11 @@ module.exports = new class DbHandler {
             return new Promise((res,rej)=>{
                 this.db.get(sql, function(err, row){
                     if (err) return rej(err);
-                    if(!row){
-                        self.setUserDone(userId)
-                            .then(()=>res(true))
-                            .catch(err=>rej(err))
-                    }else{
-                        return res(false);
-                    }
+                    const result = !row;
+                    const doneness = result?1:0;
+                    self.setUserDone(userId,doneness)
+                        .then(()=>res(result))
+                        .catch(err=>rej(err))
                 })
             })
         }else{
@@ -149,13 +147,11 @@ module.exports = new class DbHandler {
             return new Promise((res,rej)=>{
                 this.db.get(sql, userId, function(err, row){
                     if (err) return rej(err);
-                    if(!row){
-                        self.setUserDone(userId)
-                            .then(()=>res(true))
-                            .catch(err=>rej(err))
-                    }else{
-                        res(false);
-                    }
+                    const result = !row;
+                    const doneness = result?1:0;
+                    self.setUserDone(userId,doneness)
+                        .then(()=>res(result))
+                        .catch(err=>rej(err))
                 })
             })        
         }
@@ -487,10 +483,10 @@ module.exports = new class DbHandler {
     /**
      * Sets the given userId as having completed their Readathon.
      */
-    setUserDone(userId){
+    setUserDone(userId, doneness){
         return new Promise((res, rej)=>{    
-            const sql ="UPDATE users SET done = 1 WHERE id = ?";
-            this.db.run(sql, userId, function(err){
+            const sql ="UPDATE users SET done = ? WHERE id = ?";
+            this.db.run(sql, [doneness,userId], function(err){
                 if(err) return rej(err);
                 res();
             });

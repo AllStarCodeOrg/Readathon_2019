@@ -51,7 +51,7 @@ const adminAuth = (req, res, next) => {
     if (req.user.admin === 1) {
         return next();
     }
-    res.redirect('/logout');
+    res.redirect('/dashboard');
 }
 
 /**
@@ -63,20 +63,6 @@ const getMonthStr = function () {
     return date.toLocaleString("en-us", {
         month: "long"
     });
-}
-
-/**
- * Handles edge case when user is done with Readathon.
- * Simply saves processing time.
- * Prevents user from accessing applicants.
- */
-const userDoneHandler = function (req, res, next) {
-    const user = req.user;
-    if (user.done) {
-        res.redirect("/dashboard");
-    } else {
-        next();
-    }
 }
 
 /**
@@ -109,7 +95,7 @@ module.exports = function (app, dbHandler) {
                 next();
             })
             .catch(err => {
-                console.log("Could not get progress stats");
+                console.log("Could not get progress stats:", err);
                 next();
             })
     }
@@ -130,7 +116,7 @@ module.exports = function (app, dbHandler) {
     app.use('/dashboard', dashboardRouter);
 
     var applicantRouter = require('./applicant')(dbHandler);
-    app.use('/applicant', userDoneHandler, applicantRouter);
+    app.use('/applicant', applicantRouter);
 
     // admin authenticated past this point
     app.use(adminAuth);

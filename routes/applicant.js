@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 module.exports = function (dbHandler) {
-
   router.get('/', function (req, res, next) {
     dbHandler.getNextApplicant(req.user)
       .then(asc_id => {

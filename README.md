@@ -12,6 +12,7 @@
 - ~~Typeform survey shouldn't resubmit~~
 - ~~Add survey summary link to admin- https://admin.typeform.com/form/JT1ILM/results#summary~~
 - ~~resolved "cryptile" vulnerability~~
+- removing user doneness
 
 # NICE TO HAVES
 - have a log file
