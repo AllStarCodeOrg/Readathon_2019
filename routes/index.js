@@ -162,19 +162,24 @@ module.exports = function (dbHandler, authenticationHandler) {
     router.get('/rubric', function (req, res, next) {
         const user = req.user;
         if(user){
-            if (user.first_time === 0) {
-                return dbHandler.setUserVisited(user.id)
-                    .then(() => {
-                        res.render("rubric", {
-                            title: "Rubric"
-                        });
-                    });
-            }
+            return res.render("rubric", {title: "Rubric"});
         }
         res.render("rubric", {
             title: "Rubric"
         });
     });
+
+    router.post("/rubric",(req,res)=>{
+        const checkedState = req.query.checked==="true" ? 1 : 0;
+        dbHandler.setUserVisited(req.user.id,checkedState)
+            .then(() => {
+                res.sendStatus(200);
+            })
+            .catch(err=>{
+                console.log("Error updating user visit status:", err);
+                res.sendStatus(400);
+            })
+    })
 
     router.get('/issue',function(req,res,next){
         res.render("issue", {title: "Issue"});

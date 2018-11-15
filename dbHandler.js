@@ -474,10 +474,10 @@ module.exports = new class DbHandler {
     /**
      * Sets the given userId to having visited the website before.
      */
-    setUserVisited(userId){
+    setUserVisited(userId, checkedState){
         return new Promise((res, rej)=>{    
-            const sql ="UPDATE users SET first_time = 1 WHERE id = ?";
-            this.db.run(sql, userId, function(err){
+            const sql ="UPDATE users SET first_time = ? WHERE id = ?";
+            this.db.run(sql, [checkedState,userId], function(err){
                 if(err) return rej(err);
                 res();
             });

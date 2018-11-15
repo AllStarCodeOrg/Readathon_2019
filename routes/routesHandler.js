@@ -1,7 +1,7 @@
 const questions = [
+    "According to Professor Gideon Rosen of Princeton University, 'Culture is what presents us with the kinds of valuable things that can fill a life.' Describe one valuable thing that your cultural, ethnic, or family background has given you, and how it informs your perspective.",
     "What do you hope to achieve by the end of the Summer Intensive?",
-    "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?",
-    "According to Professor Gideon Rosen of Princeton University, 'Culture is what presents us with the kinds of valuable things that can fill a life.' Describe one valuable thing that your cultural, ethnic, or family background has given you, and how it informs your perspective."
+    "Can you tell us about a time you struggled with something? What was challenging about it? What did you do?"
 ];
 
 const DENY_ACCESS = false;
@@ -10,13 +10,14 @@ const DENY_ACCESS = false;
  * Returns true if user is permitted to access the Readathon for the month.
  */
 const permittedForMonth = user => {
+    if(user.admin===1) return true;
     let result;
     const userMonth = user.month_access;
     if(userMonth === null){
         result = true;
     }else{
         const currentMonth = new Date().getMonth();
-        result = userMonth===currentMonth;
+        result = userMonth === currentMonth;
     }
 
     return !DENY_ACCESS && result;
@@ -28,7 +29,11 @@ const authenticationHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
         // if user is not allowed for the month, go to information page
         if(permittedForMonth(req.user)){
-            return next();
+            if(req.user.first_time===0){
+                return res.redirect('/rubric');
+              }else{
+                return next();
+              }
         }else{
             req.session.msg = {
                 error: "You do not have permission to access the Readathon at this time"

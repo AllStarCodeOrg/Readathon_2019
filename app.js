@@ -30,13 +30,10 @@ app.use(session({
   saveUninitialized: false,  // only want to store for logged in users
   store: new SQLiteStore,
   cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 } // 1 week
-  // cookie: { secure: true }
+    // secure: true // HTTPS
 }))
 app.use(passport.initialize()); // adds .login, .serializeUser, and .deserializeUser, .user, .isAuthenticated()
 app.use(passport.session());
-
-// ROUTES
-require("./routes/routesHandler")(app, dbHandler);
 
 const clean = str => {
   return str.trim().toLowerCase();
@@ -59,7 +56,8 @@ async function verifyUser(email, password) {
 // LOCAL STRATEGY
 passport.use(new LocalStrategy({
   usernameField: 'email',
-  passwordField: 'password',},
+  passwordField: 'password'
+},
   function (email, password, done) {
       verifyUser(email, password).
         then(user => {
@@ -87,6 +85,9 @@ passport.deserializeUser(function (userID, done) {
       done(err);
     })
 });
+
+// ROUTES
+require("./routes/routesHandler")(app, dbHandler);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

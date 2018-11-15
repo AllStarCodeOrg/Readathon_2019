@@ -299,15 +299,34 @@
             </div>
             <!-- EXAMPLES END -->
             <%}%>
+            <%if(user && user.first_time===0){%>
+                <div class="custom-control custom-checkbox mb-3 container">
+                    <input type="checkbox" class="custom-control-input" id="checkbox">
+                    <label class="custom-control-label" for="checkbox">
+                            As an ASC readathon volunteer, I have read the selection criteria, and will assess each student's application fairly and to the best of my ability.
+                    </label>
+                  </div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded",()=>{
+                            checkbox.addEventListener("change",e=>{
+                                const url = `${document.location.href}?checked=${e.target.checked}`
+                                fetch(url,{
+                                    method:"POST"
+                                })
+                                    .then(()=>{
+                                        document.location.href = document.location.origin + "/dashboard";
+                                    })
+                            })
+                        });
+                    </script>
+            <%}%>
             <!-- RUBRIC NAV -->
             <%if(user){%>
             <%include ../partials/rubric_nav%>
             <%}%>
             <!-- RUBRIC NAV END -->
         </div>
-
     </div>
-
     <%include ../partials/footer%>
     </div>
 </body>

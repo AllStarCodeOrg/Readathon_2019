@@ -153,6 +153,22 @@ top: -10px;
     background-color: var(--red);
 }
 
+.custom-control.custom-checkbox{
+    min-height: initial;
+}
+
+.custom-control-label{
+    font-size: 2rem;
+}
+
+.custom-control-label::before,
+.custom-control-label::after
+{
+    width: 2rem;
+    height: 2rem;
+    left: -2.5rem;
+}
+
 /* RESPONSIVE */
 @media(max-width: 890px) {
 
@@ -188,6 +204,12 @@ top: -10px;
     }
 }
 
+@media(max-width: 700px) {
+    .custom-control{
+        width: initial;
+        margin: 0 60px;
+    }
+}
 @media(max-width: 640px) {
     .scoring-table .table td{
         font-size: 1rem;
