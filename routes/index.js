@@ -147,7 +147,11 @@ module.exports = function (dbHandler, authenticationHandler) {
                     if (err) {
                         return next(err);
                     }
-                    res.redirect(`/dashboard`);
+                    if(user.first_time===0){
+                        res.redirect("/rubric");
+                    }else{
+                        res.redirect(`/dashboard`);
+                    }
                 });
             }
         })(req, res, next)

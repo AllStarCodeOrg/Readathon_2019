@@ -15,6 +15,12 @@
             <%}%>
             <!-- RUBRIC NAV END -->
 
+            <%if(user && user.first_time===0){%>
+                <h4 class="alert alert-warning mt-2">
+                    Please make sure to confirm you've read the Rubric (at the bottom) to continue
+                </h4>
+            <%}%>
+
             <div id="traits"></div>
             <!-- HEADING -->
             <div class="heading w-100">
@@ -49,7 +55,7 @@
             <!-- THREE TRAITS EXPLAINED -->
             <div class="three-traits border border-ascBlue text-center mx-5 w-75">
                 <div class="d-flex">
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center p-2">
                         <h4 class="text-ascBlue font-weight-bold text-uppercase">
                             hustle
                         </h4>
@@ -59,7 +65,7 @@
                         <p>Shows enthusiasm and ambition; seeks out and takes advantage of opportunities; takes an
                             entrepreneurial and problem solving approach</p>
                     </div>
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center p-2">
                         <h4 class="text-alternate font-weight-bold text-uppercase">
                             motivation to learn
                         </h4>
@@ -69,7 +75,7 @@
                         <p>Seeks new challenges and believes effort and attitude make all the difference; sees failure
                             as part of the learning process and bounces back quickly from setbacks</p>
                     </div>
-                    <div class="d-flex flex-column align-items-center">
+                    <div class="d-flex flex-column align-items-center p-2">
                         <h4 class="text-green font-weight-bold text-uppercase">
                             self-actualized
                         </h4>

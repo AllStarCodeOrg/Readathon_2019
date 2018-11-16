@@ -97,7 +97,7 @@ module.exports = function (dbHandler) {
               .then(result => {
                 if (result) {
                   req.session.msg = {
-                    success: `Completed Applicant ${asc_id} as your last applicant! Please give feedback on how we can improve the Readathon reader experience`
+                    success: `Completed Applicant ${asc_id} as your last applicant! If you're seeing this, then you've read as many applicants as you can! Please give feedback on how we can improve the Readathon reader experience!`
                   };
                 } else {
                   req.session.msg = {

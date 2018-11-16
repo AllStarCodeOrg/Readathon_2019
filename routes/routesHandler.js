@@ -29,11 +29,7 @@ const authenticationHandler = (req, res, next) => {
     if (req.isAuthenticated()) {
         // if user is not allowed for the month, go to information page
         if(permittedForMonth(req.user)){
-            if(req.user.first_time===0){
-                return res.redirect('/rubric');
-              }else{
-                return next();
-              }
+            return next();
         }else{
             req.session.msg = {
                 error: "You do not have permission to access the Readathon at this time"
