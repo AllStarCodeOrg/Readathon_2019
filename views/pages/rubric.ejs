@@ -116,47 +116,6 @@
                         <header class="text-ascBlue">Question #1)
                             <%=questions[0]%>
                         </header>
-                        <p class="question">With this question we're focused on finding motivated applicants. Ideal
-                            candidates will already have a vision of what life after the Summer Intensive looks like
-                            for them. Less ideal candidates will be motivated by more immediate aspects from the SI,
-                            such as learning how to code or the amenities that come with being in the program.</p>
-                        <p class="question">
-                            <span class="text-ascBlue">Score of 2</span> - Applicant is <span class="font-italic">clearly
-                                motivated</span> to be in the SI - applicant views the SI as an opportunity that will
-                            significantly benefit their future
-                            <br><span class="text-accent">Score of 1</span> - Applicant is <span class="font-italic">somewhat
-                                motivated</span> to be in the SI - applicant sees benefit in experiencing the SI
-                            <br><span class="text-red">Score of 0</span> - Applicant is not motivated to attend the SI
-                            - applicant does not view attending the SI as an opportunity
-                        </p>
-                    </div>
-                    <div class="question-container border border-alternate p-2 mb-2">
-                        <header class="text-alternate">Question #2)
-                            <%=questions[1]%>
-                        </header>
-                        <p class="question">We're looking to see how applicants handle failure. Ideal candidates will
-                            use
-                            failure and criticism to their benefit and learn from their mistakes. Less ideal candidates
-                            will be embarassed by failure and give up in order to continue doing what they're already
-                            good
-                            at.</p>
-                        <p class="question">
-                            <span class="text-ascBlue">Score of 2</span> - Applicant <span class="font-italic">clearly</span>
-                            sees some struggles or challenges can be beneficially used as learning experiences -
-                            applicant
-                            believes their skills can be developed over time with effort
-                            <br><span class="text-accent">Score of 1</span> - Applicant may not see struggles or
-                            challenges
-                            as something to avoid - applicant may believe putting in effort is rewarding in itself
-                            <br><span class="text-red">Score of 0</span> - Applicant views challenges as something to
-                            avoid
-                            - applicant does not believe their skills can change over time
-                        </p>
-                    </div>
-                    <div class="question-container border border-green p-2 mb-2">
-                        <header class="text-green">Question #3)
-                            <%=questions[2]%>
-                        </header>
                         <p class="question">
                             <%if(user){%>
                             Readers are NOT asked to assess the validity of an applicant's culture, ethnicity, or
@@ -190,6 +149,47 @@
                             <br><span class="text-red">Score of 0</span> - Applicant has an unclear aspect of their
                             background
                             or perspective, with little or no connection between the two
+                        </p>
+                    </div>
+                    <div class="question-container border border-alternate p-2 mb-2">
+                        <header class="text-alternate">Question #2)
+                            <%=questions[1]%>
+                        </header>
+                        <p class="question">With this question we're focused on finding motivated applicants. Ideal
+                            candidates will already have a vision of what life after the Summer Intensive looks like
+                            for them. Less ideal candidates will be motivated by more immediate aspects from the SI,
+                            such as learning how to code or the amenities that come with being in the program.</p>
+                        <p class="question">
+                            <span class="text-ascBlue">Score of 2</span> - Applicant is <span class="font-italic">clearly
+                                motivated</span> to be in the SI - applicant views the SI as an opportunity that will
+                            significantly benefit their future
+                            <br><span class="text-accent">Score of 1</span> - Applicant is <span class="font-italic">somewhat
+                                motivated</span> to be in the SI - applicant sees benefit in experiencing the SI
+                            <br><span class="text-red">Score of 0</span> - Applicant is not motivated to attend the SI
+                            - applicant does not view attending the SI as an opportunity
+                        </p>
+                    </div>
+                    <div class="question-container border border-green p-2 mb-2">
+                        <header class="text-green">Question #3)
+                            <%=questions[2]%>
+                        </header>
+                        <p class="question">We're looking to see how applicants handle failure. Ideal candidates will
+                            use
+                            failure and criticism to their benefit and learn from their mistakes. Less ideal candidates
+                            will be embarassed by failure and give up in order to continue doing what they're already
+                            good
+                            at.</p>
+                        <p class="question">
+                            <span class="text-ascBlue">Score of 2</span> - Applicant <span class="font-italic">clearly</span>
+                            sees some struggles or challenges can be beneficially used as learning experiences -
+                            applicant
+                            believes their skills can be developed over time with effort
+                            <br><span class="text-accent">Score of 1</span> - Applicant may not see struggles or
+                            challenges
+                            as something to avoid - applicant may believe putting in effort is rewarding in itself
+                            <br><span class="text-red">Score of 0</span> - Applicant views challenges as something to
+                            avoid
+                            - applicant does not believe their skills can change over time
                         </p>
                     </div>
                 </div>
@@ -248,13 +248,6 @@
             <div class="container-fluid m-3 rubric-examples-container">
                 <div class="rubric-example-container">
                     <header class="h4 text-ascBlue">Score of 2</header>
-                    <div class="example">...I plan to use what I learn and the connections I make to start my own game
-                        design
-                        company...</div>
-                    <div class="example">...I thought cooking scrambled eggs would be easy but I kept overcooking or
-                        undercooking them. It took me a while but eventually after many attempts and many manny eggs I
-                        can
-                        finally cook eggs better than anyone...</div>
                     <div class="example">...I'm not sure if this counts, but I spend a lot of time with my friends
                         playing
                         soccer. My coach told us that even the best players in the world keep trying to get better. For
@@ -266,24 +259,38 @@
                         game,
                         but
                         I was still happy...</div>
+                    <div class="example">...I plan to use what I learn and the connections I make to start my own game
+                        design
+                        company...</div>
+                    <div class="example">...I thought cooking scrambled eggs would be easy but I kept overcooking or
+                        undercooking them. It took me a while but eventually after many attempts and many manny eggs I
+                        can
+                        finally cook eggs better than anyone...</div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-accent">Score of 1</header>
-                    <div class="example">...Lately I've been curious about how computers work, so I think it would be a
-                        great
-                        opportunity to learn to code...</div>
-                    <div class="example">...I had poor grades in math, so I decided to pick myself up and study. I
-                        asked my
-                        math teacher for help and my grades started to improve...</div>
                     <div class="example">...Growing up me and my family would enjoy Thanksgiving together. Last year,
                         we
                         volunteereed at a shelter for the holiday. It was great helping others. I asked my dad if we
                         could
                         do
                         this every year and he said yes...</div>
+                    <div class="example">...Lately I've been curious about how computers work, so I think it would be a
+                        great
+                        opportunity to learn to code...</div>
+                    <div class="example">...I had poor grades in math, so I decided to pick myself up and study. I
+                        asked my
+                        math teacher for help and my grades started to improve...</div>
                 </div>
                 <div class="rubric-example-container">
                     <header class="h4 text-red">Score of 0</header>
+                    <div class="example">...My family goes to church every Sunday. After we leave, we have lunch
+                        together
+                        at
+                        the restaurant nearby. We hang out and eat for over and hour. I really enjoy eating and
+                        spending
+                        time
+                        with my family...</div>
                     <div class="example">...I always wanted to go to a coding bootcamp. The free laptop will be good to
                         have
                         too...</div>
@@ -294,13 +301,6 @@
                         and
                         it
                         was more fun...</div>
-                    <div class="example">...My family goes to church every Sunday. After we leave, we have lunch
-                        together
-                        at
-                        the restaurant nearby. We hang out and eat for over and hour. I really enjoy eating and
-                        spending
-                        time
-                        with my family...</div>
                 </div>
             </div>
             <!-- EXAMPLES END -->
