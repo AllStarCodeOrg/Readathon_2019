@@ -64,7 +64,9 @@ const adminError = function (res, err) {
     title: "Admin"
   });
 }
-
+const clean = str => {
+  return str.trim().toLowerCase();
+}
 module.exports = function (dbHandler) {
 
   router.get('/', function (req, res, next) {
@@ -126,7 +128,7 @@ module.exports = function (dbHandler) {
     } else {
       dbHandler.addNewUser({
           name: req.body.name,
-          email: req.body.email,
+          email: clean(req.body.email),
           password: req.body.password,
           admin: req.body.admin === "on" ? 1 : 0,
           alumni: req.body.alumni === "on" ? 1 : 0,
