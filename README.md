@@ -3,7 +3,6 @@
 # TO DO LIST
 - Clarify why done is done (unique for alumni)
 - Fix last applicant rule for alumni
-- color coding for questions
 - Admin can access any applicant
 
 # NICE TO HAVES
@@ -20,7 +19,7 @@
 - ~~clicking rubric nav bar removes main nav~~
 - ~~For readers without monthly permission, tell them what month they have permission for~~
 - ~~Make it clear comments are NOT required~~
-
+- ~~correct color coding for questions~~
 
 11/15
 - ~~Scrolling not responding to flick properly~~
