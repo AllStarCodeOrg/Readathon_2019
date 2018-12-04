@@ -63,6 +63,11 @@ body{
 .card-red:hover img{
     border-color: var(--red);
 }
+
+.card-red:hover .card-icon{
+    color: var(--red);
+}
+
 .card-green{
     background-color: var(--green);
 }
@@ -92,6 +97,22 @@ body{
     color: var(--primaryDark);
     font-size: 4rem;
     transition: color 400ms;
+}
+
+.faq-q,
+.faq-a{
+    margin:0;
+    text-align: left;
+    line-height: 1em;
+    width: 100%;
+}
+
+.faq-q{
+    font-weight: bold;
+    margin-bottom: .3em;
+}
+.faq-a{
+    text-indent: 1em;
 }
 
 .data_count{

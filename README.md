@@ -1,9 +1,7 @@
 # Readathon_2019
 
 # TO DO LIST
-- Clarify why done is done (unique for alumni)
 - Fix last applicant rule for alumni
-- Admin can access any applicant
 
 # NICE TO HAVES
 - have a log file
@@ -12,20 +10,22 @@
 - live updating for admin/users (progress bar, tables, etc) (making API with setInterval from client?)
 - Keystrokes to navigate
 - Allow one click updates from admin
+- Admin can access any applicant
 
 12/4
-- ~~ensure lowercase name and email~~
-- ~~rubric nav should move with scrolling~~
-- ~~clicking rubric nav bar removes main nav~~
-- ~~For readers without monthly permission, tell them what month they have permission for~~
-- ~~Make it clear comments are NOT required~~
-- ~~correct color coding for questions~~
+- Improved backend by ensuring emails are in the same case (lower)
+- Improved user interface by allowing Rubric navbar to scroll with user
+- Fixed issue where navigating with the Rubric navbar hide the main navbar
+- Improved user experience by better communicating which month the user has access to the platform
+- Make it clear to users in the Rubric that comments are NOT required
+- Corrected rubric color coding to match questions properly
+- Improved user experience by better communicating why the user may be done when there is still more to read
 
 11/15
-- ~~Scrolling not responding to flick properly~~
-- ~~Mobile feedback survey not working (device - safari iPhone X)~~
-- ~~problem w/admin sorting users~~
-- ~~Typeform survey shouldn't resubmit~~
-- ~~Add survey summary link to admin- https://admin.typeform.com/form/JT1ILM/results#summary~~
-- ~~resolved "cryptile" vulnerability~~
-- ~~editing user doneness~~
+- Fixed scroll not responding to flick properly
+- Fixed mobile feedback survey not working (device - safari iPhone X)
+- Fixed issue where admin's could not sort users
+- Fixed issue where Typeform survey would allow users to resubmit
+- Added survey summary link to admin
+- Resolved "cryptile" vulnerability
+- Improved user experience by better communicating how done with the Readathon they are

@@ -26,7 +26,7 @@
 
             <!-- THREE CARDS -->
             <div class="three-cards animated fadeIn slow">
-                <%if(!user.done){%>
+                <%if(user.done){%>
                 <a class="card-green text-center w-30 rounded mb-2 hoverable p-4 flex-grow"
                     href="/rubric">
                     <p class="card-icon"><i class="fa fa-info" aria-hidden="true"></i></p>
@@ -45,12 +45,24 @@
                     <%}%>
                 </a>
                 <%}else{%>
-                <a class="card-green text-center w-30 rounded mb-2 hoverable p-4 flex-grow"
+                    <a href="#" class="card-green text-center w-30 rounded mb-2 hoverable p-4 flex-grow" style="cursor:auto;">
+                            <p class="card-icon"><i class="fa fa-question-circle-o" aria-hidden="true"></i></p>
+                            <p class="faq-q">It looks like there's still more to read. Am I really done?</p>
+                            <%if(user.alumni){%>
+                                <p class="faq-a">
+                                    Yes! Alumni participants share from the same pool of applicants. This ensures each application is read by, at most, 1 ASC Alumni.
+                                </p>
+                            <%}else{%>
+                                <p class="faq-a">Yes! Each applicant is scored by 3 Readathon participants. If you're seeing this then the only applicants left are ones you've already read and the rest have been fully scored.</p>
+                            <%}%>
+                        </a>
+                <a class="card-red text-center w-30 rounded mb-2 hoverable p-4 flex-grow"
                     target="_blank" href="https://allstarcode.typeform.com/to/JT1ILM">
                     <p class="card-icon"><i class="fa fa-group" aria-hidden="true"></i></p>
                     <header class="h2">Improve the Readathon</header>
-                    <p>A quick survey</p>
+                    <p class="m-0">A quick survey</p>
                 </a>
+                
                 <%}%>
                 <a class="card-alternate text-center w-30 rounded mb-2 hoverable p-4 flex-grow"
                     href="/stats">
