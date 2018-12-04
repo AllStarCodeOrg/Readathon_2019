@@ -22,7 +22,6 @@
 - ~~Make it clear comments are NOT required~~
 
 
-
 11/15
 - ~~Scrolling not responding to flick properly~~
 - ~~Mobile feedback survey not working (device - safari iPhone X)~~
