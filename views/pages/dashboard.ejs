@@ -37,7 +37,12 @@
                     href="/applicant">
                     <img src="/static/images/3.jpg" alt="">
                     <header class="h2">Read Next Applicant</header>
-                    <p>Read and score your next applicant</p>
+                    <p class="m-0">Read and score your next applicant</p>
+                    <%if(user.month_access){%>
+                        <p class="font-italic">(Access granted for <%=user.monthName%>)</p>
+                    <%}else{%>
+                        <p class="font-italic">(Unlimited Access)</p>
+                    <%}%>
                 </a>
                 <%}else{%>
                 <a class="card-green text-center w-30 rounded mb-2 hoverable p-4 flex-grow"

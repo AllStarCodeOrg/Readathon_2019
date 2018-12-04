@@ -3,10 +3,8 @@
 # TO DO LIST
 - Clarify why done is done (unique for alumni)
 - Fix last applicant rule for alumni
-- For readers without monthly permission, tell them what month they have permission for
 - color coding for questions
 - Admin can access any applicant
-- Make it clear comments are NOT required
 
 # NICE TO HAVES
 - have a log file
@@ -20,6 +18,9 @@
 - ~~ensure lowercase name and email~~
 - ~~rubric nav should move with scrolling~~
 - ~~clicking rubric nav bar removes main nav~~
+- ~~For readers without monthly permission, tell them what month they have permission for~~
+- ~~Make it clear comments are NOT required~~
+
 
 
 11/15

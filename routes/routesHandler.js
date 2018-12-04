@@ -62,6 +62,18 @@ const getMonthStr = function () {
 }
 
 /**
+ * Return name of month converted from number (0-11).
+ */
+function monthNumToName(monthnum) {
+    const months = [
+      'January', 'February', 'March', 'April', 'May',
+      'June', 'July', 'August', 'September',
+      'October', 'November', 'December'
+    ];
+    return months[Number(monthnum)];
+  }
+
+/**
  * Handles passing errors through session.
  */
 const passingErrorHandler = function (req, res, next) {
@@ -80,6 +92,7 @@ module.exports = function (app, dbHandler) {
         res.locals.monthStr = getMonthStr();
         res.locals.isAuthenticated = req.isAuthenticated();
         res.locals.user = req.user;
+        res.locals.user.monthName = monthNumToName(req.user.month_access);
         res.locals.questions = questions;
         dbHandler.getProgressStats()
             .then(stats => {
