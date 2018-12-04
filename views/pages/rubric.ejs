@@ -23,7 +23,7 @@
 
             <div id="traits"></div>
             <!-- HEADING -->
-            <div class="heading w-100">
+            <div class="heading w-90 h-top">
                 <div class="d-flex flex-column align-items-center">
                     <%if(user){%>
                     <h1 class="text-center text-ascBlue h1">2019 Readathon Rubric</h1>
@@ -326,14 +326,9 @@
                         });
                     </script>
             <%}%>
-            <!-- RUBRIC NAV -->
-            <%if(user){%>
-            <%include ../partials/rubric_nav%>
-            <%}%>
-            <!-- RUBRIC NAV END -->
         </div>
+        <%include ../partials/footer%>
     </div>
-    <%include ../partials/footer%>
     </div>
 </body>
 

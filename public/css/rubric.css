@@ -3,13 +3,16 @@
     --rubric-nav-timer: 100ms;
 }
 
+#traits,
 #scoring,
 #examples
 {
 position: relative;
-top: -10px;
+top: -56px;
 }
-
+.h-top{
+    margin-top: 46px;
+}
 .w-90{
     width: 90%;
 }
@@ -37,6 +40,9 @@ top: -10px;
     font-size: 1.4rem;
 }
 
+.rubric-nav-container{
+    z-index: 2;
+}
 .rubric-nav {
     padding: 10px 5px;
     border-left: 2px solid var(--ascBlue);
