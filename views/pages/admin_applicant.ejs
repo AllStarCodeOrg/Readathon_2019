@@ -3,22 +3,6 @@
 <%include ../partials/head_admin%>
 
 <body>
-  <script type="text/javascript">
-    window.onload = () => {
-      $('#table').dataTable({
-        lengthChange: false,
-        paging: false
-      });
-      const userTable_wrapper = $("#table_wrapper");
-      const userTable_filter = $("#table_filter");
-
-      const div = $("<div />");
-      div.attr("id", "table_filter_div");
-      div.append(userTable_filter);
-      userTable_wrapper.prepend(div);
-    };
-  </script>
-
   <div class="main-container d-flex flex-column vh-100">
     <%include ../partials/nav%>
     <div class="content-container-admin d-flex">
@@ -40,69 +24,60 @@
             <%}%>
           </div>
           <%}else{%>
-          <h1>Applicants</h1>
 
-          <table id="table" class="table table-striped table-bordered" cellspacing="0" width="100%">
-            <thead>
-              <tr>
-                <th class="th-sm">ASC ID
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Month applied
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Total Essay 1
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Total Essay 2
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Total Essay 3
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Total Score
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm"># of assigned readers
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-                <th class="th-sm">Complete?
-                  <i class="fa fa-sort float-right" aria-hidden="true"></i>
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <%for (const applicant of applicants){%>
-              <tr>
-                <td>
-                  <%=applicant.asc_id%>
-                </td>
-                <td>
-                  <%=applicant.month_applied_str%>
-                </td>
-                <td>
-                  <%=applicant.essay_1_total%>
-                </td>
-                <td>
-                  <%=applicant.essay_2_total%>
-                </td>
-                <td>
-                  <%=applicant.essay_3_total%>
-                </td>
-                <td>
-                  <%=applicant.essay_total%>
-                </td>
-                <td>
-                  <%=applicant.read_count%>
-                </td>
-                <td>
-                  <%=applicant.complete===1 ? "👍🏼" : "❌"%>
-                </td>
-              </tr>
-              <%}%>
-            </tbody>
+            <section>
+                <h1 class="text-center"><%=applicant.asc_id%></h1>
+                <div class="mb-1">
+                  <h5 class="text-ascBlue">Q1) <%=questions[0]%></h5>
+                  <p class="p-1"><%=applicant.essay_1%></p>
+                </div>
+                <div class="mb-1">
+                  <h5 class="text-alternate">Q2) <%=questions[1]%></h5>
+                  <p class="p-1"><%=applicant.essay_3%></p>
+                </div>
+                <div class="mb-1">
+                  <h5 class="text-green">Q3) <%=questions[2]%></h5>
+                  <p class="p-1"><%=applicant.essay_2%></p>
+                </div>
+            </section>
 
-          </table>
+            <section>
+              <h1 class="text-center m-0 top-split">Scores</h1>
+              <p class="text-center m-0">Assigned to <%=applicant.read_count%> reader(s)</p>
+              <div class="d-flex">
+                <%if(locals.applicantUsers){%>
+                  <%for(const applicantUser of applicantUsers){%>
+                    <div class="applicantUser">
+                      <h3><%=applicantUser.name%></h3>
+                      <div class="score">
+                        <p class="text-ascBlue m-0">Q1 Score:</p>
+                        <p class="m-0"><%=applicantUser.essay_score_1%></p>
+                      </div>
+                      <div class="score">
+                        <p class="text-alternate m-0">Q2 Score:</p>
+                        <p class="m-0"><%=applicantUser.essay_score_3%></p>
+                      </div>
+                      <div class="score">
+                        <p class="text-green m-0">Q3 Score:</p>
+                        <p class="m-0"><%=applicantUser.essay_score_2%></p>
+                      </div>
+                      <div class="score">
+                        <p class="m-0 bold">Total:</p>
+                        <p class="m-0"><%=applicantUser.essay_score_1+applicantUser.essay_score_2+applicantUser.essay_score_3%></p>
+                      </div>
+                      <div class="comment">
+                        <h5 class="m-1">Comment:</h5>
+                        <p class="m-0">
+                          <%=applicantUser.comment%>
+                        </p>  
+                      </div>
+                    </div>
+                  <%}%>
+                <%}else{%>
+                <h2>{No users assigned}</h2>
+                <%}%>
+              </div>
+            </section>
 
           <%}%>
         </div>

@@ -265,12 +265,28 @@ module.exports = function (dbHandler) {
           applicant.month_applied_str = monthNumToName(applicant.month_applied);
         }
         res.locals.applicants = applicants;
-        res.render("admin_applicant.ejs", {
+        res.render("admin_applicants.ejs", {
           title: "Applicants"
         });
       })
       .catch(err => adminError(res, "Problem loading Applicants"));
   });
 
+  router.get("/applicant/:id", function (req, res) {
+    const asc_id = req.params.id;
+    dbHandler.getApplicantByASCID(asc_id)
+      .then(applicant => {
+        dbHandler.getApplicantUsers(asc_id)
+          .then(applicantUsers=>{
+            res.locals.applicant      = applicant;
+            res.locals.applicantUsers = applicantUsers;
+            res.render("admin_applicant.ejs", {
+              title: `Applicant ${asc_id}`
+            });
+          })
+          .catch(err => adminError(res, "Problem loading Applicant Users"))
+      })
+      .catch(err => adminError(res, "Problem loading Applicant"))
+  });
   return router;
 }

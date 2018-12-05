@@ -28,6 +28,9 @@ module.exports = function (dbHandler) {
     dbHandler.findIncompleteApplicant(req.user.id)
       .then(proper_asc_id => {
         if (proper_asc_id !== asc_id) {
+          if(req.user.admin){
+            return res.redirect(`/admin/applicant/${asc_id}`);
+          }
           req.session.msg = {
             error: `Unauthorized attempt to access applicant ${asc_id}`
           };

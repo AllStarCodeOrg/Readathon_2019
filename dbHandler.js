@@ -599,6 +599,19 @@ module.exports = new class DbHandler {
     }
     
     /**
+     * Retrns all of the users and their readScores for the given asc_id.
+     */
+    getApplicantUsers(asc_id){
+        return new Promise((res,rej)=>{
+            const sql="SELECT essay_score_1,essay_score_2,essay_score_3,comment,name FROM readScores JOIN users ON readScores.userId=users.id WHERE readScores.asc_id=?";
+            this.db.all(sql,asc_id,(err,rows)=>{
+                if(err) return rej(err);
+                res(rows);
+            })
+        });
+    }
+
+    /**
      * Returns the scoring stats for the given userId.
      */
     getUserScores(userId){

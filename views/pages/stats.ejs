@@ -49,10 +49,10 @@
                             <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #1"]).toFixed(2)%></span>
                         </h3>
                         <h3>Avg. Question #2 Score:
-                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #2"]).toFixed(2)%></span>
+                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #3"]).toFixed(2)%></span>
                         </h3>
                         <h3>Avg. Question #3 Score:
-                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #3"]).toFixed(2)%></span>
+                            <span class="text-primaryDark"><%=(parsedUserScores.avgScoreByEssay["Question #2"]).toFixed(2)%></span>
                         </h3>
                     </div>
                 </data>
@@ -79,10 +79,10 @@
                                         <%=applicant.essay_score_1%>
                                     </td>
                                     <td>
-                                        <%=applicant.essay_score_2%>
+                                        <%=applicant.essay_score_3%>
                                     </td>
                                     <td>
-                                        <%=applicant.essay_score_3%>
+                                        <%=applicant.essay_score_2%>
                                     </td>
                                     <td>
                                         <span class="<%if(applicant.essay_score>4){%> text-ascBlue <%}else if(applicant.essay_score>2){%> text-accent <%}else{%> text-red <%}%> font-weight-bold"><%=applicant.essay_score%></span>
