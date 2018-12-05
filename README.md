@@ -1,7 +1,6 @@
 # Readathon_2019
-
+--
 # TO DO LIST
-- Fix last applicant rule for alumni
 
 # NICE TO HAVES
 - have a log file
@@ -11,6 +10,9 @@
 - Keystrokes to navigate
 - Allow one click updates from admin
 - Admin can access any applicant
+
+12/5
+- Fixed issue where the last applicant for alumni would be ignored
 
 12/4
 - Improved backend by ensuring emails are in the same case (lower)

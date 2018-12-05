@@ -91,8 +91,10 @@ module.exports = function (app, dbHandler) {
     const injectLocalVariables = function (req, res, next) {
         res.locals.monthStr = getMonthStr();
         res.locals.isAuthenticated = req.isAuthenticated();
-        res.locals.user = req.user;
-        res.locals.user.monthName = monthNumToName(req.user.month_access);
+        if(req.user){
+            res.locals.user = req.user;
+            res.locals.user.monthName = monthNumToName(req.user.month_access);
+        }
         res.locals.questions = questions;
         dbHandler.getProgressStats()
             .then(stats => {
