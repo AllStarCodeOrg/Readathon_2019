@@ -5,17 +5,17 @@
 <body>
     <link rel="stylesheet" href="/static/css/rubric.css">
     <div class="main-container d-flex vh-100 flex-column">
-        <%if(user){%>
+        <%if(locals.user){%>
         <%include ../partials/nav%>
         <%}%>
         <div class="content-container d-flex flex-column align-items-center text-primaryDark">
             <!-- RUBRIC NAV -->
-            <%if(user){%>
+            <%if(locals.user){%>
             <%include ../partials/rubric_nav%>
             <%}%>
             <!-- RUBRIC NAV END -->
 
-            <%if(user && user.first_time===0){%>
+            <%if(locals.user && user.first_time===0){%>
                 <h4 class="alert alert-warning mt-2">
                     Please make sure to confirm you've read the Rubric (at the bottom) to continue
                 </h4>
@@ -25,7 +25,7 @@
             <!-- HEADING -->
             <div class="heading w-90 h-top">
                 <div class="d-flex flex-column align-items-center">
-                    <%if(user){%>
+                    <%if(locals.user){%>
                     <h1 class="text-center text-ascBlue h1">2019 Readathon Rubric</h1>
                     <%}else{%>
                     <h1 class="text-center text-ascBlue h1 mt-4">All Star Code Application Part 2 Rubric</h1>
@@ -119,7 +119,7 @@
                             <%=questions[0]%>
                         </header>
                         <p class="question">
-                            <%if(user){%>
+                            <%if(locals.user){%>
                             Readers are NOT asked to assess the validity of an applicant's culture, ethnicity, or
                             family
                             background. For example: a student might consider an online game to be part of their
@@ -196,7 +196,7 @@
                     </div>
                 </div>
             </div>
-            <%if(user){%>
+            <%if(locals.user){%>
             <!-- THINGS TO REMEMBER -->
             <div class="container max-m">
                 <header class="h3 text-uppercase">
@@ -218,7 +218,7 @@
             <%}%>
             <!-- THE QUESTIONS END -->
 
-            <%if(user){%>
+            <%if(locals.user){%>
                 <hr class="sep border-ascBlue">
             <div id="examples"></div>
             <!-- EXAMPLES -->
@@ -308,7 +308,7 @@
             </div>
             <!-- EXAMPLES END -->
             <%}%>
-            <%if(user && user.first_time===0){%>
+            <%if(locals.user && user.first_time===0){%>
                 <div class="custom-control custom-checkbox mb-3 container">
                     <input type="checkbox" class="custom-control-input" id="checkbox">
                     <label class="custom-control-label" for="checkbox">
