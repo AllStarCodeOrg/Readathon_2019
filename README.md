@@ -10,11 +10,13 @@
 - Admin edit/delete ReadScore in list
 - Allow one click updates from admin
 - live updating for admin/users (progress bar, tables, etc) (making API with setInterval from client?)
-- add test user accounts and mock data
 - Fix rubric alert warning to not hide behind nav bar
 --- 
 
 # CHANGE LOG
+1/9/18
+- Added dummy account to allow public access to view the website's functionality
+
 1/8/18
 - Added admin functionality to view readathon individual user stats and how they scored each applicant read
 
