@@ -11,6 +11,7 @@
 - Allow one click updates from admin
 - live updating for admin/users (progress bar, tables, etc) (making API with setInterval from client?)
 - add test user accounts and mock data
+- Fix rubric alert warning to not hide behind nav bar
 --- 
 
 # CHANGE LOG

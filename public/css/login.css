@@ -49,8 +49,11 @@ body {
 .login-form button{
     transition: all 300ms;
 }
-.login-form button:hover{
+
+.login-form button:hover,
+.login-form a:hover{
     background-color: var(--green);
+    color: var(--primaryLight);
 }
 .login-form button:focus{
     border-color: var(--green)!important;

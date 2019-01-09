@@ -8,7 +8,7 @@
         <%include ../partials/nav%>
         <div class="content-container">
             <div id="options" class="animated fadeInDown">
-                <a href="/rubric" target="_blank">Rubric</a>
+                <a href="<%if(locals.dummy){%>/dummy<%}%>/rubric" target="_blank">Rubric</a>
             </div>
             <div class="applicant-container">
                 <p class="h1 text-center mt-2">Applicant:
@@ -21,7 +21,7 @@
                     <%=msg.error%>
                 </p>
                 <%}%>
-                <form class="d-flex flex-column align-items-center" action="/applicant/<%=applicant.asc_id%>" method="POST">
+                <form class="d-flex flex-column align-items-center" action="<%if(locals.dummy){%>/dummy<%}%>/applicant/<%=applicant.asc_id%>" method="POST">
 
                     <!-- ESSAY 1 -->
                     <section class="w-100 animated fadeInUp">

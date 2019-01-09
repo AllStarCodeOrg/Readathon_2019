@@ -24,10 +24,10 @@
             Admin
         </a>
         <%}%>
-        <a class="<%if(title==="Dashboard"){%>active<%}%> nav-item" href="/dashboard">
+        <a class="<%if(title==="Dashboard"){%>active<%}%> nav-item" href="<%if(locals.dummy){%>/dummy<%}%>/dashboard">
             Dashboard
         </a>
-        <a class="<%if(title==="Profile"){%>active<%}%> nav-item" href="/profile">
+        <a class="<%if(title==="Profile"){%>active<%}%> nav-item" href="<%if(locals.dummy){%>/dummy<%}%>/profile">
             Profile
         </a>
         <a class="nav-item" href="/logout">

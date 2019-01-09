@@ -117,8 +117,13 @@ module.exports = function (app, dbHandler) {
     // handling passing error messages
     app.use(passingErrorHandler);
 
+    // for dummy account (publically accessible)
+    var dummyRouter = require('./dummy')();
+    app.use('/dummy', dummyRouter);
+
     var indexRouter = require('./index')(dbHandler,authenticationHandler);
     app.use('/', indexRouter);
+
 
     // authenticated past this point
     app.use(authenticationHandler);
