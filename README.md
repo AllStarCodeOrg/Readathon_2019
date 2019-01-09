@@ -4,7 +4,6 @@
 # TO DO LIST
 
 # NICE TO HAVES
-- Drop down of rubric for each question instead of always having to go through it manually while reading applicant
 - Keystrokes to navigate
 - have a log file
 - Admin edit/delete ReadScore in list
@@ -16,6 +15,7 @@
 # CHANGE LOG
 1/9/18
 - Added dummy account to allow public access to view the website's functionality
+- Improved user experience by adding a quick rubric dropdown
 
 1/8/18
 - Added admin functionality to view readathon individual user stats and how they scored each applicant read
