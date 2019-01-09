@@ -227,6 +227,27 @@ module.exports = function (dbHandler) {
       .catch(err => adminError(res, err));
   })
 
+  router.get('/user/:id/stats',function(req,res,next){
+    const id = req.params.id;
+    dbHandler.findUser(id)
+    .then(readathonUser=>{
+      res.locals.readathonUser = readathonUser;
+      dbHandler.getUserStats(id)
+        .then(data=>{
+          res.locals.data = data;
+          res.render("admin_userStats",{title:`Stats for User: ${id}`});
+        })
+        .catch(err => {
+          console.log(err);
+          adminError(res, "Could not find user");
+        })
+      })
+    .catch(err => {
+      console.log(err);
+      adminError(res, "Could not find user");
+    })
+  })
+
   router.get("/readScores", function (req, res) {
     dbHandler.getReadScoresWithUsers()
       .then(readScoresWithUsers => {
@@ -257,7 +278,6 @@ module.exports = function (dbHandler) {
       })
   });
 
-
   router.get("/applicants", function (req, res) {
     dbHandler.getApplicantsStats()
       .then(applicants => {
@@ -276,6 +296,9 @@ module.exports = function (dbHandler) {
     const asc_id = req.params.id;
     dbHandler.getApplicantByASCID(asc_id)
       .then(applicant => {
+        if(!applicant){ 
+          throw Error;
+        }
         dbHandler.getApplicantUsers(asc_id)
           .then(applicantUsers=>{
             res.locals.applicant      = applicant;
@@ -286,7 +309,7 @@ module.exports = function (dbHandler) {
           })
           .catch(err => adminError(res, "Problem loading Applicant Users"))
       })
-      .catch(err => adminError(res, "Problem loading Applicant"))
+      .catch(err => adminError(res, "Cannot access applicants from other Readathons"))
   });
   return router;
 }

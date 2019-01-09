@@ -572,7 +572,7 @@ module.exports = new class DbHandler {
         const stats = await this.getSampleStdEssayScore();
         const avg = await this.getAvgAppScore();
         return new Promise((res,rej)=>{
-            const sql = "SELECT users.name AS 'username', count(*) AS count, AVG(essay_score_1) AS 'essay_score_1_avg', AVG(essay_score_2) AS 'essay_score_2_avg', AVG(essay_score_3) AS 'essay_score_3_avg', AVG(essay_score) AS 'essay_score_avg' FROM readScores JOIN users ON users.id = readScores.userId GROUP BY readScores.userId ORDER BY count(*) DESC;";
+            const sql = "SELECT users.id AS 'id',users.name AS 'username', count(*) AS count, AVG(essay_score_1) AS 'essay_score_1_avg', AVG(essay_score_2) AS 'essay_score_2_avg', AVG(essay_score_3) AS 'essay_score_3_avg', AVG(essay_score) AS 'essay_score_avg' FROM readScores JOIN users ON users.id = readScores.userId GROUP BY readScores.userId ORDER BY count(*) DESC;";
             this.db.all(sql,(err,rows)=>{
                 if(err) return rej(err);
                 const output = {
