@@ -498,7 +498,8 @@ module.exports = new class DbHandler {
      */
     getCompletedApplicantCount(){
         return new Promise((res, rej)=>{
-            const month = new Date().getMonth()-1;
+            let month = new Date().getMonth()-1;
+            month = month < 0 ? 11 : month;
             const sql ="SELECT count(*) AS completed FROM readScores JOIN applicants ON applicants.asc_id=readScores.asc_id WHERE applicants.month_applied=? AND readScores.essay_score NOT NULL;";
             this.db.get(sql, month, function(err, row){
                 if(err) return rej(err);
