@@ -13,6 +13,7 @@ body {
 }
 
 .content-container-admin {
+    overflow-y: auto;
     flex: 1;
 }
 
