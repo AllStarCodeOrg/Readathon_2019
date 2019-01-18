@@ -38,10 +38,10 @@
                     <img src="/static/images/3.jpg" alt="">
                     <header class="h2">Read Next Applicant</header>
                     <p class="m-0">Read and score your next applicant</p>
-                    <%if(user.month_access){%>
-                        <p class="font-italic">(Access granted for <%=user.monthName%>)</p>
-                    <%}else{%>
+                    <%if(user.month_access===null){%>
                         <p class="font-italic">(Unlimited Access)</p>
+                    <%}else{%>
+                        <p class="font-italic">(Access granted for <%=user.monthName%>)</p>
                     <%}%>
                 </a>
                 <%}else{%>

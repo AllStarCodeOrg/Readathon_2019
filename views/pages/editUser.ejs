@@ -90,7 +90,7 @@
                             <!-- Subject -->
                             <label>Month user can access Readathon App</label>
                             <select name="month_access" class="browser-default custom-select mb-4 bg-light">
-                                <option value="99" <% if ( !readathonUser.month_access) { %>selected
+                                <option value="99" <% if ( readathonUser.month_access===null) { %>selected
                                     <% } %> >Unlimited</option>
                                 <option value="9" <% if ( readathonUser.month_access===9) { %>selected
                                     <% } %> >October</option>

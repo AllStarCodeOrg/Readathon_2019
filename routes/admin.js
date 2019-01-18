@@ -74,10 +74,10 @@ module.exports = function (dbHandler) {
       .then(users => {
         // getting human readable month names
         Array.from(users).forEach(user => {
-          if (user.month_access) {
-            user.monthName = monthNumToName(user.month_access);
-          } else {
+          if (user.month_access===null) {
             user.monthName = "💎";
+          } else {
+            user.monthName = monthNumToName(user.month_access);
           }
         });
         res.locals.users = users;

@@ -258,7 +258,7 @@ module.exports = function (dbHandler, authenticationHandler) {
     });
 
     router.get('/profile', function (req, res, next) {
-        req.user.month = req.user.month_access ? monthNumToName(req.user.month_access) : "💎";
+        req.user.month = req.user.month_access===null ? "💎" : monthNumToName(req.user.month_access);
         res.render("profile", {
             title: `Profile`
         });
