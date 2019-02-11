@@ -15,20 +15,19 @@
             <%}%>
             <!-- RUBRIC NAV END -->
 
-            <%if(locals.user && user.first_time===0){%>
-                <h4 class="alert alert-warning mt-2">
-                    Please make sure to confirm you've read the Rubric (at the bottom) to continue
-                </h4>
-            <%}%>
-
             <div id="traits"></div>
             <!-- HEADING -->
             <div class="heading w-90 h-top">
                 <div class="d-flex flex-column align-items-center">
+                    <%if(locals.user && user.first_time===0){%>
+                        <h4 class="alert alert-warning mt-2">
+                            Please make sure to confirm you've read the Rubric (at the bottom) to continue
+                        </h4>
+                    <%}%>
                     <%if(locals.user){%>
-                    <h1 class="text-center text-ascBlue h1">2019 Readathon Rubric</h1>
-                    <%}else{%>
-                    <h1 class="text-center text-ascBlue h1 mt-4">All Star Code Application Part 2 Rubric</h1>
+                        <h1 class="text-center text-ascBlue h1">2019 Readathon Rubric</h1>
+                        <%}else{%>
+                            <h1 class="text-center text-ascBlue h1 mt-4">All Star Code Application Part 2 Rubric</h1>
                     <%}%>
                     <h3 class="text-center mb-3 h3">All Stars begin with a <span class="font-italic text-accent">spark</span></h3>
                     <div class="text-center max-s w-75 text-m">

@@ -161,6 +161,7 @@ top: -56px;
 
 .custom-control.custom-checkbox{
     min-height: initial;
+    width:80%;
 }
 
 .custom-control-label{
